@@ -286,3 +286,8 @@ html, body, .mw-page-container {
 	background-size: 96px 96px;
 }
 .vector-header-container { border-top: 0; }
+
+/* The site's own header now sits above the wiki (nginx adds it), so
+   Vector's logo and wordmark would show the name twice. Its bar stays
+   for the main menu, search and the user menu. */
+.vector-header .mw-logo { display: none; }

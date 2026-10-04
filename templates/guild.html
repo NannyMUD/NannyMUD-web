@@ -5,6 +5,7 @@
 <h1>{{ page.title }}</h1>
 {% if page.images %}<div class="nm-guild-pics nm-wide">{% for img in page.images %}<img src="{{ img.src }}"{% if img.art %} class="nm-art"{% endif %} alt="{{ page.title }}"{% if not loop.first %} loading="lazy"{% endif %}>{% endfor %}</div>{% endif %}
 {{ page.body | safe }}
+{% if page.later %}<div class="nm-guild-pics nm-guild-end nm-wide">{% for img in page.later %}<img src="{{ img.src }}"{% if img.art %} class="nm-art"{% endif %} alt="{{ page.title }}" loading="lazy">{% endfor %}</div>{% endif %}
 {% if page.clip %}<figure class="nm-clip-figure"><div class="nm-guild-clip-frame"><video class="nm-guild-clip" src="{{ page.clip }}"{% if page.poster %} poster="{{ page.poster }}"{% endif %} autoplay loop muted playsinline preload="metadata"></video></div><figcaption class="nm-plaque">{{ page.title }}</figcaption></figure>{% endif %}
 </article>
 {% endblock %}

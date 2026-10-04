@@ -188,6 +188,9 @@ def guild_pages():
                        "images": [{"src": versioned("/static/img/guilds/" + i),
                                    "art": os.path.getsize(os.path.join(imgs, i)) > 100000}
                                   for i in pics]}
+        # the guild art leads the page, the rest go at the end
+        pages[slug]["later"] = pages[slug]["images"][1:]
+        pages[slug]["images"] = pages[slug]["images"][:1]
     return pages
 
 
@@ -245,6 +248,7 @@ def main():
                       autoescape=select_autoescape(["html"]))
     # the skin picker in the header and footer (templates/_theme_pick.html)
     env.globals["theme_preview"] = True
+    env.globals["versioned"] = versioned
     env.filters["day"] = day
     env.filters["duration"] = duration
     env.filters["quest_title"] = quest_title
@@ -406,6 +410,12 @@ def main():
         fh.write("</urlset>\n")
     with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as fh:
         fh.write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE)
+    # the site's header and footer for the wiki: nginx puts them around
+    # every wiki page (docker/nginx.conf, location = /w/index.php)
+    os.makedirs(os.path.join(OUT, "_wiki"), exist_ok=True)
+    for part in ("header", "footer"):
+        with open(os.path.join(OUT, "_wiki", part + ".html"), "w", encoding="utf-8") as fh:
+            fh.write(env.get_template("_%s.html" % part).render(current=WIKI, **common))
     print("built %d pages into %s" % (sum(len(f) for _, _, f in os.walk(OUT)), OUT))
 
 

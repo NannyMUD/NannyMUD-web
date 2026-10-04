@@ -992,3 +992,12 @@ a.nm-more-link, a.nm-more-link:visited { color: var(--nm-heading); }
 }
 
 .nm-plist .nm-phint { font-size: 0.85em; }
+
+.nm-guild-end { justify-content: center; margin: 2.5rem 0 0; }
+
+.nm-oldart { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+.nm-oldart figure { margin: 0; text-align: center; }
+.nm-oldart img { width: 100%; height: auto; }
+.nm-oldart figcaption { font-size: 0.85em; margin-top: 0.4rem; }
+.nm-oldart-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.nm-oldart-strip img { width: 105px; height: auto; }

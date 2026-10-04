@@ -57,8 +57,7 @@ def vikings(src):
         html = "<h2>%s</h2>\n" % heading
         html += paragraphs(body)
         parts.append(html)
-    for img in ("title.jpg",):
-        shutil.copy2(os.path.join(www, img), os.path.join(IMG, "vikings-2.jpg"))
+    # title.jpg was redrawn as static/img/guilds/vikings-2.jpg
     return "The Vikings", "guilds/vikings/www", "\n".join(parts)
 
 
@@ -85,7 +84,7 @@ def monks(src):
         html = ("<h2>%s</h2>\n" % heading) if heading else ""
         html += paragraphs(body)
         parts.append(html)
-    shutil.copy2(os.path.join(www, "lily_2.gif"), os.path.join(IMG, "monks-2.gif"))
+    # lily_2.gif was redrawn as static/img/guilds/monks-2.jpg
     return "The Order of the White Lily", "guilds/monks/www", "\n".join(parts)
 
 

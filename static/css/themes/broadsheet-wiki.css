@@ -284,3 +284,8 @@ html .mw-body-content .mw-heading2, html .mw-body-content h2 { border-top-width:
 /* links are set in ink like the text, so they keep the red underline */
 .mw-body-content a, .mw-body-content a:not(.new):not(.external) { text-decoration: underline; text-decoration-color: var(--nm-link-line); text-decoration-thickness: 1px; }
 .mw-body-content a:hover { text-decoration-color: currentColor; }
+
+/* The site's own header now sits above the wiki (nginx adds it), so
+   Vector's logo and wordmark would show the name twice. Its bar stays
+   for the main menu, search and the user menu. */
+.vector-header .mw-logo { display: none; }

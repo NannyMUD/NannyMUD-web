@@ -264,3 +264,8 @@ html .mw-body-content .mw-heading2, html .mw-body-content h2 { border-top: 0; fo
 html .mw-body-content pre { border: 0; padding: 0.5rem 0; background: none; color: #ff0000; }
 html .wikitable > tr > th, html .wikitable > * > tr > th { text-transform: none; letter-spacing: 0; font-size: 0.85rem; color: #000; border-bottom: 1px solid #000; }
 .mw-footer-container { border-top: 0; }
+
+/* The site's own header now sits above the wiki (nginx adds it), so
+   Vector's logo and wordmark would show the name twice. Its bar stays
+   for the main menu, search and the user menu. */
+.vector-header .mw-logo { display: none; }

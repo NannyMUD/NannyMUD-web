@@ -287,3 +287,8 @@ html .mw-footer li { color: var(--nm-foot-muted); }
 .vector-header-container .vector-user-links .vector-menu, .vector-header-container .vector-user-links-main,
 .vector-header-container .vector-user-links nav { background: transparent; }
 .vector-header-container .cdx-text-input__icon, .vector-header-container .cdx-text-input__start-icon { color: var(--nm-head-muted); background-color: var(--nm-head-muted); filter: none; opacity: 0.8; }
+
+/* The site's own header now sits above the wiki (nginx adds it), so
+   Vector's logo and wordmark would show the name twice. Its bar stays
+   for the main menu, search and the user menu. */
+.vector-header .mw-logo { display: none; }

@@ -11,39 +11,16 @@
 <meta property="og:title" content="{% if page_title %}{{ page_title }} · {% endif %}NannyMUD">
 <meta property="og:description" content="__DESC__">
 <meta property="og:url" content="{{ site }}{{ current }}">
-<meta property="og:image" content="{{ site }}/static/img/logo-440.png">
-<link rel="icon" href="/static/img/favicon.ico">
+<meta property="og:image" content="{{ site }}{{ versioned('/static/img/logo-440.png') }}">
+<link rel="icon" href="{{ versioned('/static/img/favicon.ico') }}">
 <link rel="stylesheet" href="/static/css/nanny.css?v={{ css_version }}">
 </head>
 <body>
-<header class="nm-header">
-  <div class="nm-wrap">
-    <a class="nm-brand" href="/"><img src="/static/img/logo-80.png" alt="">NannyMUD</a>
-    <a class="nm-head-discord" href="{{ discord }}" target="_blank" rel="noopener">{{ discord_icon(16) }} Join us on Discord</a>
-    <nav class="nm-nav" aria-label="Site">
-      {% for label, href in nav %}<a href="{{ href }}"{% if href == current %} aria-current="page"{% elif href != "/" and href.startswith("/") and current.startswith(href) %} class="nm-in"{% endif %}{% if href == wiki %} target="_blank" rel="noopener"{% endif %}>{{ label }}</a>{% endfor %}
-    </nav>
-    {# the skin picker #}
-    {% if theme_preview %}{% include "_theme_pick.html" %}{% endif %}
-    {# end theme picker #}
-  </div>
-</header>
+{% include "_header.html" %}
 <main class="nm-wrap">
 {% block main %}{% endblock %}
 {% if snapshot and updated %}<p class="nm-snapshot">Nightly snapshot of the game, taken {{ updated }}.</p>{% endif %}
 </main>
-<footer class="nm-footer">
-  <div class="nm-weave" aria-hidden="true">\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///
- \\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////
-  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  </div>
-  <div class="nm-wrap nm-foot">
-    <p>NannyMUD has been running at Lysator since 1990.</p>
-    <p class="nm-foot-addr"><code>mud.lysator.liu.se 2000</code></p>
-    <p class="nm-foot-links"><a href="/staff/">Administration</a> <a href="/contact/">Contact</a> <a href="{{ wiki }}" target="_blank" rel="noopener">Wiki</a></p>
-    {# the skin picker #}
-    {% if theme_preview %}{% include "_theme_pick.html" %}{% endif %}
-    {# end theme picker #}
-  </div>
-</footer>
+{% include "_footer.html" %}
 </body>
 </html>
