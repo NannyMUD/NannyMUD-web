@@ -6,7 +6,7 @@
     <a class="nm-brand" href="/"><img src="{{ versioned('/static/img/logo-80.png') }}" alt="">NannyMUD</a>
     <a class="nm-head-discord" href="{{ discord }}" target="_blank" rel="noopener">{{ discord_icon(16) }} Join us on Discord</a>
     <nav class="nm-nav" aria-label="Site">
-      {% for label, href in nav %}<a href="{{ href }}"{% if href == current %} aria-current="page"{% elif href != "/" and href.startswith("/") and current.startswith(href) %} class="nm-in"{% endif %}{% if href == wiki %} target="_blank" rel="noopener"{% endif %}>{{ label }}</a>{% endfor %}
+      {% for label, href in nav %}<a href="{{ href }}"{% if href == current %} aria-current="page"{% elif href != "/" and href.startswith("/") and current.startswith(href) %} class="nm-in"{% endif %}>{{ label }}</a>{% endfor %}
     </nav>
     {# the skin picker #}
     {% if theme_preview %}{% include "_theme_pick.html" %}{% endif %}

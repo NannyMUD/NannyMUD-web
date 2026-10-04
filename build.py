@@ -217,6 +217,20 @@ def times_issues():
     return issues
 
 
+def lightbox(html):
+    """Every picture that links to its own file opens over the page
+    instead: a hidden copy, shown by CSS while its #id is the target.
+    Clicking it goes to #close, which matches nothing, so it hides."""
+    def zoom(m):
+        src, attrs = m.group(1), m.group(2)
+        zid = "zoom-" + hashlib.sha1(src.encode()).hexdigest()[:8]
+        alt = re.search(r'alt="[^"]*"', attrs)
+        return ('<a href="#%s"><img %s></a><a id="%s" class="nm-zoom" href="#close">'
+                '<img src="%s" %s loading="lazy"></a>'
+                % (zid, attrs, zid, src, alt.group(0) if alt else 'alt=""'))
+    return re.sub(r'<a href="(/static/img/[^"#]+)"><img ([^>]*)></a>', zoom, html)
+
+
 def describe(page):
     """A search engine description: the first real paragraph of the
     page's main content, cut at a word near 155 characters."""
@@ -250,6 +264,7 @@ def main():
     env.globals["theme_preview"] = True
     env.globals["versioned"] = versioned
     env.filters["day"] = day
+    env.filters["lightbox"] = lightbox
     env.filters["duration"] = duration
     env.filters["quest_title"] = quest_title
 

@@ -292,3 +292,15 @@ html .mw-footer li { color: var(--nm-foot-muted); }
    Vector's logo and wordmark would show the name twice. Its bar stays
    for the main menu, search and the user menu. */
 .vector-header .mw-logo { display: none; }
+
+/* Phones: Vector stacks its bar into two rows below 640px, a row for the
+   logo and one for search. The logo is hidden here (the site header has
+   it), so keep the main menu, search and user links on one row. */
+@media screen and (max-width: 639px) {
+	html .vector-header { flex-flow: row; }
+	html .vector-header-start { width: auto; }
+	html .vector-header-end { width: auto; flex: 1 1 auto; }
+	/* Recent changes: the abbreviations box floated beside the day's
+	   heading leaves the heading one letter wide */
+	html .mw-changeslist-legend { float: none; margin: 0 0 1em; }
+}

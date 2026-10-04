@@ -21,7 +21,7 @@
 <section class="nm-contents" aria-labelledby="nm-contents">
 <h2 id="nm-contents" class="nm-label">Contents</h2>
 <div class="nm-grid">
-  {% for label, href in nav %}<div class="nm-tile"><h3><a href="{{ href }}"{% if href == wiki %} target="_blank" rel="noopener"{% endif %}>{{ label }}</a></h3><p>{{ tiles[label] }}</p></div>
+  {% for label, href in nav %}<div class="nm-tile"><h3><a href="{{ href }}">{{ label }}</a></h3><p>{{ tiles[label] }}</p></div>
   {% endfor %}
 </div>
 </section>
