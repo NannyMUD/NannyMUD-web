@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% macro quest_cells(q) %}<span class="nm-qname">{{ q | quest_title }}</span><span class="nm-num">{{ q.points }}</span><span>{{ (q.maintainer or "") | capitalize }}</span><span class="nm-num">{{ q.solved or "" }}</span><span class="nm-small">{% if q.last_solved %}{{ q.last_solved | day }}{% elif q.solved %}unknown{% endif %}</span>{% endmacro %}
+{% macro quest_cells(q) %}<span class="nm-qname">{{ q | quest_title }}</span><span class="nm-num">{{ q.points }}</span><span>{{ (q.maintainer or "") | capitalize }}</span><span class="nm-num">{{ q.solved or "" }}</span><span class="nm-small">{% if q.last_solved %}{{ q.last_solved | day }}{% endif %}</span>{% endmacro %}
 {% macro quest_list(items) %}
 <div class="nm-table-wrap"><div class="nm-qlist">
 <div class="nm-qrow nm-qhead"><span>Quest</span><span class="nm-num">Points</span><span>Maintainer</span><span class="nm-num">Solves</span><span>Last solved</span></div>
@@ -13,6 +13,10 @@
 <article class="nm-card">
 <h1>Quests</h1>
 <p>Solving quests is how a player advances: {{ open | length }} open quests worth {{ total }} quest points in all. Open a quest for the hint the quest room gives.</p>
+{% if most_solved or last_solved %}<div class="nm-facts">
+{% if most_solved %}<div class="nm-fact"><b>{{ most_solved | quest_title }}</b><span>the most solved quest, {{ "{:,}".format(most_solved.solved) }} times</span></div>{% endif %}
+{% if last_solved %}<div class="nm-fact"><b>{{ last_solved | quest_title }}</b><span>the last quest solved, on {{ last_solved.last_solved | day }}</span></div>{% endif %}
+</div>{% endif %}
 <h2>Open quests</h2>
 {{ quest_list(open) }}
 {% if closed %}

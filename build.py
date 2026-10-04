@@ -8,6 +8,7 @@ tracking; any web server can serve public/.
     python build.py            # writes public/
 """
 import datetime as dt
+import hashlib
 import html
 import json
 import os
@@ -33,6 +34,7 @@ NAV = [
     ("Play", "/play/"),
     ("World", "/world/"),
     ("Quests", "/quests/"),
+    ("Puzzles", "/puzzles/"),
     ("Guilds", "/guilds/"),
     ("Help", "/help/"),
     ("Times", "/times/"),
@@ -144,6 +146,18 @@ GUILD_PAGES = {"Vikings guild": "vikings", "The Holy Monks Order": "monks",
                "The Masters of NannyMUD": "masters"}
 
 
+def versioned(path):
+    """A static file's URL with a hash of the file, so a picture replaced
+    under the same name gets a new URL past any cache (Cloudflare keeps
+    /static/ for hours)."""
+    full = os.path.join(ROOT, path.lstrip("/"))
+    try:
+        with open(full, "rb") as fh:
+            return path + "?v=" + hashlib.sha1(fh.read()).hexdigest()[:10]
+    except OSError:
+        return path
+
+
 def guild_pages():
     """content/guilds/<slug>.html, and the pictures for each one:
     static/img/guilds/<slug>-1.jpg, -2.png and so on, in order."""
@@ -160,10 +174,18 @@ def guild_pages():
         m = re.search(r"<!--\s*title:\s*(.*?)\s*-->", text)
         pics = [i for i in found if re.fullmatch(r"%s-\d+\.(jpe?g|png|gif|webp)" % slug, i)]
         pics.sort(key=lambda i: int(re.search(r"-(\d+)\.", i).group(1)))
+        clip = "%s-clip.mp4" % slug
+        poster = "%s-clip.jpg" % slug
+        thumb = "%s-thumb.jpg" % slug
         pages[slug] = {"title": m.group(1) if m else slug, "body": text,
+                       # a short looping clip shown at the end of the page
+                       "clip": versioned("/static/img/guilds/" + clip) if clip in found else None,
+                       "poster": versioned("/static/img/guilds/" + poster) if poster in found else None,
+                       # small crop of the art for the /guilds/ list
+                       "thumb": versioned("/static/img/guilds/" + thumb) if thumb in found else None,
                        # big files are artwork, shown wide; small ones are
                        # the old sites' banners, shown as they are
-                       "images": [{"src": "/static/img/guilds/" + i,
+                       "images": [{"src": versioned("/static/img/guilds/" + i),
                                    "art": os.path.getsize(os.path.join(imgs, i)) > 100000}
                                   for i in pics]}
     return pages
@@ -221,11 +243,14 @@ def help_description(name, text):
 def main():
     env = Environment(loader=FileSystemLoader(os.path.join(ROOT, "templates")),
                       autoescape=select_autoescape(["html"]))
+    # the skin picker in the header and footer (templates/_theme_pick.html)
+    env.globals["theme_preview"] = True
     env.filters["day"] = day
     env.filters["duration"] = duration
     env.filters["quest_title"] = quest_title
 
     quests = load("quests")
+    puzzles = load("puzzles")
     staff = load("staff")
     areas = load("areas")
     guilds = load("guilds")
@@ -236,7 +261,20 @@ def main():
 
     generated = max([d.get("generated", 0) for d in
                      (quests, staff, areas, guilds, helps, stats)] or [0])
-    common = {"nav": NAV, "wiki": WIKI, "site": SITE, "discord": DISCORD, "updated": day(generated),
+    # a hash of the stylesheet in its link, so a changed file gets a new
+    # URL and no cache (Cloudflare keeps static files for hours) serves
+    # the old one
+    # one hash over every stylesheet, skins included: nginx serves the
+    # skin behind the one nanny.css URL, so any change must bust it
+    digest = hashlib.sha1()
+    for folder, _, files in sorted(os.walk(os.path.join(ROOT, "static", "css"))):
+        for f in sorted(files):
+            with open(os.path.join(folder, f), "rb") as fh:
+                digest.update(f.encode() + fh.read())
+    digest.update(b"skins-1")   # bump to force a new URL past any cache
+    css_version = digest.hexdigest()[:10]
+    common = {"nav": NAV, "wiki": WIKI, "site": SITE, "discord": DISCORD,
+              "css_version": css_version, "updated": day(generated),
               "year": dt.date.today().year}
 
     if os.path.isdir(OUT):
@@ -270,6 +308,7 @@ def main():
         "Play": "How to connect, which client to use, and your first steps.",
         "World": "Over 50,000 locations built by its wizards, every open area, and maps of the mainland and Antharis.",
         "Quests": "Every quest in the game, its points, its maintainer and a hint.",
+        "Puzzles": "The puzzles of every open area, and the charms they earn in the Charmers club.",
         "Guilds": "Every guild in the game, and what it is like to play.",
         "Help": "The help pages players read in the game, and the Newbie Booklet.",
         "Times": "The mud's own newspaper, every issue from 1996 to 2010.",
@@ -281,15 +320,26 @@ def main():
     write("/", "home.html", facts=facts, page_title=None, snapshot=True, tiles=tiles)
     write("/play/", "page.html", page_title="Play NannyMUD",
           body=env.get_template("play.html").render(**common))
+    every_quest = quests.get("open", []) + quests.get("closed", [])
+    most = max(every_quest, key=lambda q: q.get("solved") or 0, default=None)
+    latest = max(every_quest, key=lambda q: q.get("last_solved") or 0, default=None)
     write("/quests/", "quests.html", page_title="Quests", snapshot=True,
+          most_solved=most if most and most.get("solved") else None,
+          last_solved=latest if latest and latest.get("last_solved") else None,
           open=quests.get("open", []), closed=quests.get("closed", []),
           total=quests.get("open_points", 0))
+    write("/puzzles/", "puzzles.html", page_title="Puzzles", snapshot=True,
+          # the original areas first, then the wizards' areas by name
+          areas=sorted([a for a in puzzles.get("areas", []) if a.get("open")],
+                       key=lambda a: ({"mainland": 0, "antharis": 1}.get(a.get("area"), 2), a.get("area", ""))),
+          open_count=puzzles.get("open", 0), charm_count=puzzles.get("charms", 0))
     write("/world/", "world.html", page_title="The World", snapshot=True,
           areas=areas.get("areas", []), intro=pages.get("the-world", {}).get("body", ""))
     gpages = guild_pages()
     write("/guilds/", "guilds.html", page_title="Guilds", snapshot=True,
           guilds=[dict(g, page="/guilds/%s/" % GUILD_PAGES[g["name"]]
-                       if GUILD_PAGES.get(g["name"]) in gpages else None)
+                       if GUILD_PAGES.get(g["name"]) in gpages else None,
+                       thumb=gpages.get(GUILD_PAGES.get(g["name"]), {}).get("thumb"))
                   for g in sorted(guilds.get("guilds", []),
                                   key=lambda g: re.sub(r"^the\s+", "", g["name"].lower()))])
     for slug, page in gpages.items():

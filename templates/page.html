@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block main %}
-<article class="nm-card">
+<article class="nm-card{% if current != "/play/" %} nm-prose{% else %} nm-play{% endif %}">
 <h1>{{ page_title }}</h1>
 {{ body | safe }}
 </article>

@@ -1,0 +1,375 @@
+/* nanny.css, skin "Classic": the old NannyMUD pages at Lysator, as they
+ * looked for twenty years: a white page, black Times text, links in
+ * #444488 (visited #448844, active #ff0000), bold sans-serif menus,
+ * Papyrus titles, the gem bar, and the mud's text in red. A reproduction,
+ * so it uses the old site's own faces rather than Arial. */
+
+:root {
+	--nm-bg: #ffffff;
+	--nm-bg-deep: #ffffff;
+	--nm-bg-raised: #eeeeee;
+	--nm-ink: #000000;
+	--nm-strong: #000000;
+	--nm-muted: #444444;
+	--nm-faint: #555555;
+	--nm-heading: #000000;
+	--nm-accent: #444488;
+	--nm-link: #444488;
+	--nm-link-visited: #448844;
+	--nm-link-line: transparent;
+	--nm-hilite: #eeeeee;
+	--nm-red: #ff0000;
+	--nm-red-hi: #ff0000;
+	--nm-on-red: #ffffff;
+	--nm-rule: #999999;
+	--nm-rule-soft: #cccccc;
+	--nm-head-bg: #ffffff;
+	--nm-head-rod: #ffffff;
+	--nm-head-rule: #ffffff;
+	--nm-head-brand: #000000;
+	--nm-head-ink: #444488;
+	--nm-head-muted: #444488;
+	--nm-foot-bg: #ffffff;
+	--nm-foot-ink: #444488;
+	--nm-foot-muted: #000000;
+	--nm-pre-bg: #ffffff;
+	--nm-pre-ink: #ff0000;
+	--nm-pre-strong: #ff0000;
+	--nm-pre-faint: #555555;
+	--nm-pre-edge: #ffffff;
+	--nm-code-bg: transparent;
+	--nm-code-ink: #000000;
+	--nm-chart-1: #444488;
+	--nm-chart-2: #448844;
+	--nm-sans: Verdana, Arial, Helvetica, sans-serif;
+	--nm-serif: "Times New Roman", Times, "Liberation Serif", serif;
+	--nm-title: Papyrus, Herculanum, "Luminari", fantasy, sans-serif;
+	--nm-mono: "Courier New", Courier, "Liberation Mono", monospace;
+	--nm-measure: none;
+	--nm-radius: 0;
+	--nm-wiki-new: #ff0000;
+	--nm-icon-filter: none;
+	--nm-head-icon-filter: none;
+	--nm-head-field: #ffffff;
+	--nm-scheme: light;
+	color-scheme: light;
+}
+
+
+/* ================================================== the page, as of old */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: #000; }
+body { font-family: var(--nm-serif); font-size: 16px; line-height: 1.3; }
+a { color: #444488; text-decoration: none; }
+a:visited { color: #448844; }
+a:active { color: #ff0000; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 1px dotted #000; outline-offset: 1px; }
+img { max-width: 100%; height: auto; border: 0; }
+p { margin: 1em 0; }
+pre { color: #ff0000; font-family: var(--nm-mono); font-size: 13px; overflow-x: auto; white-space: pre; margin: 1em 0; }
+code { font-family: var(--nm-mono); font-size: 0.95em; white-space: nowrap; }
+pre code { white-space: inherit; }
+h1, h2, h3, h4 { color: #000; font-weight: bold; }
+h1 { font-family: var(--nm-title); font-weight: normal; font-size: 46px; text-align: center; margin: 12px 0 0; line-height: 1.1; }
+h2 { font-family: var(--nm-title), var(--nm-sans); font-size: 18px; margin: 1em 0 0.1em; }
+h2 + p { margin-top: 0; }
+h2 a, h2 a:visited { color: #444488; }
+h3 { font-family: var(--nm-sans); font-size: 15px; margin: 1.2em 0 0.3em; }
+table { border-collapse: collapse; }
+dt { font-weight: bold; margin-top: 0.6em; }
+dd { margin-left: 2em; }
+blockquote { margin: 1em 2.5em; }
+
+/* the gem bar: a jewel at each end of a silver rod */
+.nm-gembar, .nm-card > h1:first-of-type::after, .nm-footer::before, main:has(> .nm-hero)::before, main:has(> .nm-hero)::after {
+	content: "";
+	display: block;
+	height: 36px;
+	background: url(/static/img/classic/geml.jpg) left center / 36px 36px no-repeat, url(/static/img/classic/gemr.jpg) right center / 36px 36px no-repeat, url(/static/img/classic/bar.jpg) center / auto 36px repeat-x;
+}
+
+/* header: the title and a row of bold menu links, centred */
+.nm-header { text-align: center; padding: 10px 36px 4px; font-family: var(--nm-sans); }
+.nm-header .nm-wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 4px 18px; max-width: none; margin: 0; padding: 0; }
+.nm-brand, .nm-brand:visited { font-family: var(--nm-title); font-size: 28px; color: #000; font-weight: normal; }
+.nm-brand:hover { text-decoration: none; }
+.nm-brand img { display: none; }
+.nm-head-discord, .nm-head-discord:visited { font-size: 12px; font-weight: bold; color: #444488; }
+.nm-discord-icon { width: 12px; height: 12px; vertical-align: -1px; }
+.nm-nav { flex: 1 0 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 14px; padding: 4px 0; }
+.nm-nav a, .nm-nav a:visited { font-family: var(--nm-sans); font-weight: bold; font-size: 14px; color: #444488; }
+.nm-nav a[aria-current="page"], .nm-nav a.nm-in { color: #ff0000; }
+
+main, main.nm-wrap { display: block; margin: 0; padding: 0 36px 24px; max-width: none; }
+.nm-card { display: block; }
+.nm-card > h1:first-of-type::after { margin: 6px -36px 0; }
+.nm-card + .nm-card { margin-top: 1.5em; }
+.nm-crumbs { font-family: var(--nm-sans); font-size: 12px; font-weight: bold; text-align: center; margin: 0; }
+.nm-label { font-family: var(--nm-sans); font-size: 12px; font-weight: bold; }
+.nm-muted { color: #444; }
+.nm-small { font-size: 13px; }
+.nm-num { text-align: right; }
+.nm-snapshot { font-family: var(--nm-sans); font-size: 11px; color: #555; text-align: center; margin: 2em 0 0; }
+.nm-status { font-weight: bold; }
+
+/* footer: the gem bar again, and the links underneath */
+.nm-footer { padding: 0 36px 16px; text-align: center; font-family: var(--nm-sans); font-size: 12px; }
+.nm-weave, .nm-foot .nm-foot-addr { display: none; }
+.nm-foot { display: block; max-width: none; margin: 0; padding: 4px 0 0; }
+.nm-foot p { display: inline; margin: 0 6px; }
+.nm-foot-links a { font-weight: bold; margin: 0 6px; }
+
+/* home: the old front page, the title picture with the menu beside it */
+main:has(> .nm-hero) {
+	display: grid;
+	grid-template-columns: 288px minmax(0, 1fr);
+	grid-template-areas: "act act" "bar1 bar1" "fig menu" "bar2 bar2" "intro intro" "facts facts" "snap snap";
+	align-content: center;
+	column-gap: 40px;
+	width: min(100%, 600px);
+	min-height: 72vh;
+	margin: 0 auto;
+	padding: 6px 0 24px;
+}
+main:has(> .nm-hero)::before { grid-area: bar1; }
+main:has(> .nm-hero)::after { grid-area: bar2; }
+/* the old front page had no menu bar above it: its menu is beside the picture */
+body:has(main > .nm-hero) .nm-nav, body:has(main > .nm-hero) .nm-brand { display: none; }
+.nm-hero, .nm-hero-text, .nm-contents { display: contents; }
+.nm-hero h1, .nm-address, .nm-contents > h2 { display: none; }
+.nm-actions { grid-area: act; text-align: center; font-family: var(--nm-sans); padding: 4px 0 6px; }
+.nm-button, .nm-button:visited, .nm-button.nm-quiet, .nm-button.nm-quiet:visited { font-family: var(--nm-sans); font-weight: bold; font-size: 16px; color: #444488; margin: 0 10px; background: none; padding: 0; border: 0; }
+.nm-hero-art { grid-area: fig; margin: 0; }
+.nm-hero-art img { content: url(/static/img/classic/title.jpg); width: 288px; height: 288px; display: block; }
+.nm-grid { grid-area: menu; align-self: center; text-align: right; }
+.nm-tile { margin: 0 0 0.55em; }
+.nm-tile:last-child { margin: 0; }
+.nm-tile h3 { font-family: var(--nm-title), var(--nm-sans); font-size: 15px; margin: 0; }
+.nm-tile p { display: none; }
+.nm-hero-text > p { grid-area: intro; margin: 1em 0 0.5em; }
+main:has(> .nm-hero) > .nm-facts { grid-area: facts; }
+main:has(> .nm-hero) > .nm-snapshot { grid-area: snap; }
+.nm-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font-family: var(--nm-sans); font-size: 12px; margin: 0.5em 0 1em; }
+.nm-fact b { font-size: 13px; white-space: nowrap; margin-right: 4px; }
+
+/* lists and tables, plain */
+.nm-cols { columns: 4 11em; padding-left: 1.4em; }
+.nm-index { padding-left: 1.6em; }
+.nm-index a { font-weight: bold; }
+.nm-table-wrap { overflow-x: auto; }
+.nm-table { width: 100%; font-size: 15px; }
+.nm-table th, .nm-table td { text-align: left; padding: 3px 8px 3px 0; vertical-align: top; }
+.nm-table thead th { font-family: var(--nm-sans); font-size: 13px; border-bottom: 1px solid #000; }
+.nm-table td.nm-num, .nm-table th.nm-num { text-align: right; }
+.nm-fixed { table-layout: fixed; }
+.nm-fixed col.nm-w-date { width: 12em; }
+
+/* quests: the old way, a table you can scroll on a phone */
+.nm-qlist { min-width: 40rem; font-size: 15px; }
+.nm-qrow { display: grid; grid-template-columns: minmax(0, 1fr) 5rem 9rem 5rem 10rem; gap: 0 10px; padding: 3px 0; align-items: baseline; }
+.nm-qrow .nm-num { text-align: right; }
+.nm-qhead { font-family: var(--nm-sans); font-size: 13px; font-weight: bold; border-bottom: 1px solid #000; }
+summary.nm-qrow { cursor: pointer; list-style: none; }
+summary.nm-qrow::-webkit-details-marker { display: none; }
+summary.nm-qrow .nm-qname { color: #444488; font-weight: bold; }
+summary.nm-qrow:hover .nm-qname { text-decoration: underline; }
+.nm-qitem pre.nm-qhint { margin: 0.3em 0 1em 1.5em; }
+
+/* guilds */
+.nm-guildlist { list-style: none; padding: 0; }
+/* each guild with a small picture at the left, as old pages did with
+ * <img align=left>: a linked image gets the link colour as its border */
+.nm-guildlist > li { display: flow-root; margin: 0 0 6px; }
+.nm-guildlist img { float: left; width: 96px; height: 72px; object-fit: cover; margin: 1em 12px 4px 0; border: 2px solid #444488; }
+.nm-guildlist h2 { margin: 1em 0 0.1em; }
+.nm-guildlist p { margin: 0; }
+a.nm-more-link::after { content: " \203A"; }
+.nm-guild-pics { text-align: center; margin: 1em 0; }
+.nm-guild-pics img { margin: 4px; }
+.nm-guild-pics img.nm-art { width: 100%; max-width: 900px; display: block; margin: 0 auto; }
+
+/* play */
+.nm-connect { display: flex; gap: 2ch; font-family: var(--nm-mono); color: #ff0000; margin: 1em 0; }
+.nm-connect .nm-label { display: none; }
+.nm-connect code { color: #ff0000; font-size: 16px; }
+.nm-steps { padding-left: 2em; }
+.nm-banner { margin: 1em 0; }
+.nm-banner figcaption { font-family: var(--nm-sans); font-size: 12px; font-weight: bold; }
+.nm-discord { margin: 2em 0 0; }
+.nm-discord-mark { display: none; }
+.nm-discord h2 { margin-top: 0; }
+.nm-discord-button { font-family: var(--nm-sans); font-weight: bold; }
+
+/* help, the Times, the world, the staff */
+.nm-helppage h1 { font-family: var(--nm-mono); font-size: 26px; }
+.nm-helppage h1 code { font-size: 1em; white-space: normal; }
+.nm-pages { text-align: center; font-family: var(--nm-sans); font-size: 13px; font-weight: bold; margin: 0.5em 0; }
+.nm-pages a { margin: 0 4px; }
+.nm-paper pre, .nm-sheet pre { color: #000; }
+.nm-sheet h3 { font-family: var(--nm-sans); }
+.nm-year h2 { margin-bottom: 0.2em; }
+.nm-issues { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 2px 16px; }
+.nm-maps { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.nm-maps img { width: 200px; }
+.nm-inactive > summary { cursor: pointer; font-family: var(--nm-sans); font-weight: bold; margin-top: 1.5em; }
+
+/* stats */
+.nm-chart-box { max-width: 50rem; color: #444488; margin: 0.5em 0 1em; }
+.nm-chart-next { color: #448844; }
+.nm-chart { width: 100%; height: auto; display: block; }
+.nm-chart text { fill: #000; font: 12px var(--nm-sans); }
+.nm-chart-narrow { display: none; }
+.nm-chart-narrow text { font-size: 15px; }
+.nm-chart .nm-axis { stroke: #ccc; }
+.nm-bars { max-width: 50rem; font-size: 13px; }
+.nm-bar { display: grid; grid-template-columns: 11rem minmax(0, 1fr) 7rem; gap: 8px; align-items: center; }
+.nm-bar i { display: block; height: 10px; }
+.nm-bar s { display: block; height: 100%; background: #444488; }
+.nm-bar b { font-weight: normal; text-align: right; }
+.nm-bars-tight .nm-bar { grid-template-columns: 4rem minmax(0, 1fr) 3.5rem; }
+.nm-more > summary { cursor: pointer; font-family: var(--nm-sans); font-weight: bold; color: #444488; }
+
+/* the skin picker */
+.nm-theme-pick { position: relative; font-family: var(--nm-sans); font-size: 11px; }
+.nm-theme-pick > summary { cursor: pointer; color: #444488; font-weight: bold; }
+.nm-theme-pick ul { position: absolute; right: 0; top: 100%; z-index: 20; list-style: none; margin: 0; padding: 4px 0; background: #fff; border: 1px solid #000; text-align: left; min-width: 9em; }
+.nm-footer .nm-theme-pick { display: inline-block; }
+.nm-footer .nm-theme-pick ul { top: auto; bottom: 100%; }
+.nm-theme-pick a { display: block; padding: 2px 10px; font-weight: bold; }
+
+@media (max-width: 700px) {
+	main, main.nm-wrap { padding: 0 12px 20px; }
+	.nm-header, .nm-footer { padding-left: 12px; padding-right: 12px; }
+	.nm-card > h1:first-of-type::after { margin: 6px -12px 0; }
+	h1 { font-size: 34px; }
+	main:has(> .nm-hero) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "act" "bar1" "fig" "menu" "bar2" "intro" "facts" "snap"; }
+	main:has(> .nm-hero) { width: auto; margin: 0; padding: 6px 12px 20px; min-height: 0; }
+	.nm-hero-art { justify-self: center; }
+	.nm-hero-art img { width: 240px; height: 240px; }
+	.nm-grid { text-align: center; margin: 1em 0; }
+	.nm-bar { grid-template-columns: 7rem minmax(0, 1fr) 4.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media print { .nm-header, .nm-footer, .nm-theme-pick { display: none; } pre { white-space: pre-wrap; color: #000; } }
+
+/* a short looping clip at the foot of a guild page, in a gilded frame
+ * (the same frame in every skin) */
+.nm-guild-clip {
+	display: block;
+	box-sizing: content-box;
+	width: min(calc(100% - 40px), 300px);
+	height: auto;
+	margin: 3rem auto 2rem;
+	padding: 16px;
+	background:
+		linear-gradient(135deg, #6b4513 0%, #e9c66b 14%, #a5741f 28%,
+		                #f6dd90 44%, #8f5f1a 60%, #e2bd5f 76%, #5e3c10 100%);
+	outline: 3px solid #2f1d05;
+	outline-offset: -16px;
+	box-shadow:
+		inset 0 0 0 1px rgba(255, 238, 180, 0.65),
+		inset 0 0 0 5px rgba(80, 50, 10, 0.55),
+		inset 0 0 0 6px rgba(255, 230, 160, 0.45),
+		0 0 0 1px #2f1d05,
+		0 0 0 4px #b08636,
+		0 0 0 5px #2f1d05,
+		0 14px 30px rgba(0, 0, 0, 0.45),
+		0 4px 8px rgba(0, 0, 0, 0.35);
+}
+@media (prefers-reduced-motion: reduce) { .nm-guild-clip { display: none; } }
+
+/* The guild clip hangs like an old painting, in its own colours so it
+ * reads on every skin: a gilt moulding lit from the top left, a cove, a
+ * bead whose sight edge overlaps the picture and throws a shadow onto
+ * it, a linen slip, and a brass plaque underneath. */
+.nm-clip-figure { margin: 3.5rem auto 2.5rem; width: min(100%, 360px); text-align: center; justify-self: center; }
+.nm-guild-clip-frame {
+	position: relative;
+	display: block;
+	padding: 26px;
+	background:
+		linear-gradient(135deg, rgba(255, 246, 210, 0.5) 0%, rgba(255, 246, 210, 0) 35%, rgba(0, 0, 0, 0) 60%, rgba(40, 20, 0, 0.45) 100%),
+		linear-gradient(135deg, #6b4513 0%, #e9c66b 14%, #a5741f 28%, #f6dd90 44%, #8f5f1a 60%, #e2bd5f 76%, #5e3c10 100%);
+	box-shadow:
+		inset 0 0 0 1px #2f1d05,
+		inset 2px 2px 0 1px rgba(255, 240, 190, 0.8),
+		inset -2px -2px 0 1px rgba(60, 35, 5, 0.65),
+		0 0 0 1px #2f1d05,
+		0 20px 34px -10px rgba(0, 0, 0, 0.55),
+		0 4px 8px rgba(0, 0, 0, 0.3);
+}
+/* the cove: a hollow in the moulding, so it is lit the other way */
+.nm-guild-clip-frame::before {
+	content: "";
+	position: absolute;
+	inset: 7px;
+	pointer-events: none;
+	border: 11px solid transparent;
+	border-image: linear-gradient(315deg, rgba(255, 238, 180, 0.6), rgba(255, 238, 180, 0) 45%, rgba(70, 40, 5, 0) 55%, rgba(70, 40, 5, 0.6)) 1;
+	box-shadow: 0 0 0 1px rgba(47, 29, 5, 0.55), inset 0 0 0 1px rgba(255, 236, 170, 0.45);
+}
+/* the bead and its sight edge, over the slip, with the shadow it casts */
+.nm-guild-clip-frame::after {
+	content: "";
+	position: absolute;
+	inset: 23px;
+	pointer-events: none;
+	border: 4px solid transparent;
+	border-image: linear-gradient(135deg, #fff1b8, #b0802a 40%, #f3d488 58%, #4e3008) 1;
+	box-shadow: inset 4px 5px 9px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(30, 18, 2, 0.5);
+}
+.nm-guild-clip-frame > .nm-guild-clip {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 8px;
+	outline: 0;
+	box-shadow: none;
+	background-color: #e6dcc3;
+	background-image:
+		repeating-linear-gradient(0deg, rgba(120, 100, 60, 0.08) 0 1px, transparent 1px 3px),
+		repeating-linear-gradient(90deg, rgba(120, 100, 60, 0.08) 0 1px, transparent 1px 3px);
+}
+.nm-plaque {
+	display: inline-block;
+	margin-top: 1.2rem;
+	padding: 0.4rem 1rem 0.38rem;
+	font: 700 0.68rem/1.2 Arial, Helvetica, sans-serif;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: #3a2606;
+	background: linear-gradient(180deg, #f5e09c 0%, #d2a548 50%, #a87a26 100%);
+	border-radius: 2px;
+	text-shadow: 0 1px 0 rgba(255, 240, 200, 0.6);
+	box-shadow: inset 0 1px 0 rgba(255, 250, 220, 0.85), inset 0 -1px 0 rgba(80, 50, 10, 0.5), 0 0 0 1px rgba(60, 38, 6, 0.6), 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+@media (prefers-reduced-motion: reduce) { .nm-clip-figure { display: none; } }
+.nm-header .nm-wrap { position: relative; }
+.nm-header .nm-theme-pick { position: absolute; right: 0; top: 4px; }
+@media (max-width: 700px) { .nm-header .nm-theme-pick { position: static; } }
+/* puzzles: three columns, charms indented under their area */
+.nm-plist .nm-qrow { grid-template-columns: minmax(0, 1fr) 6rem 6rem; }
+.nm-plist .nm-num { white-space: nowrap; overflow-wrap: normal; }
+.nm-plist .nm-pcharm .nm-qname { padding-left: 2.2em; }
+.nm-plist .nm-pcharm .nm-qname::before { left: 1.1em; }
+.nm-plist .nm-qhint { white-space: pre-line; }
+
+@media (max-width: 560px) {
+	.nm-chart-wide { display: none; }
+	.nm-chart-narrow { display: block; }
+}
+/* the puzzles list fits the window: it has only three columns */
+.nm-qlist.nm-plist { min-width: 0; }
+@media (max-width: 700px) {
+	.nm-plist .nm-qrow { grid-template-columns: minmax(0, 1fr) 4.5rem 4.5rem; gap: 0 8px; }
+	.nm-plist .nm-qrow > span:first-child { overflow-wrap: anywhere; }
+	.nm-plist .nm-pcharm .nm-qrow > span:first-child { grid-column: 1 / 3; }
+	.nm-plist .nm-pcharm .nm-qrow > span:nth-child(2) { display: none; }
+	.nm-guildlist img { width: 72px; height: 54px; }
+}
+
+.nm-plist .nm-phint { font-size: 0.85em; }

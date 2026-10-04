@@ -1,17 +1,42 @@
 {% from "_discord.html" import discord_band %}
 <p>NannyMUD is a text game you play over the internet with a MUD client. It is free, and you need nothing but a client and the address:</p>
-<pre>mud.lysator.liu.se   port 2000</pre>
+<div class="nm-connect">
+  <div><span class="nm-label">Host</span><code>mud.lysator.liu.se</code></div>
+  <div><span class="nm-label">Port</span><code>2000</code></div>
+</div>
 
 <h2>First steps</h2>
-<ol>
-<li>Open your client and connect to <code>mud.lysator.liu.se</code>, port <code>2000</code>.</li>
-<li>Type a name to make a new character, or <code>guest</code> to look around first.</li>
-<li>In the game, type <code>help newbie</code>. The same pages are <a href="/help/newbie/">on this site</a>, and so is <a href="/newbie-booklet/">the Newbie Booklet</a>.</li>
+<div class="nm-firststeps">
+<ol class="nm-steps">
+<li><span>Open your client and connect to <code>mud.lysator.liu.se</code>, port <code>2000</code>.</span></li>
+<li><span>Type a name to make a new character, or <code>guest</code> to look around first.</span></li>
+<li><span>In the game, type <code>help newbie</code>. The same pages are <a href="/help/newbie/">on this site</a>, and so is <a href="/newbie-booklet/">the Newbie Booklet</a>.</span></li>
 </ol>
+<figure class="nm-banner">
+<figcaption class="nm-label">The mud answers</figcaption>
+<pre>
+  ___A___                                   ___A___
+ ( __ __ )_________________________________( __ __ )
+  |  \  |                                   |  \  |
+  |  \  |          Welcome to the           |  \  |
+  |  \  |                                   |  \  |
+  |  \  |   NannyMUD MultiUser Adventure.   |  \  |
+  |  \  |                                   |  \  |
+  |  \  |         Home of the Shell         |  \  |
+  |  \  |         Driver: NannyMOS          |  \  |
+  |  \  |                                   |  \  |
+  |  \  |  Visitors, use the name 'guest'!  |  \  |
+  |__\__| __________________________________|__\__|
+ (___ ___)                                 (___ ___)
+     V                                         V
+
+What is your name: </pre>
+</figure>
+</div>
 
 <h2>Clients</h2>
 <p>A MUD client keeps what you type apart from what the game sends, remembers your commands, and lets you write aliases and triggers. Any of these will do:</p>
-<div class="nm-table-wrap"><table class="nm-table">
+<div class="nm-table-wrap"><table class="nm-table nm-clients">
 <thead><tr><th>Client</th><th>Runs on</th><th>Good for</th></tr></thead>
 <tbody>
 <tr><td><a href="https://www.mudlet.org/">Mudlet</a></td><td>Windows, macOS, Linux</td><td>The usual choice today: a window per channel, maps, and scripting in Lua.</td></tr>

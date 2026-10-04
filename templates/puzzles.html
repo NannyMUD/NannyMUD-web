@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card">
+<h1>Puzzles</h1>
+<p>Besides the quests, the areas of NannyMUD hide {{ open_count }} puzzles. Most are kept secret by the wizards who made them, so here you see only how many each area has. Those that earn a charm in the Charmers club are named by their charm: open one for a hint.</p>
+<div class="nm-table-wrap"><div class="nm-qlist nm-plist">
+<div class="nm-qrow nm-qhead"><span>Area</span><span class="nm-num">Puzzles</span><span class="nm-num">Solves</span></div>
+{% for a in areas %}
+{% if loop.index0 and a.area not in ("mainland", "antharis") and loop.previtem.area in ("mainland", "antharis") %}<div class="nm-qitem nm-pdivider"><div class="nm-qrow nm-qhead"><span>Wizards' areas</span><span class="nm-num"></span><span class="nm-num"></span></div></div>{% endif %}
+{% if a.charms %}<details class="nm-qitem nm-parea"><summary class="nm-qrow"><span class="nm-qname"><b>{{ a.area | capitalize }}</b> <span class="nm-muted nm-small">{{ a.charms | length }} charm{{ "s" if a.charms | length != 1 }}</span></span><span class="nm-num">{{ a.open }}</span><span class="nm-num">{{ "{:,}".format(a.solved) if a.solved else "" }}</span></summary>
+{% for c in a.charms | sort(attribute="short") %}
+{% if c.hint %}<details class="nm-qitem nm-pcharm"><summary class="nm-qrow"><span class="nm-qname">{{ c.short }}</span><span class="nm-num"></span><span class="nm-num">{{ "{:,}".format(c.solved) if c.solved else "" }}</span></summary><div class="nm-qhint"><span class="nm-phint"><b>Hint:</b> {{ c.hint }}</span></div></details>
+{% else %}<div class="nm-qitem nm-pcharm"><div class="nm-qrow nm-qplain"><span class="nm-qname">{{ c.short }}</span><span class="nm-num"></span><span class="nm-num">{{ "{:,}".format(c.solved) if c.solved else "" }}</span></div></div>{% endif %}
+{% endfor %}
+</details>
+{% else %}<div class="nm-qitem nm-parea"><div class="nm-qrow nm-qplain"><span class="nm-qname"><b>{{ a.area | capitalize }}</b></span><span class="nm-num">{{ a.open }}</span><span class="nm-num">{{ "{:,}".format(a.solved) if a.solved else "" }}</span></div></div>{% endif %}
+{% endfor %}
+</div></div>
+</article>
+{% endblock %}

@@ -38,12 +38,19 @@ def span(seconds):
 
 # ---------------------------------------------------------------- charts
 
-def line_chart(points, label, fmt=str, width=640, height=180):
+def line_chart(points, label, fmt=str):
     """An SVG line for (time, value) pairs, with the top value and the
-    first and last day as labels. None when there is nothing to draw."""
+    first and last day as labels. None when there is nothing to draw.
+    Drawn twice, wide and narrow; the CSS shows the narrow one on phones,
+    where the wide one's text would shrink too small to read."""
     pts = [(t, v) for t, v in points if v is not None]
     if len(pts) < 2:
         return None
+    return (draw_line(pts, label, fmt, 640, 180, 12, "nm-chart-wide")
+            + draw_line(pts, label, fmt, 440, 220, 15, "nm-chart-narrow"))
+
+
+def draw_line(pts, label, fmt, width, height, size, cls):
     t0, t1 = pts[0][0], pts[-1][0]
     lo = min(v for _, v in pts)
     hi = max(v for _, v in pts)
@@ -54,8 +61,8 @@ def line_chart(points, label, fmt=str, width=640, height=180):
     top_text = fmt(hi)
     base_text = fmt(base) if base else ""
     # the values sit in a gutter left of the plot, level with their lines
-    left = 14 + 7 * max(len(top_text), len(base_text))
-    right, up, down = 8, 10, 24
+    left = (14 + 7 * max(len(top_text), len(base_text))) * size // 12
+    right, up, down = 8, 10, 2 * size
 
     def x(t):
         return left + (t - t0) / max(t1 - t0, 1) * (width - left - right)
@@ -67,22 +74,22 @@ def line_chart(points, label, fmt=str, width=640, height=180):
     first = local(t0).strftime("%-d %b")
     last = local(t1).strftime("%-d %b %Y")
     parts = [
-        '<svg class="nm-chart" viewBox="0 0 %d %d" role="img" aria-label="%s">'
-        % (width, height, html.escape(label)),
+        '<svg class="nm-chart %s" viewBox="0 0 %d %d" role="img" aria-label="%s">'
+        % (cls, width, height, html.escape(label)),
         '<line class="nm-axis" x1="%d" y1="%.1f" x2="%d" y2="%.1f"/>'
         % (left, y(top), width - right, y(top)),
         '<line class="nm-axis" x1="%d" y1="%.1f" x2="%d" y2="%.1f"/>'
         % (left, y(base), width - right, y(base)),
         '<polyline points="%s" fill="none" stroke="currentColor" stroke-width="2"/>' % line,
         '<text x="%d" y="%.1f" text-anchor="end">%s</text>'
-        % (left - 6, y(top) + 4, html.escape(top_text)),
+        % (left - 6, y(top) + size / 3, html.escape(top_text)),
     ]
     if base_text:
         parts.append('<text x="%d" y="%.1f" text-anchor="end">%s</text>'
-                     % (left - 6, y(base) + 4, html.escape(base_text)))
+                     % (left - 6, y(base) + size / 3, html.escape(base_text)))
     parts += [
-        '<text x="%d" y="%d">%s</text>' % (left, height - 6, first),
-        '<text x="%d" y="%d" text-anchor="end">%s</text>' % (width - right, height - 6, last),
+        '<text x="%d" y="%d">%s</text>' % (left, height - size / 2, first),
+        '<text x="%d" y="%d" text-anchor="end">%s</text>' % (width - right, height - size / 2, last),
         '</svg>',
     ]
     return "".join(parts)

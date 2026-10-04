@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% macro role_tables(groups) %}
+<div class="nm-roles">
 {% for role, people in groups %}
+<section class="nm-role">
 <h2>{{ role }}</h2>
 <div class="nm-table-wrap"><table class="nm-table nm-fixed">
 <colgroup><col><col class="nm-w-date"></colgroup>
@@ -8,7 +10,9 @@
 <tbody>{% for s in people %}
 <tr><td>{{ s.name }}</td><td>{{ s.seen | day }}</td></tr>
 {% endfor %}</tbody></table></div>
+</section>
 {% endfor %}
+</div>
 {% endmacro %}
 {% block main %}
 <article class="nm-card">

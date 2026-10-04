@@ -9,7 +9,7 @@ cd "$(dirname "$0")/.."
 : "${NANNY_FTP_HOST:?}" "${NANNY_FTP_PORT:?}" "${NANNY_FTP_USER:?}" "${NANNY_FTP_PASS:?}"
 DATA="${NANNY_DATA_DIR:-data}"
 mkdir -p "$DATA"
-for f in quests staff areas guilds help stats; do
+for f in quests puzzles staff areas guilds help stats; do
   printf 'user = "%s:%s"\n' "$NANNY_FTP_USER" "$NANNY_FTP_PASS" |
     curl -fsS --ftp-pasv -K - \
       "ftp://$NANNY_FTP_HOST:$NANNY_FTP_PORT/%2fwww/export/$f.json" -o "$DATA/$f.json.new"

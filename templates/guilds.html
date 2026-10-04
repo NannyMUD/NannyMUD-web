@@ -4,9 +4,14 @@
 <h1>Guilds</h1>
 <p>New characters start in the Adventurers guild. Most players move on to one of the others, and the guild they choose decides how they fight and what they can do. Some leave the Adventurers and stay without a guild.</p>
 <p>Besides the guilds there are many clubs, created and run by the players themselves. Ask around in the game to find them.</p>
+<ul class="nm-guildlist">
 {% for g in guilds %}
-<h3>{% if g.page %}<a class="nm-more-link" href="{{ g.page }}">{{ g.name }}</a>{% else %}{{ g.name }}{% endif %}</h3>
-<p>{{ g.about }}</p>
+<li{% if not g.page %} class="nm-noart"{% endif %}>
+{% if g.page %}<a href="{{ g.page }}" tabindex="-1" aria-hidden="true"><img src="{{ g.thumb or ("/static/img" ~ g.page[:-1] ~ "-1.jpg") }}" alt="" loading="lazy" decoding="async"></a>{% endif %}
+<div><h2>{% if g.page %}<a class="nm-more-link" href="{{ g.page }}">{{ g.name }}</a>{% else %}{{ g.name }}{% endif %}</h2>
+<p>{{ g.about }}</p></div>
+</li>
 {% endfor %}
+</ul>
 </article>
 {% endblock %}

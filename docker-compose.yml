@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     depends_on: [mediawiki]
     ports:
-      - "${NANNY_HTTP_PORT:-8080}:80"
+      - "${NANNY_HTTP_BIND:-127.0.0.1}:${NANNY_HTTP_PORT:-8080}:80"
     volumes:
       - site:/public:ro
       - mwcode:/mediawiki:ro

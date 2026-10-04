@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block main %}
 <section class="nm-hero">
-  <img src="/static/img/logo-440.png" alt="NannyMUD">
-  <div>
+  <div class="nm-hero-text">
     <h1>NannyMUD</h1>
     <p>NannyMUD has been available to the public since the spring of 1990, and has been continuously developed during the years. The theme is Epic Fantasy; medieval fantasy with magic. Several different playing styles are possible, from player killing and pure hack-and-slash to quest solving and social chatting.</p>
-    <a class="nm-button" href="/play/">Play now</a><a class="nm-button nm-quiet" href="/introduction/">What is a MUD?</a>
+    <div class="nm-actions"><a class="nm-button" href="/play/">Play now</a><a class="nm-button nm-quiet" href="/introduction/">What is a MUD?</a></div>
+    <div class="nm-address"><span class="nm-label">Host</span><span class="nm-label">Port</span><code>mud.lysator.liu.se</code><code>2000</code></div>
   </div>
+  <figure class="nm-hero-art"><img src="/static/img/logo-440.png" width="440" height="440" alt="NannyMUD: a red dragon over a castle by moonlight, adventurers below and the guild banners along the foot"></figure>
 </section>
 
-<section class="nm-facts">
+<section class="nm-facts" aria-label="NannyMUD in numbers">
   <div class="nm-fact"><b>1990</b><span>running since</span></div>
   {% if facts.quests %}<div class="nm-fact"><b>{{ facts.quests }}</b><span>open quests</span></div>{% endif %}
   {% if facts.areas %}<div class="nm-fact"><b>{{ facts.areas }}</b><span>open areas</span></div>{% endif %}
@@ -17,9 +18,11 @@
   {% if facts.online_peak is not none %}<div class="nm-fact"><b>{{ facts.online_peak }}</b><span>most online, last 24 h</span></div>{% endif %}
 </section>
 
-
-<section class="nm-grid">
+<section class="nm-contents" aria-labelledby="nm-contents">
+<h2 id="nm-contents" class="nm-label">Contents</h2>
+<div class="nm-grid">
   {% for label, href in nav %}<div class="nm-tile"><h3><a href="{{ href }}"{% if href == wiki %} target="_blank" rel="noopener"{% endif %}>{{ label }}</a></h3><p>{{ tiles[label] }}</p></div>
   {% endfor %}
+</div>
 </section>
 {% endblock %}

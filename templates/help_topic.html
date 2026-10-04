@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
-<article class="nm-card">
-<p class="nm-small"><a href="/help/">Help</a>{% if "/" in name %} / <a href="/help/{{ name.split("/")[0] }}/">{{ name.split("/")[0] }}</a> / {{ name.split("/")[1] | replace("_", " ") }}{% else %} / {{ name }}{% endif %}</p>
-<pre>{{ text }}</pre>
+<article class="nm-card nm-helppage">
+<p class="nm-crumbs"><a href="/help/">Help</a>{% if "/" in name %} / <a href="/help/{{ name.split("/")[0] }}/">{{ name.split("/")[0] }}</a>{% endif %}</p>
+<h1><code>help {{ name | replace("/", " ") }}</code></h1>
+<pre class="nm-helptext">{{ text }}</pre>
 </article>
 {% endblock %}

@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block main %}
-<article class="nm-card">
+<article class="nm-card nm-prose">
 <h1>The World</h1>
 {{ intro | safe }}
+<ul class="nm-maps nm-wide">
+<li><a href="/static/img/old/mainland_map.jpg"><img src="/static/img/old/mainland_map.jpg" width="680" height="458" alt="A Map of the Mainland" loading="lazy"></a></li>
+<li><a href="/static/img/old/mainland_se.png"><img src="/static/img/old/mainland_se.png" width="800" height="600" alt="Another view of the Mainland" loading="lazy"></a></li>
+<li><a href="/static/img/old/antharis_map.jpg"><img src="/static/img/old/antharis_map.jpg" width="440" height="595" alt="A Map of Antharis" loading="lazy"></a></li>
+</ul>
 </article>
 <article class="nm-card">
 <h2>Open areas</h2>

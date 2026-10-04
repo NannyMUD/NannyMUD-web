@@ -8,10 +8,10 @@
 <article class="nm-card">
 <h1>Stats</h1>
 <p>Numbers from the game itself, counted every hour and gathered every night.</p>
+{% if uptime and uptime.current %}<p class="nm-status">Up {{ uptime.current }}{% if uptime.booted %}, since the reboot on {{ uptime.booted }}{% endif %}.</p>{% endif %}
 <div class="nm-facts">
 {% if players %}<div class="nm-fact"><b>{{ players.now }}</b><span>players on now</span></div>{% endif %}
-{% if uptime and uptime.current %}<div class="nm-fact"><b>{{ uptime.current }}</b><span>since the last reboot</span></div>{% endif %}
-{% for label, value in totals %}<div class="nm-fact"><b>{{ value }}</b><span>{{ label | lower }}</span></div>{% endfor %}
+{% for label, value in totals %}<div class="nm-fact"><b>{% if value is number %}{{ "{:,}".format(value) | replace(",", " ") }}{% else %}{{ value }}{% endif %}</b><span>{{ label | lower }}</span></div>{% endfor %}
 </div>
 
 {% if players %}

@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="nm-card nm-paper">
-<p class="nm-small"><a href="/times/">The NannyMUD Times</a> / {{ issue.label }}</p>
+<p class="nm-crumbs"><a href="/times/">The NannyMUD Times</a></p>
 <h1>{{ issue.label }}</h1>
+{% if issue.pages | length > 1 %}<nav class="nm-pages" aria-label="Pages"><span class="nm-label">Pages</span>{% for n, text in issue.pages %}<a href="#page{{ n }}">{{ n }}</a>{% endfor %}</nav>{% endif %}
 {% for n, text in issue.pages %}
+<section class="nm-sheet">
 <h3 id="page{{ n }}">Page {{ n }}</h3>
 <pre>{{ text }}</pre>
+</section>
 {% endfor %}
 </article>
 {% endblock %}

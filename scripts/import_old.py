@@ -38,8 +38,21 @@ KEEP = {"p", "ul", "ol", "li", "a", "b", "strong", "i", "em", "pre", "br",
         "blockquote", "code", "tt"}
 
 
+# old pages that are gone from Lysator, recovered from the Internet
+# Archive into content/ by hand
+RECOVERED = {
+    "http://mud.lysator.liu.se/misc/attendence.html": "/attendance/",
+    "http://mud.lysator.liu.se/guilds/statistics/": "/guild-statistics/",
+    "http://www.lysator.liu.se/nanny/statistics/from_where.html": "/where-players-come-from/",
+    "http://www.lysator.liu.se/~zander/ewan_dl.html": "/ewan/",
+    "http://www.lysator.liu.se/nanny/pics/NannyMUD.small.jpg": "/static/img/old/NannyMUD.small.jpg",
+}
+
+
 def new_link(href):
     """Old internal links -> new slugs; everything else unchanged."""
+    if href in RECOVERED:
+        return RECOVERED[href]
     m = re.match(r"^(?:https?://mud\.lysator\.liu\.se/www/)?([a-z_]+)\.html(#.*)?$",
                  href or "", re.I)
     if m and m.group(1).lower() in PAGES:

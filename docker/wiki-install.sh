@@ -24,6 +24,11 @@ docker compose exec -T mediawiki sh -c 'cat /tmp/LocalSettings.php && cat <<EOF
 # NannyMUD: pages at /wiki/Name, scripts at /w/ (docker/nginx.conf)
 \$wgArticlePath = "/wiki/\$1";
 \$wgUsePathInfo = true;
+# the site's skin, the same one the visitor picked on the site (nginx
+# serves it by cookie behind this one URL)
+\$wgHooks["BeforePageDisplay"][] = static function ( \$out, \$skin ) {
+	\$out->addStyle( "/static/css/nanny-wiki.css?skin=2" );
+};
 EOF' > wiki/settings/LocalSettings.php
 # readable by the web server's group (www-data, gid 33), not by everyone:
 # it holds the database password

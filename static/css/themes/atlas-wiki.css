@@ -1,0 +1,288 @@
+/* nanny.css, skin "Atlas": the site as a sheet of the realm's map.
+ * Sage map land with a faint blue graticule, night-blue ink, water-blue
+ * links,
+ * region names in spaced capitals as cartographers letter them, a double
+ * neatline around the hero, contents lettered like map squares and a red
+ * "you are here" pin on the current page. Shared by the website and the wiki. */
+
+:root {
+	--nm-bg: #e1e9da;            /* map land, sage */
+	--nm-bg-deep: #d3ddc9;
+	--nm-bg-raised: #eef3e9;
+	--nm-ink: #16233a;           /* 14.6:1 */
+	--nm-strong: #0a1428;
+	--nm-muted: #3f4f63;
+	--nm-faint: #4f5e70;
+	--nm-heading: #16233a;
+	--nm-accent: #765404;        /* the logo's gold, darkened for the map */
+	--nm-link: #1b4a80;          /* a map's water blue */
+	--nm-link-visited: #5a4a86;
+	--nm-link-line: rgba(31, 79, 134, 0.35);
+	--nm-hilite: rgba(31, 79, 134, 0.05);
+	--nm-red: #b8321f;           /* the pin */
+	--nm-red-hi: #cc3e29;
+	--nm-on-red: #ffffff;
+	--nm-rule: rgba(22, 35, 58, 0.55);
+	--nm-rule-soft: rgba(22, 35, 58, 0.14);
+
+	--nm-head-bg: #e1e9da;
+	--nm-head-rod: #e1e9da;
+	--nm-head-rule: rgba(22, 35, 58, 0.55);
+	--nm-head-brand: #16233a;
+	--nm-head-ink: #0a1428;
+	--nm-head-muted: #3f4f63;
+	--nm-foot-bg: #d3ddc9;
+	--nm-foot-ink: #16233a;
+	--nm-foot-muted: #3f4f63;
+	--nm-weave: #3f4f63;
+
+	--nm-pre-bg: #16233a;         /* the mud's text stays a terminal */
+	--nm-pre-ink: #eaeef2;
+	--nm-pre-strong: #ffffff;
+	--nm-pre-faint: #9fb0c2;
+	--nm-pre-edge: #c9a24a;
+	--nm-code-bg: rgba(22, 35, 58, 0.07);
+	--nm-code-ink: #16233a;
+
+	--nm-chart-1: #1b4a80;
+	--nm-chart-2: #765404;
+	--nm-bar-track: rgba(22, 35, 58, 0.07);
+	--nm-facts-bg: #eef3e9;
+	--nm-discord: #4752c4;
+	--nm-discord-line: rgba(22, 35, 58, 0.35);
+
+	--nm-sans: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
+	--nm-mono: ui-monospace, Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+	--nm-width: 76rem;
+	--nm-measure: none;
+	--nm-margin: 12rem;
+	--nm-gutter: 2rem;
+	--nm-radius: 0;
+
+	--nm-night: var(--nm-bg);
+	--nm-gold: var(--nm-heading);
+	--nm-gold-soft: var(--nm-link);
+	--nm-text: var(--nm-ink);
+	--nm-serif: var(--nm-sans);
+	--nm-panel: var(--nm-bg-deep);
+	--nm-card: var(--nm-bg);
+	--nm-line: var(--nm-rule);
+	--nm-line-soft: var(--nm-rule-soft);
+
+	/* the wiki */
+	--nm-wiki-new: #b8321f;
+	--nm-icon-filter: none;
+	--nm-head-icon-filter: none;
+	--nm-head-field: #ffffff;
+	--nm-scheme: light;
+
+	color-scheme: light;
+}
+
+/* ===================== the wiki: MediaWiki 1.43, skin vector-2022 ====
+ * Loaded after Vector's own styles by a LocalSettings hook. Vector draws
+ * almost everything from Codex design tokens (CSS custom properties), so
+ * most of the look comes from pointing those at the site's tokens; a few
+ * rules then set type, the header, tables, the contents and the footer.
+ * html:root[class] outranks Vector's day/night token blocks. */
+
+html:root, html:root[class] {
+	--background-color-base: var(--nm-bg);
+	--background-color-base-fixed: var(--nm-bg);
+	--background-color-neutral: var(--nm-bg-raised);
+	--background-color-neutral-subtle: var(--nm-bg-raised);
+	--background-color-interactive: var(--nm-bg-raised);
+	--background-color-interactive-subtle: var(--nm-bg-raised);
+	--background-color-interactive-subtle--hover: var(--nm-hilite);
+	--background-color-button-quiet--hover: var(--nm-hilite);
+	--background-color-button-quiet--active: var(--nm-hilite);
+	--background-color-progressive: var(--nm-red);
+	--background-color-progressive--hover: var(--nm-red-hi);
+	--background-color-progressive--active: var(--nm-red);
+	--background-color-progressive-subtle: var(--nm-hilite);
+	--background-color-disabled-subtle: var(--nm-bg-raised);
+	--color-base: var(--nm-ink);
+	--color-base--hover: var(--nm-strong);
+	--color-emphasized: var(--nm-strong);
+	--color-subtle: var(--nm-muted);
+	--color-placeholder: var(--nm-faint);
+	--color-disabled: var(--nm-faint);
+	--color-inverted: var(--nm-bg);
+	--color-progressive: var(--nm-link);
+	--color-progressive--hover: var(--nm-strong);
+	--color-progressive--active: var(--nm-link);
+	--color-visited: var(--nm-link-visited);
+	--color-destructive: var(--nm-wiki-new);
+	--color-destructive--hover: var(--nm-strong);
+	--color-destructive--visited: var(--nm-wiki-new);
+	--border-color-base: var(--nm-rule-soft);
+	--border-color-subtle: var(--nm-rule-soft);
+	--border-color-muted: var(--nm-rule-soft);
+	--border-color-interactive: var(--nm-rule);
+	--border-color-progressive: var(--nm-accent);
+	--border-color-progressive--hover: var(--nm-accent);
+	--border-color-progressive--active: var(--nm-accent);
+	--border-color-progressive--focus: var(--nm-accent);
+	--outline-color-progressive--focus: var(--nm-accent);
+	--box-shadow-color-progressive--focus: var(--nm-accent);
+	--filter-invert-icon: var(--nm-icon-filter);
+	--filter-invert-primary-button-icon: invert(1);
+	color-scheme: var(--nm-scheme);
+}
+
+html, body, .mw-page-container { background: var(--nm-bg); color: var(--nm-ink); }
+body, .vector-body, .mw-body, .cdx-text-input__input, .vector-menu, .mw-footer {
+	font-family: var(--nm-sans);
+}
+.vector-body { font-size: 1rem; line-height: 1.6; }
+
+/* headings: the site's bold Arial, gold, a rule above rather than below */
+html .mw-body h1, html .mw-body-content h1, html .mw-body-content h2, html .mw-heading1, html .mw-heading2, html h1.firstHeading {
+	font-family: var(--nm-sans);
+	font-weight: 700;
+	color: var(--nm-heading);
+	letter-spacing: -0.015em;
+	text-wrap: balance;
+}
+html h1.firstHeading { font-size: 2.2rem; letter-spacing: -0.025em; }
+.vector-page-titlebar { box-shadow: 0 1px 0 var(--nm-rule); }
+html .mw-body-content .mw-heading2, html .mw-body-content h2 { border-bottom: 0; border-top: 1px solid var(--nm-rule); padding-top: 0.5rem; margin-top: 2rem; font-size: 1.45rem; }
+html .mw-body-content .mw-heading2 h2 { border: 0; padding: 0; margin: 0; }
+html .mw-body-content .mw-heading3, html .mw-body-content h3 { font-family: var(--nm-sans); color: var(--nm-strong); }
+.mw-editsection, .mw-editsection a { font-family: var(--nm-sans); }
+.mw-editsection a { color: var(--nm-faint) !important; }
+
+a { text-underline-offset: 0.18em; }
+.mw-body-content a:not(.new):not(.external) { color: var(--nm-link); }
+.mw-body-content a:hover { color: var(--nm-strong); }
+
+/* the header strip, as on the site */
+.vector-header-container, .vector-sticky-header {
+	background: var(--nm-head-bg);
+}
+.vector-header-container { border-top: 3px solid var(--nm-head-rod); border-bottom: 1px solid var(--nm-head-rule); }
+.vector-header-container .vector-header { background: none; }
+.mw-header, .vector-header { color: var(--nm-head-ink); }
+.mw-logo-icon { content: url(/static/img/logo-80.png); border-radius: 6px; }
+.mw-logo-wordmark, .mw-logo .mw-logo-wordmark { color: var(--nm-head-brand); font-family: var(--nm-sans); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; }
+.vector-header .vector-user-links a, .vector-header .vector-user-links .cdx-button { color: var(--nm-head-muted); }
+.vector-header .vector-user-links a:hover { color: var(--nm-head-ink); }
+.vector-header .cdx-text-input__input, .vector-sticky-header .cdx-text-input__input {
+	background: var(--nm-head-field);
+	color: var(--nm-head-ink);
+	border-color: var(--nm-head-rule);
+	border-radius: var(--nm-radius);
+}
+.vector-header .cdx-search-input__end-button, .vector-header .cdx-button {
+	background: var(--nm-head-field);
+	color: var(--nm-head-ink);
+	border-color: var(--nm-head-rule);
+	border-radius: var(--nm-radius);
+}
+.vector-sticky-header { box-shadow: 0 1px 0 var(--nm-head-rule); }
+.vector-sticky-header .vector-sticky-header-context-bar-primary { color: var(--nm-head-ink); font-family: var(--nm-sans); }
+
+/* tabs and menus */
+/* the selected tab in the strongest ink, the others muted; set on the
+ * link and its states so no Vector state colour can win */
+html .vector-menu-tabs .mw-list-item a, html .vector-menu-tabs .mw-list-item a:visited { color: var(--nm-muted); }
+html .vector-menu-tabs .mw-list-item.selected a, html .vector-menu-tabs .mw-list-item.selected a:visited,
+html .vector-menu-tabs .mw-list-item.selected a:hover, html .vector-menu-tabs .mw-list-item.selected a:active { color: var(--nm-strong); background: none; opacity: 1; }
+html .vector-menu-tabs .mw-list-item.selected { border-bottom-color: var(--nm-accent); }
+/* dropdowns are a raised panel; the menus in the pinned sidebars sit on
+ * the page itself, their links in the link colour */
+.vector-dropdown-content { background: var(--nm-bg-raised); border-color: var(--nm-rule); }
+.vector-menu-content, .vector-pinned-container, .vector-pinnable-element { background: none; }
+html .vector-pinnable-element .vector-menu-content a, html .vector-pinnable-element .vector-menu-content a:visited,
+html .vector-dropdown-content .vector-menu-content a, html .vector-dropdown-content .vector-menu-content a:visited { color: var(--nm-link); }
+html .vector-pinnable-element .vector-menu-content a:hover, html .vector-dropdown-content .vector-menu-content a:hover { color: var(--nm-strong); }
+.vector-menu-heading { color: var(--nm-faint); }
+.vector-pinnable-header-label { font-family: var(--nm-sans); color: var(--nm-strong); }
+
+/* the contents */
+.vector-toc .vector-toc-link, .vector-toc .vector-toc-link:visited { color: var(--nm-muted); }
+.vector-toc .vector-toc-list-item-active > .vector-toc-link,
+.vector-toc .vector-toc-level-1-active:not(.vector-toc-list-item-expanded) > .vector-toc-link,
+.vector-toc .vector-toc-list-item-active.vector-toc-level-1-active > .vector-toc-link { color: var(--nm-heading); font-weight: 700; }
+.vector-toc .vector-toc-link:hover { color: var(--nm-strong); }
+
+/* tables: hairlines, a heavier rule under the head row */
+html .wikitable {
+	background: none;
+	color: var(--nm-ink);
+	border: 0;
+	border-collapse: collapse;
+	font-variant-numeric: tabular-nums;
+}
+html .wikitable > tr > th, html .wikitable > * > tr > th,
+html .wikitable > tr > td, html .wikitable > * > tr > td {
+	border: 0;
+	border-bottom: 1px solid var(--nm-rule-soft);
+	padding: 0.55em 1.25em 0.55em 0;
+	background: none;
+	text-align: left;
+}
+html .wikitable > tr > th, html .wikitable > * > tr > th {
+	color: var(--nm-faint);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	border-bottom: 1px solid var(--nm-rule);
+	vertical-align: bottom;
+}
+html .wikitable > caption { font-weight: 700; color: var(--nm-strong); text-align: left; padding-bottom: 0.5rem; }
+html .jquery-tablesorter th.headerSort { background-image: none; padding-right: 1.25em; }
+html .jquery-tablesorter th.headerSort::after { content: " \2195"; color: var(--nm-faint); font-weight: 400; letter-spacing: 0; }
+
+/* the mud's own text */
+html .mw-body-content pre, html .mw-body pre {
+	font-family: var(--nm-mono);
+	font-size: 0.85rem;
+	line-height: 1.4;
+	background: var(--nm-pre-bg);
+	color: var(--nm-pre-ink);
+	border: 0;
+	border-left: 2px solid var(--nm-pre-edge);
+	border-radius: 0;
+	padding: 1rem 1.25rem;
+}
+html .mw-body-content code, html .mw-body code {
+	font-family: var(--nm-mono);
+	background: var(--nm-code-bg);
+	color: var(--nm-code-ink);
+	border: 0;
+	border-radius: var(--nm-radius);
+	padding: 0.08em 0.35em;
+}
+.mw-body-content blockquote { border-left: 2px solid var(--nm-accent); }
+.mw-body-content li::marker { color: var(--nm-accent); }
+
+/* the footer */
+.mw-footer-container { background: var(--nm-foot-bg); border-top: 1px solid var(--nm-head-rule); }
+.mw-footer { border-top: 0; color: var(--nm-foot-muted); padding-top: 1.5rem; padding-bottom: 2.5rem; }
+.mw-footer a, .mw-footer a:visited { color: var(--nm-foot-ink); }
+html .mw-footer li { color: var(--nm-foot-muted); }
+.mw-footer #footer-icons img, .mw-footer .footer-icons img { opacity: 0.6; filter: var(--nm-icon-filter) grayscale(1); }
+
+::selection { background: var(--nm-accent); color: var(--nm-bg-deep); }
+
+/* the header's icons and links sit on the header's own colour (Vector
+ * paints its icons as masks filled with background-color) */
+.vector-header-container .vector-icon, .vector-sticky-header .vector-icon { background-color: var(--nm-head-ink); filter: none !important; opacity: 0.85; }
+.vector-header-container .vector-user-links a, .vector-header-container .vector-user-links .cdx-button, .vector-header-container .vector-user-links li { background-color: transparent; }
+.vector-header-container .vector-user-links ul, .vector-header-container .vector-user-links .vector-menu-content,
+.vector-header-container .vector-user-links .vector-menu, .vector-header-container .vector-user-links-main,
+.vector-header-container .vector-user-links nav { background: transparent; }
+.vector-header-container .cdx-text-input__icon, .vector-header-container .cdx-text-input__start-icon { color: var(--nm-head-muted); background-color: var(--nm-head-muted); filter: none; opacity: 0.8; }
+
+
+/* Atlas: lettering in spaced capitals */
+html h1.firstHeading { text-transform: uppercase; letter-spacing: 0.08em; }
+html .mw-body-content .mw-heading2, html .mw-body-content h2 { text-transform: uppercase; letter-spacing: 0.1em; font-size: 1.1rem; }
+.mw-logo-wordmark { text-transform: uppercase; letter-spacing: 0.14em; }
+html, body, .mw-page-container {
+	background-image: linear-gradient(rgba(31, 79, 134, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 79, 134, 0.06) 1px, transparent 1px);
+	background-size: 96px 96px;
+}
+.vector-header-container { border-top: 0; }
