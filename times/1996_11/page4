@@ -1,0 +1,84 @@
+ \\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\/////
+  \\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////
+   \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////
+
+Confessions from a bug abuser  - A column written by Emperor Hans the dark
+=============================
+
+First of all, I would like to say that I don't advocate bug abusing. Also, 
+I'm not claiming to have found, or even used, all of the bugs I'm going to 
+talk about, I'm merely telling a good story. But all these bugs actually 
+existed in Nanny, a long long time ago. They have been fixed, of course, 
+and those caught exploiting them have been dealth with properly. And I am 
+by no means blaming the responsible wizards, since where there is code, 
+there are bugs.
+
+
+o The stupid smartmonster
+
+  The code for monsters generally depend on some 'standard' monster code. A
+  few years ago, Padrones smartmonster was one of those standard monsters. In
+  that code, you could set the monster to be friends with other monsters, so 
+  they would help each other in fights. One day, an admin decided to change
+  the code in the smartmonster, and didn't do enough testing. The result was 
+  that all monsters in the mud that used smartmonster (and that was quite a
+  lot), suddenly had no friends. The mortals at the time ran around like 
+  maniacs to kill monsters that normally were very hard to kill because of 
+  their friends (Kells party being one example).
+
+
+o The recoding of the drop command
+
+  When a mud first opens, there are always plenty of bugs. One very polpular 
+  one, that came with old mudlibs, was to try and 'drop -2000 coins'. Yes, in
+  some places you would actually get 2000 coins from that. However, wizards 
+  have a tendency to notice and fix these kind of bugs right away, and they
+  will from then on only live in our memories..... until the admin decide to
+  recode the drop command. :) The drop command was improved _a lot_ a few
+  years ago, when you could suddenly 'drop keys' instead of doing 'drop key'
+  over and over and over, plus a lot of similar improvements. However, they 
+  forgot the test for negative money, so once again, people went around
+  droping huge piles of negative money on the ground. And poor newbies doing 
+  'get all'...
+
+
+o The revenge of the tax payers
+
+  Well, we all know the village Bailiff, and we all love to hate him. Well, 
+  this one time (a very short amount of time, I should add), the Bailiff 
+  decided to give some money back. Imagine the surprise you would get when
+  standing on the village green, and you see something like:
+  Bailiff says: I see you haven't paid your tax, <your name>
+  Bailiff takes -2600 coins from you.
+  And that day, whenever Bailiff entered a room, it was like he was the leader
+  of the MUDs biggest party. He had a whole band of begging players following
+  him around wherever he went. Some people got pretty rich that day.
+
+
+o Taking from the poor, giving to the rich
+
+  This one is serious and advanced cheating, and combines two bugs to actually
+  gain something. The spell casting diploma is a well known and widely used 
+  item among playerkillers. The problem is that it's pretty damn expensive,
+  and playerkillers tend to be quite poor because of all the healing they need
+  to buy, without getting any rewards (except the joy of killing a fellow 
+  player, of course :). Well, two players found out that when you get the
+  diploma, there passed some time until you actually paid. This meant that you
+  could get the diploma, then drop all your money. The problem now, was that
+  you would walk around with negative money, and when you would get some 
+  money, it would all even out again. So... how do you get rid of negative
+  money? Well, once again, something that is well known among playerkillers is
+  the long fingers spell. This was cast on the player, and some of the 
+  negative money was transferred to the casting player. So... the player 
+  logged on a trash-character that had only one purpose: to store negative
+  money. The first character would get the spell casting diploma, and then let
+  the trash character remove all the negative money. Then, he would take his
+  money again, log off the trash character, and then have a diploma "for 
+  free". This type of bug abusing breaks just about every rule in the game.
+
+
+      ----------[ Special thanks to Oriole and Mym for ideas ]---------
+
+   /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\
+  ///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\
+ /////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\\\

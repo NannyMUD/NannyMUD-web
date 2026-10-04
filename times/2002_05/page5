@@ -1,0 +1,134 @@
+--==++@@++==----==++@@++==----==++@@++==----==++@@++==----==++@@++==--
+
+THE AREA THAT WASN'T MEANT TO BE
+
+Test-played by Lectral.
+
+--==++@@++==----==++@@++==----==++@@++==----==++@@++==----==++@@++==--
+
+ > look
+ You're in a small room of what appears to be a castle. To the
+ north, there is a door, which, apart from the window in the east
+ wall is the only visible exit from the room.
+   There is one obvious exit: north.
+ Slakktor the terrorist (evil).
+ Dunstan the terrorist (evil).
+ Samaba the terrorist (evil).
+
+ > north
+ You can't seem to move just yet.
+
+ > eq
+ Location          Armour/Weapon
+ ---------------------------------------------------------
+ Head                   A helmet (worn)
+ Neck                   -
+ Back                   -
+ Body                   A kevlar vest (worn)
+ Hands                  -
+ Finger                 -
+ Feet                   -
+ Shield                 -
+
+ Wielded                An AK-47 (wielded)
+ ---------------------------------------------------------
+ You have 2400 dollars.
+
+ > i
+ Inventory, excluding auto-loaders:
+  A helmet (worn).
+  A kevlar vest (worn).
+  An AK-47 (wielded).
+  A HE grenade.
+ You suddenly feel that you can move!
+ Dunstan screams 'Go go go!' loudly.
+ Dunstan leaves north.
+ Slakktor leaves north.
+ Samaba shoots at the east window and it breaks!
+ Samaba jumps through the east window.
+
+ > north
+ Hallway <w e>.
+
+ > look
+ You're in some sort of hallway in a castle. You can move east and
+ west from this point down the hallway. To the south, you can
+ enter a small room.
+   There are three obvious exits: west, east and south.
+ (Slakktor) FIRE IN THE HOLE!
+ You hear footsteps from the east.
+ You hear footsteps from the east.
+ You hear footsteps from the east.
+ You hear an explosion somewhere east.
+
+ > east
+ Hallway <w e>.
+
+ > east
+ Hallway <w e>.
+
+ (Dunstan) Enemy spotted.
+ You hear the sound of guns being fired somewhere east.
+ You hear the sound of guns being fired somewhere east.
+
+ > east
+ Huge room <e w n s>.
+ You hear the sound of guns being fired somewhere east.
+
+ > look
+ This is a huge room in some sort of castle. The room stretches
+ out eastwards from here. To the west, you can exit the room and
+ enter a hallway.
+   There are four obvious exits: east, west, north and south.
+ You hear the sound of guns being fired from the east.
+ You hear the sound of guns being fired from the east.
+
+ ** Dunstan killed Podman with AK-47 **
+
+ > east
+ Huge room <e w n s>.
+ Corpse of Podman.
+ Desert Eagle .50 AE.
+ Defuse Kit.
+ Dunstan the terrorist (evil).
+
+ > take all
+ You take a corpse of Podman, a Desert Eagle .50 AE and a Defuse
+ Kit.
+ From the east you hear: FIRE IN THE HOLE!
+ A HE grenade comes rolling into the room from the east.
+ Dunstan screams 'Go go go!' loudly.
+ Dunstan leaves west.
+ The HE grenade explodes!
+ ** HP: 100/202   SP: 202/202
+ Butala comes jumping into the room.
+ ** HP: 92/202   SP: 202/202
+ ** Butala is in undamaged shape.
+ Butala shoots and hits your left hand.
+ You shoot and hit Butala on the right arm.
+ ** HP: 72/202   SP: 202/202
+ ** Butala is in superior shape.
+ Butala shoots and hits you in the chest.
+ You shoot and miss Butala.
+
+ > north
+ Huge room <w e s>.
+ Butala comes jumping into the room.
+ ** HP: 63/202   SP: 202/202
+ ** Butala is in superior shape.
+ Butala shoots and hits you on the left arm.
+ ** HP: -1/50   SP: 50/50
+
+ You die.
+ You have a strange feeling.
+ You can see your own dead body from above.
+ Butala shoots and luckily hits you in the head!
+
+ ** Butala killed Lectral with Colt M4A1 Carbine **
+
+ Butala jumps west.
+ Johnny D sneaks in from the east.
+ Johnny D grabs your corpse and belongings and hauls it all east.
+ You hear the sound of guns being fired from the west.
+
+--==++@@++==----==++@@++==----==++@@++==----==++@@++==----==++@@++==--

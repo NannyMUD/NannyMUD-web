@@ -1,0 +1,413 @@
+<!-- title: Frequently Asked Questions -->
+<!-- from: www/faq.html -->
+<p>Obviously, lots of questions come up which people are learning their
+way around the MUD. Here, we've collected a list of some of the more
+commonly asked questions and their answers.</p>
+
+<table><tr>
+<td><b>Contents:</b></td></tr><tr>
+<td>
+<ul>
+<li><a href="#lag">About lag</a>
+<li><a href="#login">About login</a>
+<li><a href="#queue">About login queues</a>
+<li><a href="#reset">About reset</a>
+<li><a href="#items">About items</a>
+<li><a href="#chars">About characters</a>
+<li><a href="#crack">About cracking attempts</a>
+</li></li></li></li></li></li></li></ul>
+</td><td>
+<ul>
+<li><a href="#shout">About shouting</a>
+<li><a href="#trade">About trading</a>
+<li><a href="#access">About restricted access</a>
+<li><a href="#hpsp">About the lack of HP/SP in the prompt</a>
+<li><a href="#fan">About external WWW pages</a>
+<li><a href="#ownmud">About making your own MUD</a>
+<li><a href="#telnet">About Windows XP telnet</a>
+<ul>
+</ul></li></li></li></li></li></li></li></ul></td></tr></table><h2>About Lag</h2><h2>About Login</h2><h2>About Login Queues</h2><h2>About Reset</h2><h2>About Items</h2><h2>About NannyMUD characters</h2><h2>About cracking attempts</h2><h2>About shouting</h2><h2>About trading</h2><h2>About restricted access</h2><h2>About HP/SP in the prompt</h2><h2>About external WWW pages</h2><h2>About making your own MUD</h2><h2>About Windows XP telnet</h2><p><ul>
+<li><b>Q: </b>What is lag?<br/>
+<b>A: </b>
+    Lag is when you type things to the game, and the game does not respond
+    to you within a very short time. You wait and wait, and then things happen.
+<p>
+<li><b>Q: </b> Why is there lag?<br/>
+<b>A: </b>
+     There are several possible reasons for lag:
+    <ol>
+<li>There are many players logged on and doing things in rapid succesion;
+	then the lag is due to the limited capacity of the machine.
+    <li>There is some other process running on NannyMUD's host machine,
+	competing with the game for the resources. This is naturally only
+	done when needed, and should rarely last long (but no guarantees are
+	given). One such process is the daily backup at 07:10 each morning.
+    <li>There is a routing problem, perhaps locally, perhaps somewhere on the
+	connection between you and the game. There is nothing we can do about
+	this.
+    <li>Your local network/machine has lag.
+    <li>You are using a bad connection with high packet loss.
+    <li>The game has grown and uses very much of the memory of the host
+	machine, and thus swapping has begun. Usually it takes something 
+	more than 5 days uptime before this happens.
+    </li></li></li></li></li></li></ol>
+<p>
+<li><b>Q: </b>
+     Perhaps a reboot will remove the lag?<br/>
+<b>A: </b>
+     Perhaps, but in most cases not (consider the cases above):
+    <ol>
+<li>Perhaps a reboot might make some players go home instead of play, but
+    don't count on it. A reboot is not a solution. A better machine is.
+    Donate money to this noble purpose.
+    <li>A reboot here will not solve the problem. We could of course stop
+    taking backups, but somehow we think the players prefer the lag it gives...
+    <li>A reboot will not solve the problem.
+    <li>A reboot will not solve the problem.
+    <li>A reboot will not solve the problem.
+    <li>This is about the only time when a reboot will reduce lag, and be
+    sure we will reboot if needed. Trust us.
+    </li></li></li></li></li></li></ol>
+</li></p></li></p></li></ul>
+<br/>
+<ul>
+<li> <b>Q: </b> I get a prompt like this and can't login.<p>
+<pre>
+  UNIX(r) System V Release 4.0 (lysidor)
+ 
+  login: x
+  Password: 
+  Login incorrect
+  login:
+</pre>
+<b>A: </b>
+  There are several possible explanations here:<br/>
+<ol>
+<li> You forgot the PORT NUMBER, I.e 2000, you should connect to 
+       port 2000 of the computer. If you get something like that above 
+       you are trying to log onto the unix machine directly, and that is
+       impossible for you. Try to add the 2000 as a portnumber somewhere
+       in your telnet application, in unix like this:<br/>
+<b>mud.lysator.liu.se 2000</b>
+<li> Some account providers in the states make it so that you 
+       can't connect to certain ports and sometimes (altho I dont know
+       why/how) they get to connect but time out after a while. There is
+       nothing WE can do about it.
+  <li> There is something else that is wrong, and in this case you are on your
+       own - again.
+  </li></li></li></ol><p>
+<li><b>Q: </b> What happened? My character is suddenly reserved!?<br/>
+<b>A: </b>
+     If you manage to logoff without earning any experience points or money
+     for the caracter, there will be about an hour before the character is
+     available for a new try.<p>
+<li><b>Q: </b> Can I play with email?<br/>
+<b>A: </b>
+     No. It is an interactive, roleplaying simulation with lots of 
+     action.<p>
+<li><b>Q: </b> Why doesn't http://mud.lysator.liu.se:2000 work from my
+    browser?<br/>
+<b>A: </b>
+     telnet://mud.lysator.liu.se:2000 is the correct thing if you want
+     to start a telnet session from your browser.<p>
+<li><b>Q: </b> Why doesn't telnet://mud.lysator.liu.se:2000 work from my
+    browser?<br/>
+<b>A: </b>
+     Your system might lack a telnet application, or your browser does not
+     know where it is. As it is a local problem, it must be solved locally;
+     ask your local system administrator or call your vendor.
+    <p>
+<li><b>Q: </b> Why do I get file not found when i click on the connect thing
+     on the NannyMUD homepage?<br/>
+<b>A: </b>
+    That is a local problem at YOUR computer. It probably means that
+    browser can't find a telnet application to start on your disc, and
+    that is a problem you or your system administrator have to fix.
+    <p>
+<li><b>Q: </b> I press enter but nothing happens, what is wrong?<br/>
+<b>A: </b>
+    That is also a 'local' problem, meaning that it has to do with 
+    the preferences on YOUR computer and terminal program. Unfortunately, there
+    are standard differences in the computer world, even for linefeed and 
+    the carriage return. Some computers, like PCs tend to send two characters
+    for linefeed, both "LF" and "CR", ascii codes 10 and 13. The mud only
+    listens to LF, ascii code 10. Consult your terminal manual or local
+    administrator to configure your program to send the correct linefeed code
+    to the mud. Please, <b>don't</b> send us mails asking how you should do
+    in the program that YOU run, there are hundreds of terminal programs in
+    the world and we can't possibly know how all work!<br/>
+    You can usally try if this is the problem by pressing CTRL-j instead of
+    enter.<p>
+<li><b>Q: </b> I can logon as guest, but when I try to logon as a real char
+    and I have typed the password nothing happens, what is wrong?<br/>
+<b>A: </b>
+    That is also a 'local' problem, meaning that it has to do with 
+    the preferences on YOUR computer and terminal program. When the text
+    password is written a local-echo-off is sent from the mud so the password
+    does not appear on your screen while you are writing. Once you have entered
+    the password a local-echo-on signal is sent from the mud. Unfortunately, some
+    client programs seems to be unable to understand those standard signals.
+    In some clients it might be possible to turn on local echo manually, some
+    other clients hangs when they get these signals. In this case try to download
+    a newer better client/telnet aplication that has this bug fixed.
+    Since players use so many platforms we can not keep updated pointers to
+    clients for all computers. For Windows 3.x, Windows 95 and Windows NT the
+    sites <a href="http://www.lysator.liu.se/~zander/ewan_dl.html">http://www.lysator.liu.se/~zander/ewan_dl.html</a> and
+    <a href="http://djr.com/~dkt/win95/telnet/telnet.html">http://djr.com/~dkt/win95/telnet/telnet.html</a> currently (961023) have telnet programs. For Mac try checking
+    out <a href="http://ftp.sunet.se/pub/mac/telnet">this link.</a>
+<p>
+<li>
+<b>Q: </b> I have read everything in the FAQ about login and i can't login anyway.<p>
+<b>A: </b>
+	  Oki, here goes:
+<pre>
+_weird prompt_&gt;telnet mud.lysator.liu.se 2000
+Trying 130.236.254.159 ...
+Connected to mud.lysator.liu.se.
+Escape character is '^]'.
+
+  ___A___                                   ___A___
+ ( __ __ )_________________________________( __ __ )
+  |  \  |                                   |  \  |
+  |  \  |         Welcome to the            |  \  |
+  |  \  |                                   |  \  |
+  |  \  |   NannyMUD MultiUser Adventure.   |  \  |
+  |  \  |                                   |  \  |
+  |  \  |     Driver: NannyMOS 1.12.2       |  \  |
+  |  \  |    Number of players on:  50      |  \  |
+  |  \  |                                   |  \  |
+  |  \  |  Visitors, use the name 'guest'!  |  \  |
+  |__\__| __________________________________|__\__|
+ (___ ___)                                 (___ ___)
+     V                                         V
+What is your name: "TYPE YOUR CHARACTERS NAME HERE"
+Password: "TYPE YOUR PASSWORD HERE"
+
+</pre>
+
+	  If you give a new name (I guess that is what you want) it will say
+	  'New character.' directly after the 'What is your name:' line.
+	  If not, you have entered a name that already exists and NannyMUD
+	  will ask your for THAT characters password. It can also say
+	  'That name is reserved.' and that means you are not allowed to have
+	  that name. So pick another one.<br/>	  
+	  When you have got this far, just answer the questions the mud
+	  asks you and you are now playing NannyMUD.
+      </p></li></p></li></p></li></p></li></p></li></p></li></p></li></p></li></p></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>What is a login queue?<br/>
+<b>A: </b>
+    A login queue is a queue that you end up in when the game is full and does
+    not accept more players. People in the queue is on hold, and allowed on 
+    as soon as somebody else quits. First into the queue is also first onto
+    the game; this might take some time, however.
+    <p>
+<li><b>Q: </b>Why won't NannyMUD start a login queue?<br/>
+<b>A: </b>
+    There are many reasons not to have a login queue. Here are two:
+    <ol>
+<li>A login queue does not solve the basic problem, which is that the game
+        is run on a machine with less than adquate resources. A new machine would
+	probably solve the problem. Donate to this noble cause.
+    <li>In an environment with limited resources, no cost for the user and a great
+        demand, creating a login queue would eventually result in that you try
+        to login to the queue, and find that full, rather than trying to login
+        to the game and find that full. Thus, a login queue would be less than
+        useful.
+    </li></li></ol>
+</li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>What is a reset?<br/>
+<b>A: </b>
+    A reset is a way of re-freshing the game; many things are made to happen
+    when reset occurs. Monsters might re-appear, magic might get restored etc.
+    <p>
+<li><b>Q: </b>When is the next reset?<br/>
+<b>A: </b>
+    This is a well-kept secret, and it will not be revealed to a mortal. Spare
+    yourself some frustration, do not ask this. Those who can answer, won't.
+    </li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Why isn't the item where it should be?<br/>
+<b>A: </b>
+    Isn't it? How can you be so sure that you know where it should be? Perhaps
+    you have been plain lucky so far, that it appeared in the same place every
+    time? Or perhaps the creating wizard made a small change to his/her/its
+    creation?
+    </li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>How do I get a character on NannyMUD<br/>
+<b>A: </b>
+    It is very easy, in most cases. You pick a name you want and try to log in
+    with it. If the name is already in used, or not allowed (e.g sysop, root,
+    shithead), you will be told so. If the name is ok, you will be asked for a
+    password etc. Some sites have <a href="#acces">restriced access</a> to
+    NannyMUD, though.
+    <p>
+<li><b>Q: </b>Do I have to give my email address?<br/>
+<b>A: </b>
+    The email address is used by us when we need to get in touch with you.
+    Should you forget your password, then a valid email address is the minimum
+    requirement for us to attempt to give you a new password. In short, you
+    do not have to give your email address, but we would prefer you to.
+    By default, your email address is only available to the NannyMUD
+    administration.
+    </li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>What is cracking?<br/>
+<b>A: </b>
+    Cracking is when somebody tries to break into a computer system that they
+    do not have legitimate access to. A common way is to figure out the 
+    password of the system administrators. On NannyMUD, cracking attempts are
+    usually people trying to figure out the passwords of the God and the Arches.
+    <p>
+<li><b>Q: </b>Why is it hopeless to try to crack the admin on NannyMUD?<br/>
+<b>A: </b>
+    First, we have all restricted access to a few places. If you try to logg on
+    from somewhere else, you won't even get to write the password for your test.
+    Then, we have all very good passwords. We run tests on our passwords using
+    cracking programs, and if the passwords fail that, we pick another.
+    <p>
+<li><b>Q: </b>What will happen if I try to crack NannyMUD?<br/>
+<b>A: </b>
+    Not much will happen. Eventually we will get fed up with the bad manners,
+    and block your access. This block might be in effect for a while, or it might
+    stay forever. We will probably also mail your sysop with a complaint. This
+    usually makes him aware of that people are playing MUD on his machines, and
+    then he might cut off any external access you had. Yes, this has happened.
+    </li></p></li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Why can't I shout whatever I want over the whole of the game?<br/>
+<b>A: </b>
+    The shout command is a very powerful one. What you shout is heard by about
+    everyone logged on and then some monsters. If you abuse it, you might very
+    well end up not having this command available for an hour or so. This
+    temporary removal is called 'a shout curse'. Now follow some examples of
+    shouts that would quite possibly be followed by a shout curse:<br/>
+    foo where R U??????????<br/>
+    AAAAAARGH!!!!!! LAGGGGGGGGG!!!!!<br/>
+    who stole my kill?????<br/>
+    all foobars are assholes!!!!<br/>
+    sword for sale at green, 10000 coins!<br/>
+    You might think that the last example is a little harsh, but see 
+    <a href="#trade">About trade</a> below.
+    </li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Where can I buy whatever item I need?<br/>
+<b>A: </b>
+    There are several points in the game where you can get different equipment.
+    The shop in the central village is a good point to start looking if you need
+    something. If it is not there, ask the members of The Traders Club. Whatever
+    you do, <b>do not</b> start shouting your need over the game.
+    <p>
+<li><b>Q: </b>How do I join The Traders Club?<br/>
+<b>A: </b>
+    All you have to do is to find the club tent, enter it and join. A search near
+    the small clearing west of the village will probably be enough to find it.
+    <p>
+<li><b>Q: </b>What is the purpose of The Traders Club?<br/>
+<b>A: </b>
+    To supply a forum in which players can trade with other interested players.
+    The club has a chat line, which interested players listen to. If they are not
+    listening, they are not interested. Thus, using shouts instead of the line
+    will only render you a shout curse. See also <a href="#shout">About shouting</a>
+    above.
+    </li></p></li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>What does restricted access mean?<br/>
+<b>A: </b>
+    Restricted access means that people at some sites cannot freely connect to and
+    play NannyMUD. Special measures must be taken if they are to be allowed on line.
+    There are two types of restrictions:<br/>
+<ol>
+<li>Nobody from the site is allowed to log on.
+    <li>No new players are accepted from the site.
+    </li></li></ol>
+<p>
+<li><b>Q: </b>How do I know if my site has restricted access?<br/>
+<b>A: </b>
+    A message to that effect is printed when you try to log on, and then the
+    connection is closed.
+    <p>
+<li><b>Q: </b>Why does my site have restricted access?<br/>
+<b>A: </b>
+    It is very simple. People from your site have behaved badly (harrased others,
+    repeatedly shouted profanities, tried to <a href="#crack">crack</a> the admins
+    passwords, etc.), and we have got fed up with their behaviour. Banning their
+    characters did not help, they just logged on new ones. Thus, once again, a few
+    bad apples have spoiled the fun for the whole basket.
+    <p>
+<li><b>Q: </b>Can I personally be allowed to play from a restricted site?<br/>
+<b>Q: </b>How can I play if my site has restricted access?<br/>
+<b>A: </b>
+    Yes, it might be possible for you personally to play from a restricted site.
+    You will have to email us an application. Such a request might or might not
+    be granted, and it might well take some time before we have time to process
+    your application.
+    </li></p></li></p></li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Why can't I get my HP and SP in the prompt?<br/>
+<b>A: </b>
+    In short, because it cannot be made reliable with reasonable expense.<br/>
+<p>
+<li><b>Q: </b>So how can I keep track of my HP/SP?<br/>
+<b>A: </b>
+    You can use the 'hpinfo' command to see your current status, and you can
+    toggle it so it will automatically show your status when it has changed.
+    This is both inexpensive to the driver, and accurate.
+    </li></p></li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Can I put up a WWW page with NannyMUD related things?<br/>
+<b>A: </b>
+    You can of course put up a WWW page with things related to NannyMUD. If you
+    want to have the
+    <a href="http://www.lysator.liu.se/nanny/pics/NannyMUD.small.jpg">Dragon Picture</a>
+    on your page, you should include it through an URL to the original, and not
+    by copying it.
+    </li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Can you help me create my own MUD?<br/>
+<b>A: </b>
+    Many people ask us for help with creating an on-line, multi-player
+    role-playing environment like NannyMUD. Unfortunately, we do not
+    have the resources to do so. We recommend that you visit some search
+    engine on the net, and search for 'mud build resource'. You should
+    get quite some hits, and then you just have to read on.
+    
+</li></ul>
+<br/>
+<ul>
+<li><b>Q: </b>Why does my telnet in Windows XP lock up?<br/>
+<b>A: </b>
+    Problem:
+    The builtin Telnet in Windows XP, appears to lockup after the
+    password prompt. What happens is that the 'enter' you press
+    after typing the password is not interpreted correctly, and it
+    appears that your telnet has 'locked up'.
+    </li></ul></p><p>
+    There are several workarounds:
+    <ul>
+<li> If you press 'ctrl+enter' instead of 'enter', it will work.
+         This will have to be done during the entire telnet session,
+	 which you might find awkward.
+    <li> If you press the escapecode in telnet, often 'ctrl+]', you
+	 can type 'set crlf'. This will make sure all enter-keys
+	 will be interpreted correctly even after the password prompt.
+    <li> Download and use an alternative mudclient. Some can be found
+         (2002-04-18) at
+	 <a href="http://www.tucows.com/home/mud95.html">
+	 http://www.tucows.com/home/mud95.html</a>.
+    </li></li></li></ul>
+
+</p>

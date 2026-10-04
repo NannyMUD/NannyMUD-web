@@ -1,0 +1,264 @@
+Wiz Snafu licks Gurk with a bonecrushing sound.
+Wiz Gurk wants Kerish, Snafu and you secretly.
+Wiz Kerish blinks.
+Wiz Kerish lusts for Gurk.
+Wiz Snafu snickers.
+Wiz Snafu loves Gurk with a bonecrushing sound.
+Wiz Snafu rolls on the floor laughing.
+Wiz You softly kiss the palm of your hand and blow your kiss
+    affectionately in Gurk's direction. It lands on his forehead!
+Rock.
+Wiz Gurk grins evilly.
+Wiz Gurk pets Thargor.
+Wiz Snafu wiggles its bottom.
+Wiz Thargor: 'lo folks ;)
+Wiz Kerish licks Thargor.
+Wiz Gurk gurks you very hard.
+Wiz Snafu licks Thargor with a bonecrushing sound.
+Wiz Thargor hides behind himself.
+
+Augustus tells you: eval object ob; foreach(ob, users())
+         if(ob->query_level() > 20) tell_object(ob, "Rock.\n"); <22:33>
+
+You reply to Augustus: fear.
+
+You told Augustus: print (/obj/player.clones).ffilter(x->query_level()<20
+         ? destruct(x) : x->fooble())
+
+...a couple seconds pass...
+
+The friendly clerk tells you: Backstab just left NannyMUD.
+The friendly clerk tells you: Carousel just left NannyMUD.
+The friendly clerk tells you: Backstab just entered.
+
+You told Augustus: actually, print
+         (/obj/player.clones).ffilter((x->query_level()<20) && destruct(x))
+
+Backstab shouts: what the heck
+
+Augustus tells you: bad weifcr <22:35>
+
+Wiz Taren hmms.
+
+You reply to Augustus: hehe.
+
+Wiz You wonder.
+Wiz Earendil hides iteratively behind himself.
+Wiz Astrodeath raises an eyebrow.
+Wiz Kerish licks Taren.
+Wiz Augustus: Damn Weifcr made me do it
+Wiz Snafu: wtf
+
+Dolemite shouts: what the heck was that
+
+Wiz You blink and peer at Augustus.
+Wiz Augustus bonks you on the head.
+Wiz Weifcr: You DID that ??
+Wiz Taren: exactly what did you do?
+
+Zephra shouts: nice very nice
+
+[Barbers] Weifcr: OH FEAR!
+[Barbers] Snafu: who did it? augustus ?
+[Barbers] Weifcr: he did print (/obj/player.clones).ffilter(x->
+          query_level() < 20 ? destruct(x) : x->fooble())
+[Barbers] Snafu: laf!!
+
+Wiz You live in fear.
+Wiz Augustus: Weifcr tells you: print (/obj/player.clones).ffilter(
+       x->query_level()<20 ? destruct(x) : x->fooble())
+Wiz Snafu lives in fear.
+
+Birdy shouts: That was fun...
+
+Wiz You fear Augustus really.
+
+[Barbers] Snafu: laf
+[Barbers] Snafu: ya didnt think he'd do it?
+[Barbers] Weifcr: oh my.
+[Barbers] Snafu rolls on the floor laughing.
+
+Zephra shouts: please one more time
+
+Wiz Augustus: or maybe it was the other one.
+
+[Barbers] Weifcr: sure didnt
+
+A giant foot drops from the sky and squashes Augustus flat.
+
+Birdy shouts: KICK ME!!!!!
+
+Wiz Kerish chuckles.
+Wiz Snafu grins evilly at Augustus.
+Wiz Taren: not very smart now was it?
+Wiz You look at Augustus and live in fear.
+
+
+[Barbers] Snafu: laf hard!!
+
+[Seconds Out Information] Beldin enters the game.
+
+Wiz Snafu lives in fear.
+
+The friendly clerk tells you: Beldin just entered.
+
+Wiz Gurk: wtf happened?
+
+[Barbers] Weifcr: laf that hard.
+[Barbers] Snafu: nog!!
+[Barbers] Weifcr: Oh my. Fear him.
+[Barbers] Snafu grins evilly.
+[Barbers] Snafu: my eyes are tearing
+
+Wiz Gurk: (I didnt notice anything)
+Wiz Augustus: Teach me for listening to Weifcr
+
+You hear Augustus hmming thoughtfully at you.
+
+Wiz Snafu: beware anything that says destruct
+Wiz Weifcr: It wasn't meant to be done. Rather to be giggled at.
+Wiz Snafu grins evilly.
+Wiz Taren: some players got dested...
+Wiz Snafu agrees with Taren.
+
+[Seconds Out] Beldin: how?
+
+Wiz Augustus: Why tell me things if I can't do em?
+
+[Seconds Out] Weifcr: print (/obj/player.clones).ffilter(x->
+              query_level()<20 ? destruct(x) : x->fooble())
+
+Wiz Earendil dials up the Psychic Network, and is told that Augustus
+    will soon see a few of his levels disappear.  Like around 22 of them.
+    He goes "Wow! these people really know what they're talking about!"
+
+[Seconds Out] Snafu grins evilly.
+
+Wiz Beldin: So that you know not to do them if you find them out on your
+    own.
+Wiz Snafu winks suggestively at Earendil.
+Wiz Beldin spanks Augustus on the butt.
+Wiz Augustus: I just thought it would print something out.
+Wiz Augustus: to me. not the whole mud
+
+[Barbers] Weifcr: oh fear.
+
+Wiz Shanta grins evilly.
+
+Kytten shouts: milan if you're on -- got our stuff
+
+[Barbers] Weifcr: I cant help but laugh.
+
+Augustus tells you: Bad weifcr. <22:38>
+
+[Barbers] Snafu grins evilly at you.
+
+You reply to Augustus: I can't believe you actually did it.
+
+Dolemite shouts: anyone find four orbs?? I REALLY NEED THEM back!!
+
+Wiz Thargor tries to laugh uncontrollably, but fails miserably.
+
+[Barbers] Slag: laugh at what?
+[Barbers] Weifcr: Augustus.
+
+Augustus tells you: Well, like I say I thought it would just print
+         something out to me. <22:39>
+
+[Barbers] Snafu: laf hard at augustus
+[Barbers] Weifcr: He actually typed in a command I sent to him to laf
+          about.
+[Barbers] Snafu snickers hard and uncontrollably.
+[Barbers] You agree.
+[Barbers] Slag: what was it?
+[Barbers] Snafu: methinks he's trying to find a hole to hide in
+
+Wiz[foo] Astrodeath: laflaflaflaflaf.
+Wiz[foo] Snafu nogs at Astrodeath.
+Wiz[foo] You nod atrociously.
+Wiz[foo] Weifcr: err.
+
+Wiz Earendil: print users.ffilter(x->query_real_name()=="augustus" ?
+    destruct(x) : tell_object(x, this_player()->query_name()+
+    " tells you: so long!\n")
+Wiz Snafu grins evilly at Earendil.
+Wiz You lick Earendil.
+Wiz Augustus: I think I had enough of that for today.
+Wiz Earendil: go on! It's just, em, print some stuff!
+Wiz Augustus: Um, yeah, print some stuff. sounds reasonable.. print...
+Wiz Snafu winks suggestively at Earendil.
+
+[Barbers] Weifcr: print (/obj/player.clones).ffilter(x->
+          query_level()<20 ? destruct(x) : x->fooble())
+[Barbers] Slag: fooble()?
+[Barbers] Weifcr: just to have something
+[Barbers] Slag: ah heh
+[Barbers] Slag: i don't like the ? operator...crashed the mud twice with
+          that mofo
+[Barbers] Slag snickers.
+[Barbers] Snafu: nog
+
+Wiz Beldin: better still, print users->set_playerkilling(1)
+Wiz Snafu: laf!!
+Wiz You chuckle.
+Wiz Gurk agrees with Beldin.
+Wiz Snafu grins murderously at Beldin.
+Wiz Snafu licks Augustus bloodthirstily.
+
+[Seconds Out] You chuckle helplessly.
+
+Wiz Beldin: or, even better: print users->restore_me()
+
+[Barbers] Snafu: that'd be fearsomne
+[Barbers] Slag: i kinda fear what your command does weifcr...maybe i'm
+          reading it wrong
+
+You demonically tickle Augustus to death!
+
+Wiz Beldin: nice and insidious
+
+[Barbers] Snafu winks suggestively.
+[Barbers] Weifcr: It would just destruct all players with lev < 20
+[Barbers] Snafu: hehe
+[Barbers] Slag: that's what i thought
+[Barbers] Snafu grins evilly at Slag.
+[Barbers] You nod solemnly at Slag.
+[Barbers] Snafu: try it with >..snicker
+[Barbers] Slag: i like the 'just';)
+[Barbers] Slag: so he dested all morts?
+[Barbers] Snafu: nog!
+[Barbers] You chuckle.
+[Barbers] Slag rolls on the floor laughing.
+[Barbers] Slag cackles gleefully.
+[Barbers] Slag: whatta nut
+[Barbers] Weifcr: hehe
+[Barbers] Snafu winks suggestively.
+
+Wiz Snafu: heh
+Wiz Beldin: everyone loses all the xp, coins, levels etc since last
+    autosave
+Wiz Snafu: noggle
+Wiz Beldin: but none of the eq
+Wiz Augustus: Hmm, how come people like me can use the print command?
+Wiz Astrodeath: sneaky bastard.
+Wiz Astrodeath winks.
+Wiz Snafu: we can prevent it
+Wiz Beldin: for the same reason you can use eval or patch or clone or
+    destruct
+Wiz Beldin: because it's a legitimate wizcommand
+Wiz Augustus: ah. never heard of it.
+
+Avery shouts: Fuck off losers!
+
+The friendly clerk tells you: Augustus regained the connection.
+
+[Barbers] Snafu prints weifcr->fooble();
+[Barbers] You giggle merrily.
+
+You softly kiss the palm of your hand and blow your kiss affectionately
+to Augustus. It lands directly on his mouth!
+
+An invisible hand flies into the room and pokes you suddenly in the ribs.
+You get the feeling it came from Augustus.
+
+[Barbers] Weifcr: When Taren goes 'hmmm' you know something is wrong.

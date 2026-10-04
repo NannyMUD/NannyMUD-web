@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card">
+<p class="nm-small"><a href="/help/">Help</a>{% if "/" in name %} / <a href="/help/{{ name.split("/")[0] }}/">{{ name.split("/")[0] }}</a> / {{ name.split("/")[1] | replace("_", " ") }}{% else %} / {{ name }}{% endif %}</p>
+<pre>{{ text }}</pre>
+</article>
+{% endblock %}

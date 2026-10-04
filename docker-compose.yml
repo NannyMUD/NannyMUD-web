@@ -1,0 +1,83 @@
+# NannyMUD on the web: the site, built every night from the mud's
+# export, and the player wiki. Bring it all up with ./run.sh.
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NANNY_DATA_DIR: /data
+      NANNY_OUT_DIR: /public/site
+      TZ: Europe/Stockholm
+    volumes:
+      - site:/public
+      - data:/data
+
+  web:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on: [mediawiki]
+    ports:
+      - "${NANNY_HTTP_PORT:-8080}:80"
+    volumes:
+      - site:/public:ro
+      - mwcode:/mediawiki:ro
+      - ./wiki/images:/mediawiki-images:ro
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  # MediaWiki as PHP-FPM only; nginx serves its files and passes PHP on.
+  # Each start copies the image's code into mwcode, so a new image
+  # version is always what nginx sees.
+  mediawiki:
+    image: mediawiki:1.43.9-fpm
+    restart: unless-stopped
+    depends_on: [database]
+    environment:
+      # LocalSettings.php lives in wiki/settings/, outside the image
+      MW_CONFIG_FILE: /var/www/html/settings/LocalSettings.php
+    volumes:
+      - mwcode:/srv/mwcode
+      - ./wiki/images:/var/www/html/images
+      - ./wiki/settings:/var/www/html/settings:ro
+    entrypoint: >
+      sh -c "find /srv/mwcode -mindepth 1 -maxdepth 1 -exec rm -rf {} + &&
+             cp -a /var/www/html/. /srv/mwcode/ &&
+             rm -rf /srv/mwcode/images /srv/mwcode/settings &&
+             exec docker-php-entrypoint php-fpm"
+
+  database:
+    image: mariadb:11.7.2
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${WIKI_DB_NAME:-my_wiki}
+      MARIADB_USER: ${WIKI_DB_USER:-wikiuser}
+      MARIADB_PASSWORD: ${WIKI_DB_PASSWORD:?set WIKI_DB_PASSWORD in .env}
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - wikidb:/var/lib/mysql
+
+  # Nightly: the wiki's database and files to a PRIVATE git repository.
+  wikibackup:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backup
+    restart: unless-stopped
+    depends_on: [database]
+    env_file: .env
+    environment:
+      TZ: Europe/Stockholm
+      WIKI_DB_NAME: ${WIKI_DB_NAME:-my_wiki}
+      WIKI_DB_USER: ${WIKI_DB_USER:-wikiuser}
+    volumes:
+      - wikibackup:/backup
+      - ./wiki/images:/images:ro
+      - ./wiki/backup_key:/run/backup_key:ro
+
+volumes:
+  site:
+  data:
+  mwcode:
+  wikidb:
+  wikibackup:

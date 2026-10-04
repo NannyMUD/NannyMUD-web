@@ -1,0 +1,29 @@
+{% from "_discord.html" import discord_band %}
+<p>NannyMUD is a text game you play over the internet with a MUD client. It is free, and you need nothing but a client and the address:</p>
+<pre>mud.lysator.liu.se   port 2000</pre>
+
+<h2>First steps</h2>
+<ol>
+<li>Open your client and connect to <code>mud.lysator.liu.se</code>, port <code>2000</code>.</li>
+<li>Type a name to make a new character, or <code>guest</code> to look around first.</li>
+<li>In the game, type <code>help newbie</code>. The same pages are <a href="/help/newbie/">on this site</a>, and so is <a href="/newbie-booklet/">the Newbie Booklet</a>.</li>
+</ol>
+
+<h2>Clients</h2>
+<p>A MUD client keeps what you type apart from what the game sends, remembers your commands, and lets you write aliases and triggers. Any of these will do:</p>
+<div class="nm-table-wrap"><table class="nm-table">
+<thead><tr><th>Client</th><th>Runs on</th><th>Good for</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.mudlet.org/">Mudlet</a></td><td>Windows, macOS, Linux</td><td>The usual choice today: a window per channel, maps, and scripting in Lua.</td></tr>
+<tr><td><a href="https://tintin.mudhalla.net/">TinTin++</a></td><td>Linux, macOS, Windows</td><td>Playing in a terminal, also over ssh from another machine. Its own scripting language.</td></tr>
+<tr><td><a href="https://github.com/Blightmud/Blightmud">Blightmud</a></td><td>Linux, macOS</td><td>A terminal client scripted in Lua.</td></tr>
+<tr><td><a href="https://www.gammon.com.au/mushclient/mushclient.htm">MUSHclient</a></td><td>Windows</td><td>A long-standing Windows client with plugins in Lua.</td></tr>
+</tbody>
+</table></div>
+
+<h2>Plain telnet</h2>
+<p>Without a client, telnet works too:</p>
+<pre>telnet mud.lysator.liu.se 2000</pre>
+<p>On Windows, telnet has to be turned on first under Windows Features ("Telnet Client"). Recent macOS no longer ships it; <code>nc mud.lysator.liu.se 2000</code> works instead. On Linux it is in the <code>telnet</code> package.</p>
+
+{{ discord_band(discord) }}

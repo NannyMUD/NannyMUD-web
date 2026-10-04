@@ -1,0 +1,62 @@
+<!-- title: Events and Incidents -->
+<!-- from: www/events.html -->
+<h2>Padrone says: Oops.</h2><p>We were all happily mudding, running around, bashing monsters,
+chatting, creating etc., when suddenly Padrone says 'Oops'. This
+was mighty strange, since we couldn't recollect Padrone being in
+the same location as us. We did 'look' and to our surprise, we found
+ourselves in Padrones workroom.</p>
+<p>Padrone had just tested his new toy, a wiztool in the form or a 
+staff (yes, yet another one). You programmed it in LISP, and 
+during one evaluation padrone made an error. All players currently
+in the game appeared in his workroom...</p>
+<h2>The Vasques Incident</h2><p>In late November 1993, somebody cracked the password of the wizard
+Vasques. There had been quite some cracking activity from the labs
+at the Computer Science Department before this, and a guess is that
+they now had succeded.</p>
+<p>The character Vasques logged on and coded a small LPC program that
+killed all players again and again until they all had level 1; then
+it kicked them out, but not before it had made them save their new
+status. In those days, backup was a rare happening, so this incident
+caused a lot of loss and grief.</p>
+<p>Of course Vasques was demoted; one is always responsible for what ones
+character does. The password should be a carefully kept secret, change
+now and then and be impossible to crack.</p>
+<h2>Mym at Play</h2><p>In late November 1996, a wizard named Mym discovered the hard way what
+a powerful tool the shell can be, and why one should perhaps set the
+"dangerlevel" of that tool. He was coding away as usual, chatting on the
+wizline and just being his usual character, when he managed to make a
+fatal spelling error. Instead of destructing just the faulty object he
+was working on, he managed to tell the shell to destruct every object with
+a call_out() running... this included all shells, some player objects
+and all guild objects. Fortunately,
+the cost of this showed to be too much and not everything went down the
+drain. Let us have a look at the top 13 most popular items destructed:</p>
+<table>
+<tr><td>Popularity</td><td>Nr destructed</td>
+<td>File name</td><td>Description</td></tr>
+<tr><td>1</td><td>76</td>
+<td>/std/tools/brainloader</td><td>The shell itself</td></tr>
+<tr><td>2</td><td>22</td>
+<td>~akasha/obj/locket</td><td>The Lover's Locket</td></tr>
+<tr><td>3</td><td>22</td>
+<td>/guilds/monks/obj/herb</td><td>Monk guild's healing herbs</td></tr>
+<tr><td>4</td><td>19</td>
+<td>/obj/corpse</td><td>A decaying corpse</td></tr>
+<tr><td>5</td><td>12</td><td>/guilds/khorne/collar/collar</td>
+<td>The Khorne guild's guild object</td></tr>
+<tr><td>6</td><td>9</td>
+<td>/obj/soul</td><td>The infamous NannyMUD soul</td></tr>
+<tr><td>7</td><td>5</td>
+<td>/obj/player</td><td>Players logged on</td></tr>
+<tr><td>8</td><td>3</td>
+<td>~earendil/obj/lantern</td><td>A rather common light source</td></tr>
+<tr><td>9</td><td>3</td>
+<td>/guilds/magicians/obj/light_ob</td><td>A magic light</td></tr>
+<tr><td>10</td><td>2</td>
+<td>sheep!</td><td>A monster with the name "sheep"</td></tr>
+<tr><td>11</td><td>2</td>
+<td>/obj/torch</td><td>A mundane light source</td></tr>
+<tr><td>12</td><td>2</td><td>/guilds/druids/tree_facade</td>
+<td>The Druid guild's guild entrance</td></tr>
+<tr><td>13</td><td>2</td><td>/guilds/adv_guild/adv_guild</td>
+<td>Guild object of the Adventurers</td></tr></table>

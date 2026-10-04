@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% macro role_tables(groups) %}
+{% for role, people in groups %}
+<h2>{{ role }}</h2>
+<div class="nm-table-wrap"><table class="nm-table nm-fixed">
+<colgroup><col><col class="nm-w-date"></colgroup>
+<thead><tr><th>Name</th><th>Last seen</th></tr></thead>
+<tbody>{% for s in people %}
+<tr><td>{{ s.name }}</td><td>{{ s.seen | day }}</td></tr>
+{% endfor %}</tbody></table></div>
+{% endfor %}
+{% endmacro %}
+{% block main %}
+<article class="nm-card">
+<h1>Administration</h1>
+<p>The administration takes care of NannyMUD and sees to it that it works. The God is the project administrator, the driver wizards work on the driver, while the Arch Wizards mainly work on the Mudlib. The High Wizards supervise various parts of the creating process of new parts of the world, and also help wizards with their creating.</p>
+{{ role_tables(active) }}
+{% if inactive %}
+<details class="nm-inactive">
+<summary>Inactive, not seen for over a year ({{ inactive | map(attribute=1) | map("length") | sum }})</summary>
+{{ role_tables(inactive) }}
+</details>
+{% endif %}
+</article>
+{% endblock %}

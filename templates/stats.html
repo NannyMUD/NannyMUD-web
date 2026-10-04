@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% macro bar_rows(rows, cls="") %}
+<div class="nm-bars {{ cls }}">{% for b in rows %}
+<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s></i><b>{{ b.value }}</b></div>{% endfor %}
+</div>
+{% endmacro %}
+{% block main %}
+<article class="nm-card">
+<h1>Stats</h1>
+<p>Numbers from the game itself, counted every hour and gathered every night.</p>
+<div class="nm-facts">
+{% if players %}<div class="nm-fact"><b>{{ players.now }}</b><span>players on now</span></div>{% endif %}
+{% if uptime and uptime.current %}<div class="nm-fact"><b>{{ uptime.current }}</b><span>since the last reboot</span></div>{% endif %}
+{% for label, value in totals %}<div class="nm-fact"><b>{{ value }}</b><span>{{ label | lower }}</span></div>{% endfor %}
+</div>
+
+{% if players %}
+<h2>Players online</h2>
+<p>{{ players.now }} on at the last count{% if players.wizards is not none %}, {{ players.mortals }} mortals and {{ players.wizards }} wizards{% endif %}. In the last day at most {{ players.day_peak }} were on at once, {{ players.day_avg }} on average. The most this month was {{ players.peak }}, on {{ players.peak_when }}.</p>
+{% if players.chart %}<div class="nm-chart-box">{{ players.chart | safe }}</div>{% endif %}
+{% if players.daily_chart %}<h3>The busiest moment of each day</h3>
+<div class="nm-chart-box">{{ players.daily_chart | safe }}</div>{% endif %}
+{% if players.by_hour | length > 1 %}<h3>Players on by hour of the day</h3>
+<p class="nm-muted nm-small">The average at each hour of the mud's clock, Swedish time, over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }}.</p>
+{{ bar_rows(players.by_hour, "nm-bars-tight") }}{% endif %}
+{% endif %}
+
+{% if uptime %}
+<h2>Uptime</h2>
+<p>{% if uptime.booted %}The mud last rebooted on {{ uptime.booted }} and has been up {{ uptime.current }}. {% endif %}It has logged {{ uptime.boots }} boots since {{ uptime.since }}{% if uptime.year_reboots %}, {{ uptime.year_reboots }} of them in the last year{% endif %}.{% if uptime.year_median %} A run in the last year lasted {{ uptime.year_median }} at the median.{% endif %}{% if uptime.record %} The longest run on record is {{ uptime.record }}, from {{ uptime.record_when }}.{% endif %}</p>
+{% if uptime.recent %}<h3>The last runs</h3>
+<div class="nm-table-wrap"><table class="nm-table nm-fixed">
+<colgroup><col><col class="nm-w-date"></colgroup>
+<thead><tr><th>Booted</th><th>Up for</th></tr></thead>
+<tbody>{% for r in uptime.recent %}<tr><td>{{ r.start }}</td><td>{{ r.length }}</td></tr>{% endfor %}</tbody>
+</table></div>{% endif %}
+<details class="nm-more"><summary>Boots per year</summary>
+{{ bar_rows(uptime.per_year, "nm-bars-tight") }}
+</details>
+{% endif %}
+
+{% if shops %}
+<h2>The main shop</h2>
+<p>Since the last reboot the shop in the village has bought {{ shops.bought }} items from players and paid {{ shops.gold }} gold for them{% if shops.day_gold %}. Over the last month it paid about {{ shops.day_gold }} gold a day, for about {{ shops.day_items }} items{% endif %}.</p>
+{% if shops.hour_chart %}<h3>By the hour, the last week</h3>
+<div class="nm-chart-box">{{ shops.hour_chart | safe }}</div>
+{% if shops.hour_items_chart %}<div class="nm-chart-box nm-chart-next">{{ shops.hour_items_chart | safe }}</div>{% endif %}{% endif %}
+{% if shops.day_chart %}<h3>By the day</h3>
+<div class="nm-chart-box">{{ shops.day_chart | safe }}</div>
+{% if shops.day_items_chart %}<div class="nm-chart-box nm-chart-next">{{ shops.day_items_chart | safe }}</div>{% endif %}{% endif %}
+{% if shops.week_chart %}<h3>By the week</h3>
+<div class="nm-chart-box">{{ shops.week_chart | safe }}</div>{% endif %}
+{% if shops.years %}<h3>By the year</h3>
+<div class="nm-table-wrap"><table class="nm-table nm-fixed">
+<colgroup><col><col class="nm-w-date"><col class="nm-w-date"></colgroup>
+<thead><tr><th>Year</th><th class="nm-num">Gold paid out</th><th class="nm-num">Items bought</th></tr></thead>
+<tbody>{% for y in shops.years %}<tr><td>{{ y.year }}</td><td class="nm-num">{{ y.gold }}</td><td class="nm-num">{{ y.items }}</td></tr>{% endfor %}</tbody>
+</table></div>{% endif %}
+{% endif %}
+
+<h2>The economy</h2>
+{% if wealth %}
+<p>The {{ wealth.count }} players seen in the last six months own {{ wealth.total }} gold between them, in coins, in the bank and in what they carry. The median player owns {{ wealth.median }} gold, the average {{ wealth.mean }}, and it takes {{ wealth.p90 }} to be among the richest 10% of players.</p>
+<div class="nm-facts">
+<div class="nm-fact"><b>{{ wealth.top1 }}%</b><span>of all gold, owned by the richest 1% of players</span></div>
+<div class="nm-fact"><b>{{ wealth.top10 }}%</b><span>owned by the richest 10% of players</span></div>
+{% for label, n in wealth.seen %}<div class="nm-fact"><b>{{ n }}</b><span>players seen in {{ label }}</span></div>{% endfor %}
+</div>
+<h3>How the gold is spread</h3>
+<p class="nm-muted nm-small">Players by what they own.</p>
+{{ bar_rows(wealth.buckets) }}
+{% if wealth.total_chart %}<h3>All the gold players own</h3><div class="nm-chart-box">{{ wealth.total_chart | safe }}</div>{% endif %}
+{% if wealth.median_chart %}<h3>What the median player owns</h3><div class="nm-chart-box">{{ wealth.median_chart | safe }}</div>{% endif %}
+{% if wealth.top10_chart %}<h3>The share owned by the richest 10% of players</h3><div class="nm-chart-box">{{ wealth.top10_chart | safe }}</div>{% endif %}
+{% if wealth.inflation is not none %}<h3>Inflation</h3>
+<p>The more gold players own, the less the shops pay. At the moment shops pay {{ wealth.inflation }}% of what an item is worth{% if wealth.inflation < 100 %}, a cut of {{ 100 - wealth.inflation }}%{% endif %}.</p>
+{% if wealth.inflation_chart %}<div class="nm-chart-box">{{ wealth.inflation_chart | safe }}</div>{% endif %}{% endif %}
+{% else %}
+<p class="nm-muted">The money in the game will show here once the IMF reports to the nightly export.</p>
+{% endif %}
+</article>
+{% endblock %}

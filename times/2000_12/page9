@@ -1,0 +1,188 @@
+
+
+
+	So you want to create an area? Well, it's not as easy as it
+	looks! First you have to come up with a winning idea, and
+	not all ideas are good. In this issue of the _Times_ we look
+	at some holiday-themed areas deemed unacceptable for the 
+	mud. For instance, rumored to have gotten the axe recently:
+
+	---
+
+
+Welcome to Santaland! You are standing in the snow outside a little
+red house. There is a snowman here, and a sign on the door.
+  There are no obvious exits.
+An elf.
+An elf.
+An elf.
+
+>read sign
+The sign says "Santa's workshop."
+
+>exa elf
+This is one of Santa's elves! How cute! The little fellow is dressed
+in a green tunic and red boots with bells on the tips.
+The elf says "Merry Christmas!"
+
+>exa elf 2
+This is one of Santa's elves! How cute! The little fellow is dressed
+in a green tunic and red boots with bells on the tips.
+The elf sings carols in a happy, piping voice!
+
+>exa elf 3
+This is one of Santa's elves! How cute! The little fellow is dressed
+in a green tunic and red boots with bells on the tips.
+
+>hmm
+You hmm.
+The elf dances a merry jig.
+The elf sings carols in a happy, piping voice!
+The elf dances a merry jig.
+The elf says "Merry Christmas!"
+
+>kill elf
+You hit Elf.
+Elf says: Eep!
+Elf missed you.
+Elf died.
+
+>kill elf
+You hit Elf.
+The elf says "Merry Christmas!"
+Elf missed you.
+Elf died.
+
+>kill elf
+You hit Elf.
+The elf dances a merry jig.
+Elf missed you.
+Elf died.
+
+>enter house
+The door is closed.
+
+>open door
+You open the door to Santa's house! Merry Christmas! Ho ho ho!
+
+>enter house
+Welcome to Santa's workshop! There is a workbench here covered with
+toys for good girls and boys. If you are lucky, maybe you'll see
+Santa!
+  There is one obvious exit: out.
+An elf.
+An elf.
+An elf.
+An elf.
+An elf.
+Santa.
+
+>exa bench
+It is covered with toys for good girls and boys.
+The elf sings carols in a happy, piping voice!
+The elf dances a merry jig.
+
+>exa toys
+They are wonderful toys! But none of them are finished.
+The elf dances a merry jig.
+The elf dances a merry jig.
+
+>get toys
+You can't get the toys! They're not finished!
+The elf says "Merry Christmas!"
+
+>get toy
+You can't get the toys! They're not finished!
+The elf says "Merry Christmas!"
+The elf dances a merry jig.
+
+>exa elf
+This is one of Santa's elves! How cute! The little fellow is dressed
+in a green tunic and red boots with bells on the tips.
+
+>exa santa
+My, Santa is a big fellow! He sure is jolly! Ho ho ho!
+
+>kill elf
+Elf hit you hard.
+Elf hit you very hard.
+Elf missed you.
+Elf hit you hard.
+Elf tickled you in the stomach.
+Santa roars!
+Santa massacred you into small fragments.
+
+You die.
+You have a strange feeling.
+You can see your own dead body from above.
+The elf dances a merry jig.
+The elf sings carols in a happy, piping voice!
+The elf dances a merry jig.
+The elf says "Merry Christmas!"
+The elf dances a merry jig.
+The elf dances a merry jig.
+
+
+	---
+
+	Not very Christmas-y, eh? Well, let's try New Year's.
+
+	---
+
+
+Yay! It's New Year's! And where are we? Outside an abandoned
+warehouse! There's loud music playing, and you bet there's a rave
+inside. Why don't you join in?
+  There are no obvious exits.
+  
+>exa warehouse
+It's dingy, and it almost visibly pulsates with the music.
+
+>enter warehouse
+Wow, it's dark in here! The music thumps all around you and you see
+writhing bodies in the hypnotic lights that flash throughout the room.
+  There is one obvious exit: out.
+Johnny D.
+
+>exa johnny
+Johnny is very thin. He looks like he wants to sell you something.
+The music thumps in the background.
+Johnny sniffles.
+
+> hmm
+You hmm.
+Johnny twitches convulsively.
+Johnny smiles at you appealingly.
+
+>score smack
+You hand over 1000 gold coins and get your smack.
+
+>take smack
+
+You die.
+You have a strange feeling.
+You can see your own dead body from above.
+Johnny takes everything from your corpse.
+Johnny stuffs your corpse into a garbage can in the corner.
+Johnny streaks out the door.
+The music thumps in the background.
+The music thumps in the background.
+The music thumps in the background.
+Johnny saunters back in. He's empty-handed but he looks richer, somehow.
+Johnny sniffles.
+Johnny twitches convulsively.
+Johnny twitches convulsively.
+Johnny smiles at you appealingly.
+Johnny sniffles.
+
+
+	---
+
+	So you see, mortals, just how hard it is to make a good 
+	area. Amazingly enough, both these areas were turned down by
+	the admin, despite their pleas for more thematic areas!
+	Well, you can't please everyone. 
+
+	That's all for now! Ta ta!
+
+

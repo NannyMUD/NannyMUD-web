@@ -1,0 +1,124 @@
+ 
+ The following puzzles were the puzzles for October 1997. 
+ 
+ Herman Rumplemeir, our local butcher, has grown in stature and girth
+ since coming to work here some 20 years ago. Some interesting facts
+ concerning Herman are:
+ 
+   At age 20 his waist size was 92 cm and his weight was 77 kilos.
+   At age 30 his waist size was 96 cm and his weight was 82 kilos.
+   At age 35 his waist size was 104 cm and his weight was 93 kilos.
+   At age 40 his waist size is 114 cm. What does he weigh?
+ 
+ Prize: 1000 coins.
+ 
+ Skeeve:
+   My guess for puzzle #1 is 106 kilos, using cube-square relationship.
+ Incorrect.
+ 
+ Obelisk:
+   Herman Rumplemeir will weigh 106 kilos at age 40 
+ Incorrect.  
+ 
+ Gabe:
+   He weighs meat, because he's a butcher.
+ Correct. 1000 coins earned.
+ 
+ Rrr:
+   (1) Using a mathematical optimisation technique, I have concluded that 
+   his weight can be estimated from:
+   (0.374246*waist)+(0.00511*waist squared)-(0.03399*age), which gives a 
+   new weight of 107.7116kg. In conclusion, then, he weighs meat - it's his 
+   job.
+ Correct. Honorable mention.
+ 
+   
+   
+   A------B
+   |      |
+   |      |
+   |      |
+   D------C
+ 
+ Four bugs were positioned on top of a table in a square pattern. Each bug
+ was exactly ten inches away from the bug that it was facing. (The bugs are
+ facing so that if they were to start moving, they would move clockwise.)
+ If each bug started crawling simultaneously, and at a constant speed,
+ toward the bug that it faced (A to B, B to C, C to D, and D to A), what
+ distance had each bug traveled when they all met?
+ 
+ Prize: 1000 coins.
+ 
+ Rrr:
+   (2) Ten inches (because they will maintain a constantly perpendicular 
+   relative motion which means that each one's target will neither be 
+   moving towards or away from it, or something like that).
+ Correct. 1000 coins earned.
+ 
+ 
+ Many years ago, an elderly king, his son and daughter, weighing 195 pounds,
+ 105 pounds, and 90 pounds, respectively, were kept prisoners at the top of
+ a high tower in Grimsley Castle. The only communication with the ground
+ below was a cord passing over a pulley with a basket at each end. When one
+ basket rested on the ground the other was opposite the window. Naturally,
+ if one basket were more heavily laden than the other, the heavier would
+ descend; but if the excess on either side were more than fifteen pounds,
+ the descent would be so rapid that none of the prisoners could control it.
+ The only thing available to help them in the tower was a cannonball,
+ weighing 75 pounds. Still, they managed to escape. How did they do it?
+ 
+ Prize: 2000 coins.
+ 
+ Skeeve:
+   They drop the cannonball, use it to lower the daughter, lower son raise 
+   daughter, toss the cannonball down, raise the cannonball and sone lowering 
+   the king, toss out the cannonball, lower the daughter and raise the 
+   cannonball, raise the daughter and lower the son, toss out the cannonball 
+   again and lower the daughter.
+ Correct. 2000 coins earned.
+ 
+ Rrr:
+   (3)
+   1:Put cannonball in upper basket. It falls. Put daughter in other basket. 
+   She (90 lbs) descends & cannonball (75lbs) rises.
+   2:Keep daughter in lower basket, remove cannonball and put son in higher 
+   basket. He (105lbs) descends and daughter (90lbs) rises.
+   3:Drop cannonball, put it and son in lower basket (180lbs), put king 
+   (195lbs) in top basket. He lands safely & son rises to top again.
+   4:Repeat steps 1 and 2 to get son down again.
+   5:Put cannonball in lower basket and daughter in higher basket to get 
+   her down.
+ Correct. Honorable mention.
+ 
+ Hiding in a pub somewhere is that ne'er-do-well, Nicotine Ned. It seems that
+ Ned has fallen on bad times and cannot even afford to buy a decent pack of
+ cigarettes. He is forced to roll his own with the help of that famous
+ invention, the Rapide Cigarette Maker. For tobacco, he saves the butts of
+ previous smokes. He can make one cigarette from three butts. Tonight he has
+ saved ten butts, from which he expects to make five cigarettes. It sounds
+ impossible, but Ned has a plan. Can you smoke out his modus operandi?
+ 
+ Prize: 5000 coins.
+ 
+ Rrr:
+   (4)
+   Start with ten butts
+   Make three cigarettes and smoke them - four butts left.
+   Make one cigarette and smoke it - two butts left.
+   Borrow a butt, make one cigarette, return the borrowed butt.
+ Correct. 5000 coins earned.
+ 
+ 
+ 
+ You are on the top the mountain, among the clouds which rush quickly past.
+ You have a fantastic view of the valley.
+   There is one obvious exit: down.
+ A tall tower.
+ 
+  Prize: 5000 coins.
+ 
+ April had a solution of "from green 4w,12n,nw.2n,u", 20 moves.
+ Oriole had a solution of "2e,n,4w,enter mirror,5e,enter mirror,d,out",
+  or 16 moves.
+ Oriole wins the prize.
+

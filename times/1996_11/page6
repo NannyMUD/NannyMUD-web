@@ -1,0 +1,148 @@
+ \\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\/////
+  \\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////
+   \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////
+
+
+How to PK - The unofficial Nannymud PK guide.
+=============================================
+
+This guide is splitted up into 4 parts.
+
+Part 1 - Introduction to PK.
+Part 2 - A study of PK techniques.
+Part 3 - Clients - How to use them in PK and normal play.
+Part 4 - Usefull hints from various PK'ers to get you started.
+
+
+This is part 3. The last part in this guide will be published in the next
+issue of The NannyMUD Times, the previous parts is available in backissues
+of The NannyMUD Times.
+
+
+Part 3 - Clients - How to use them in PK and normal play.
+
+
+Clients:
+The best, most effective and easiest way to play is ofcource to play with
+help of a client program. Most clients on the market supports the basic
+features that will help you in your play. Not only in PK but even in regular
+play. Clients such as: tintin++ (for unix based computers), zmud (win311,
+win95, winNT), tf (unix), pmf (unix). Those mentioned supports the basic
+client features such as: advanced aliases, triggers, macros, scripts and some
+of them supports gagging.
+
+
+* Aliases.
+
+Well, i guess you all know how aliases works. You set a word as an alias to
+a command, and then when you type the word you will perform the command.
+This can be used with the muds shell. But if you use it together with a client
+you can achieve much better result. Create much more advanced aliases.
+Such as, when entering a room where you know there is a monster. You just
+type 'k' to attack that monster and 'p' to get you to your favourite healing
+place. In PK, it can be used to easily switch the target you are killing.
+If you have 5 attack commands. You set '1' '2' '3' '4' '5' for your attack
+commands towards a certain target. Then with one alias you change the target
+for your attacks. 'kk saxit' 'kk pendragon' like that. Or even better and more
+advanced. Whenever a pk'er attacks you the target will be set to that pker.
+Now just 1 2 3 4 5, and your attacker takes a flight to wonderland.
+Also, with a client you can have unlimited aliases (only limited to your hd)
+while in NannyMUD there is a limit.
+
+
+* Triggers.
+
+A trigger will perform a command when a certain text is sent to your computer.
+Example. When you get text 'Saxit died.' you perform 'laugh some mist'.
+The most common usage of this feature is to trigger to follow a pker or to
+autoattack a pker at entry. There are way more things a trigger can be used
+for. When you get the text 'Seego hits you.' you perform 'party say Attacking
+Seego at green.' Triggers can also be used to change your aliases.
+One usefull alias in normal play is 'The girl gives you a note.' then preform
+'drop note'. The usage of a trigger is a really helpful tool. Try out the
+nice trigger 'Snuttegumma leaves %1.' '%1' and you will see some effect of a
+trigger.
+
+
+* Macros.
+
+Macros is basically the same as aliases. But in a macro you create more than
+one command. For example, if you have a macro 'pub' 's;e;e;n;e', if you stand
+in the church and type 'pub' you will end up in the pub. This can be used
+to get you faster and more safely to your favourite healing places. Beware
+of Harry and vicious Simyarin spells tho.
+
+
+* Scripts.
+
+The same as macros, just that these are not linked to a certain command. This
+ones are saved on files and loaded upon usage. If you have a file called
+'year_of_banshee' and when you load that file in you will perform the commands
+written in that file.
+
+
+* Gaging.
+
+If you gag something, that text will not be shown on your computer. A similar
+feature is substitute, when you recieve a text something else will appear on
+your computer. Example, gag 'Autosave.' will never show that text on your
+computer. substitute '%1 arrives with %2 falcon.' '%1 arrives.' will make
+the text 'Seego arrives with his falcon.' be shown on your screen as
+'Seego arrives.' Some pkers use gag very rarely, i use gag a lot. Depending
+on how good your link is 'gag' and/or 'substitute' can be very useful.
+For example i gag all unimportant information as 'Lumberjack sings:', and i
+substitute all attack messages to one short message like 'You massacre Seego
+into small fragments.' 'You MASS Seego.' To make information easier to spot
+and makes it easier to handle the useful information. If you play on a slow
+modem i guess you understand some practical usage with gag and substitute.
+You can also easily gag away things like the hitmessages from the Katana and
+the spam text from the demonblade.
+
+
+I must say that out of my experience of trying diffrent types of clients,
+ZMUD beats them all. ZMUD is a mudclient for Win311, Win95, WinNT. It runs
+with most types of winsock prgs. ZMUD is shareware, you can get the latest
+version for free to use for one month. Registering price is $20. Two features
+that makes ZMUD beat all the other clients. 'statusbar' and 'automapper'. The
+statusbar makes it possible to store information in a little statusbar on
+your screen to make it easier to keep a track on. For example, i put
+information of my own HP/SP in the statusbar and gag it away from the screen.
+I also put information of the shape of my opponent in the statusbar, and
+gaging that text away from screen. I use this while i also gag away all 'miss'
+attack msgs + the 'tickles' and 'grazes'. This would mean that a regular
+monster fight might look like this:
+
+You HIT Warder.
+You MASS Warder.
+You HIT HARD Warder.
+Warder HIT you.
+You MASS Warder.
+You HIT HARD Warder.
+Warder HIT you.
+You MASS Warder.
+Warder died.
+
+Compare this to your own spam you get during fights.
+The automapper in ZMUD makes it possible for you to walk around the mud, then
+the client automatically creates a map for you. It is VERY advanced and a must
+see if you havent seen it. Basically, you can type 'warder' and no matter
+where you are standing the client will keep track of where you where and get
+you the fastest way to 'warder'. Type 'pub', 'shop', 'pet', 'milkbar' and you
+will get there as fast as your link allows. Since nannymud have a really
+mixed map with illogical dirs, you can create a new 'map' for each wizards
+area. You can print your maps, you can paint the maps yourself, you can give
+information that you want to see a special message everytime you enter a
+specific room.
+
+Well, do i need to say more than *ZMUD KICKS ASS*
+Get it, learn it, use it, and love it!
+
+----------------
+
+To be continued.
+
+/The K Killing Korp.
+
+   /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\
+  ///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\
+ /////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\\\

@@ -1,0 +1,82 @@
+ \\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\/////
+  \\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////
+   \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////
+
+Confessions from a bug abuser  - A column written by Emperor Hans the dark
+=============================
+
+First of all, I would like to say that I don't advocate bug abusing. Also, 
+I'm not claiming to have found, or even used, all of the bugs I'm going to 
+talk about, I'm merely telling a good story. But all these bugs actually 
+existed in Nanny, a long long time ago. They have been fixed, of course, 
+and those caught exploiting them have been dealth with properly. And I am 
+by no means blaming the responsible wizards, since where there is code, 
+there are bugs.
+
+
+o The Sir Obliterator bug
+
+  Outside Padrones castle, Sir Obliterator is constantly looking for Prince
+  Violence. Sir Obliterator is fairly tough, and few newbies can kill him.
+  Sir Obliterator follows players around, hoping they will lead him to Prince
+  Violence. Meanwhile, in Padrones courtyard you can find Billy and Sam, the 
+  two giant guards of the castle. They will attack any visitor that doesn't 
+  have a ticket. Sir Obliteraor does not have a ticket. What happened in the
+  early days of NannyMUD, was that players would go to Sir Obliterator, tell
+  him to follow them and go to Billy & Sam. The giants would notice that 
+  Obliterator didn't have a ticket, and would start hitting him. When 
+  Obliterator was in bad shape, the player would tell him to follow to another
+  room, where he would kill him easily. But also one of the giants would now
+  be an easy kill, since Obliterator hits pretty hard as well. That was an 
+  easy way for a newbie to gain a few levels. 
+
+
+o The explode real bad bug
+
+  The Guild of Confusion had a spell called 'explode head', which left the 
+  caster with one HP, and the others in the room took tremendous damage. When 
+  combining that spell with healing potions, you could reach nasty effects.
+  Even better was the spell 'explode real bad' which did ridiculous damage to 
+  the people in the room, but it also killed the caster. However, there were,
+  and as far as I know still are, items in the game that could prevent death 
+  from happening during a short period, so people could actually duel with 
+  'explode real bad'....
+
+
+o The heal and reheal bug
+
+  When the Tome of spell contained the good ol' 'heal others' spell, it would 
+  heal both HP and SP. The cost was less than it healed, so if I was at 130 SP
+  and cast heal others on my friend, I would go down to, say, 125. Then he 
+  would cast one on me, and I would be on 140. And our HP would go up even 
+  faster. So, with two people, you had infinite healing. I personally went 
+  from level 13 to 18 by going up and down in the Vampires tower a few times,
+  using this, in our opinion, feature.
+
+
+o  Never getting "tired" 
+
+  When I started playing NannyMUD, a player would have both guild spells, and 
+  the basic spells (magic missile, shock and fireball). You could only cast 
+  one guild spell per round and one basic spell per round. Yes, that's right,
+  one of each. This was not intended, as far as I know, but the guildspells
+  did not check if you had already cast, say, a fireball. So, you could cast
+  one fireball and one gfinger (and old Damned spell, very powerful) in the
+  same round. Also, all playerkillers at that time had wands of lightning, 
+  so you could also zzap once in that round. Then Ramses coded the sentries,
+  and we could get black lances to throw. So.... the problem wasn't that we
+  had to wait for the next round to be able to do something, but that we 
+  couldn't type fast enough. The obvious solution was the recorder. 
+  Personally, I had an alias ',' for q1. q1 was the command for the recorder 
+  to play 'fireball' 'gfinger' 'zzap' 'throw lance'. All ths in one heartbeat.
+  Combining that with the old demonblade that had two hits per round (and 
+  pretty damn hard hits, mind you), I could easily make 100+ HP damage in 
+  one round. In playerkilling, the damnies often teamed up, and imagine what
+  a team of 3 damnies could do in one round with those recorder aliases and
+  weapons like Gram, Demonblade and Stormbringer.....
+  Needless to say... we killed a lot.
+
+
+   /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\
+  ///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\
+ /////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\\\

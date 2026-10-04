@@ -1,0 +1,177 @@
+ 
+ These are the puzzles from last issue and their solutions.
+ 
+ 
+ 
+ Arrange five gold coins into two rows with one row containing three coins
+ and the other row containing four coins.
+ 
+ Prize: 500 coins.
+ 
+ Narya was the first to answer this, by placing the coins in the following
+ fashion:
+    
+       1
+   1   2   1
+ 
+ ..where 1 indicates 1 coin and 2 indicates 2 coins, one on the other.
+ 
+ Honorable mentions were earned by Cathbad, Ebon, Sexcrime, Hallon, and
+ Devron.
+ 
+ Given a four by four grid, place four sets of the numbers 1, 2, 3, and 4
+ in the sixteen boxes of the grid in such a way that the same number will
+ not appear in any horizontal or vertical row. This also applies to the
+ two major diagonals.
+ 
+ Prize: 500 coins.
+ 
+  Niklas was the first with the solution of:
+ 
+  1 4 2 3
+  2 3 1 4
+  3 2 4 1
+  4 1 3 2
+ 
+  Honorable mentions were earned by Narya, Rrr, Cathbad, Ebon, Kaspel, 
+  Sexcrime, Eris, and Hallon.
+  
+ According to an ancient manuscript, there is a five-letter word containing
+ five other words within itself. The letters that make up the word do not
+ have to be rearranged in any manner. Also, each word is complete with no
+ intervening letters. What is the word?
+ (It is an English word.)
+ 
+ Prize: 1000 coins.
+ 
+  Narya was the first with the intended answer of 'there' ("-There- is a
+  five-letter word..."), containing 'the', 'he', here', 'her', and 'ere'.
+  Other valid words are pants, scant, scare, ahead, brain, braid, heart, 
+ 
+  Honorable mentions were earned by Rrr, Ebon, Jass, Anony, and Boss.
+ 
+ 
+ Here's a card puzzle for you. To solve it, you have to take the four kings
+ and the four queens from a deck of cards and arrange them into a stack 
+ that can be dealt out as follows: king, queen, king, queen, king, queen,
+ king, queen. They must be dealt in the following manner:
+  (1) Take the top card and turn it face up on the table.
+  (2) Take the next card and place it on the bottom of the deck.
+  (3) Repeat steps 1 and 2 seven more times.
+ 
+ Prize: 1000 coins.
+  
+ Rrr was the first to submit the correct answer of 'KKQKKQQQ'.
+ 
+ Honorable mentions were earned by Ebon, Niklas, Eris, Hallon, and Sexcrime.
+ 
+ "Batter up!" cries the ump. It's time for the Nanny Nine to take to the
+ field, and it's time for you to fill out your scorecard. What's that? You
+ know the names of the players but you don't know what positions on the
+ team they play! Well, I'm not going to let you off the hook so easily
+ this time. Now listen carefully. I'll tell you some facts concerning each
+ of the players, and it will be up to you to figure out who plays each of
+ the nine positions on the team. Ready? Here we go.
+  (1) Dwinbar dislikes the catcher.
+  (2) Mats' sister is engaged to the second baseman.
+  (3) The center fielder is taller than the right fielder.
+  (4) Lars and the third baseman live in the same building.
+  (5) Taren and Brom each won 20k coins from the pitcher in pinochle.
+  (6) Mats and the outfielders play poker during their free time.
+  (7) The pitcher's wife is the third baseman's sister.
+  (8) All the battery and infield, except Brom, Lars and Dwinbar, are 
+      shorter than Titleist.
+  (9) Taren, Dwinbar, and the shortstop lost 50k each at the racetrack.
+ (10) Taren, Lars, Beldin and the catcher took a trouncing from the 
+      second baseman at billiards.
+ (11) Titleist has been married for a year.
+ (12) The catcher and the third baseman each have two children.
+ (13) Mats, Taren, Leowon, the right fielder and center fielder are
+      bachelors. The others are married.
+ (14) The shortstop, the third baseman and Beldin each cleaned up 100k
+      betting on the fight.
+ (15) One of the outfielders is either Thargor or Dwinbar.
+ (16) Leowon is taller than Beldin.
+ (17) Thargor is shorter than Beldin.
+ (18) Leowon and Thargor are each heavier than the third baseman.
+ 
+ You now have all the facts that you will need to determine the names of the
+ men playing all the positions on the Nanny Nine. Play ball!
+ (Disclaimer: The choice of names was arbitrary, and information regarding
+  marital status, height, and anything else is completely unrelated to the
+  rl status of the admin.)
+ (Apologies to those unfamiliar with baseball.)
+ 
+ Prize: 2000 coins.
+ 
+ Devron was the first with the correct solution:
+ Catcher is Brom
+ Pitcher is Lars
+ Shortstop is Mats
+ Third Base is Dwinnie
+ First Base is Taren
+ Second Base is Leowon
+ Left Field is Titlest
+ Right Field is Thargor
+ Center Field is Beldin
+ ..although I must agree Titlest is out in left field somewhere  ;)
+ 
+ 
+ Young Maximilian's birthday has rolled around again, and it's time to see
+ if he can't outwit Uncle Otis. Every year Uncle Otis gives max ten notes
+ marked '1 coin' and ten notes marked '100 coins' and tells him to place 
+ them into two bowls. Max is free to put any number of notes into each bowl.
+ However, he's not allowed to crush, bend, or fold any of the notes so that
+ he could identify them by touch. Otis them blindfolds Max and moves the 
+ bowls around on the table so Max will not know which is which. Otis also
+ mixes up the notes in each bowl in case Max has placed the '100 coins' 
+ notes on top. Max is then allowed to reach into one of the bowls and remove
+ one note, and Otis then gives him the amount written on the note for his
+ birthday present. It sounds like an even-money bet, but there is a way Max
+ can distribute the bills among the bowls to give himself a far better break
+ on the odds. How does he go about outwitting Uncle Otis?
+ Include the percentage odds Max has of selecting a '100 coins' note in your
+ answer.
+ 
+ Prize: 5000 coins.
+ 
+  Narya was the first with the correct answer.
+ 
+ Well, I suppose the cleverest thing young Max could do would be
+ to drop one 100-coin note in one bowl and put the rest in the other.
+ That way, he'd have a 50% chance of picking the bowl where he'd get
+ 100 coins for sure, and a 50% chance of having an almost-even chance
+ of pulling out a 100-coin note--well, 9/19. So, odds: .5 (1/1) +
+ .5 (9/19) = 1/2 (19/19 + 9/19) = 1/2 (28/19) = (14/19), which is,
+ roughly, .73684.
+  
+ Honorable mentions were earned by Ebon, Maximilian, Niklas, Eris, Hallon,
+ Devron, and Sexcrime.
+ 
+ You are down in the crocodiles lair. The cave is half-filled with water and
+ you can feel the loose bottom with your feet. It doesn't appear very stable
+ and if you stay here too long you might sink deep into the crocodiles'
+ larder.
+   There is one obvious exit: up.
+ A baby crocodile.
+ A big crocodile.
+ 
+  Prize: 5000 coins.
+ 
+ Niklas was the first to submit the answer of 
+ s,w,d,s,s,s,s,s,s,s,se,s,s,s,d.
+ 
+ Honorable mentions were earned by Hawkie, Sexcrime, and Oriole.
+ 
+ The following was the roomhunt from November 1997.
+ 
+ This is a small, ruined chamber with a low ceiling. Once mosaics must have
+ covered all the walls, but now most are ruined from years of moisture and
+ temperature changes. Only a few are left. At the west end of the chamber is a
+ simple altar.
+   There is one obvious exit: up.
+  
+ No one found this room for the second month in a row.
+ 
+ 
+ 

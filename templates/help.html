@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card">
+<h1>Help</h1>
+<p>The help pages players read in the game with <code>help</code>.</p>
+<ul class="nm-cols">{% for t, subs in topics %}<li><a href="/help/{{ t }}/">{{ t }}</a></li>{% endfor %}</ul>
+{% for t, subs in topics if subs %}
+<h2><a href="/help/{{ t }}/">{{ t | capitalize }}</a></h2>
+<ul class="nm-cols">{% for sub in subs %}<li><a href="/help/{{ t }}/{{ sub }}/">{{ sub | replace("_", " ") }}</a></li>{% endfor %}</ul>
+{% endfor %}
+<h2>Guides</h2>
+<ul>{% for label, href in extra %}<li><a href="{{ href }}">{{ label }}</a></li>{% endfor %}</ul>
+</article>
+{% endblock %}

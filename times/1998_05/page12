@@ -1,0 +1,53 @@
+                             How to Become a God
+ 
+                                     or
+ 
+                          How to Grow Your Own MUD
+ 
+ 
+ 
+First, you have to have a machine to run the game on, and a connection to the
+internet. If you do not own those resources yourself, you MUST be sure that
+the one who does allows you to run the game on/through his property. It is no
+idea to try to sneak it by, it will be noted sooner or later.
+ 
+A MUD can be run on an old 486DX25, with as little as 8Mb of RAM, and with a
+connection no faster than a 28.8 modem, but that will then be a very small
+MUD, and rather slow. Nevertheless, it can be done. Anything faster and
+bigger will make it more pleasurable to use.
+ 
+Now, when you have secured the basic resources needed, you must make up your
+mind about what kind of MUD you wish to have. Ask yourself what you think is
+important in the game, and then find a MUD family that has that. A few examples
+of distinct styles are MUSH, DIKU, LPMUD, ABER and DUMII.
+ 
+When you have selected the type of your MUD, you need to decide exactly what
+driver you will use. (The driver is the program that keeps track of the
+connections to the game, etc.) For example, in the LPMUD family, there are
+implementations like NannyMOS, MUDOS, Amylaar, CD, DGD, etc. Read up on 
+them, check their availability, etc. There's quite some rumour-mongering
+going on. People involved heavily with one kind of driver have a tendency to
+believe everything else to be out-dated, and less advanced. Don't trust them
+to know what they are talking about, make up your own mind.
+ 
+Now, you have to pick a mud-lib. This is the part of the game with which the
+players interacts: monsters, weapons, armours, flowers, etc. How many you
+have to chose from depends on what driver you picked, but most drivers will
+be able to handle at least a few, especially the old and infamous 2.4.5 lib.
+ 
+Next, all you have to do is to compile the driver, and start the game. Of
+course, you might have to modify both the driver and the lib to make them
+work well (or at all) together. Then you will very soon find things you want
+to change for the better in your lib (like, removing the security holes in
+the infamous 2.4.5). It can be a wise thing to fix those before letting the
+horde of players on.
+ 
+Now you need players. Typically, the initial gang is you and your friends,
+and the rest of the crowd is recruited from friends' friends, and by putting
+up notes on the boards of other, already existing MUDs.
+ 
+The players will, sooner or later, turn into wizards and some of them will
+take part in building the MUD. With some luck, and persistance on your part,
+the game can very well live for years to come. Your life will never be the
+same again.
+ 

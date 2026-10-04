@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="nm-hero">
+  <img src="/static/img/logo-440.png" alt="NannyMUD">
+  <div>
+    <h1>NannyMUD</h1>
+    <p>NannyMUD has been available to the public since the spring of 1990, and has been continuously developed during the years. The theme is Epic Fantasy; medieval fantasy with magic. Several different playing styles are possible, from player killing and pure hack-and-slash to quest solving and social chatting.</p>
+    <a class="nm-button" href="/play/">Play now</a><a class="nm-button nm-quiet" href="/introduction/">What is a MUD?</a>
+  </div>
+</section>
+
+<section class="nm-facts">
+  <div class="nm-fact"><b>1990</b><span>running since</span></div>
+  {% if facts.quests %}<div class="nm-fact"><b>{{ facts.quests }}</b><span>open quests</span></div>{% endif %}
+  {% if facts.areas %}<div class="nm-fact"><b>{{ facts.areas }}</b><span>open areas</span></div>{% endif %}
+  {% if facts.guilds %}<div class="nm-fact"><b>{{ facts.guilds }}</b><span>guilds</span></div>{% endif %}
+  {% if facts.online_peak is not none %}<div class="nm-fact"><b>{{ facts.online_peak }}</b><span>most online, last 24 h</span></div>{% endif %}
+</section>
+
+
+<section class="nm-grid">
+  {% for label, href in nav %}<div class="nm-tile"><h3><a href="{{ href }}"{% if href == wiki %} target="_blank" rel="noopener"{% endif %}>{{ label }}</a></h3><p>{{ tiles[label] }}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

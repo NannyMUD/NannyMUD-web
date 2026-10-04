@@ -1,0 +1,41 @@
+{% from "_discord.html" import discord_icon %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page_title %}{{ page_title }} · {% endif %}NannyMUD</title>
+<meta name="description" content="__DESC__">
+<link rel="canonical" href="{{ site }}{{ current }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NannyMUD">
+<meta property="og:title" content="{% if page_title %}{{ page_title }} · {% endif %}NannyMUD">
+<meta property="og:description" content="__DESC__">
+<meta property="og:url" content="{{ site }}{{ current }}">
+<meta property="og:image" content="{{ site }}/static/img/logo-440.png">
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/nanny.css">
+</head>
+<body>
+<header class="nm-header">
+  <div class="nm-wrap">
+    <a class="nm-brand" href="/"><img src="/static/img/logo-80.png" alt="">NannyMUD</a>
+    <a class="nm-head-discord" href="{{ discord }}" target="_blank" rel="noopener">{{ discord_icon(16) }} Join us on Discord</a>
+    <nav class="nm-nav">
+      {% for label, href in nav %}<a href="{{ href }}"{% if href == current %} aria-current="page"{% endif %}{% if href == wiki %} target="_blank" rel="noopener"{% endif %}>{{ label }}</a>{% endfor %}
+    </nav>
+  </div>
+</header>
+<main class="nm-wrap">
+{% block main %}{% endblock %}
+{% if snapshot and updated %}<p class="nm-snapshot">Nightly snapshot of the game, taken {{ updated }}.</p>{% endif %}
+</main>
+<footer class="nm-footer">
+  <div class="nm-wrap">
+    NannyMUD has been running at Lysator since 1990.
+    · <a href="/staff/">Administration</a>
+    · <a href="/contact/">Contact</a>
+    · <a href="{{ wiki }}" target="_blank" rel="noopener">Wiki</a>
+  </div>
+</footer>
+</body>
+</html>

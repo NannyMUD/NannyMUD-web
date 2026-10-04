@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card">
+<h1>Guilds</h1>
+<p>New characters start in the Adventurers guild. Most players move on to one of the others, and the guild they choose decides how they fight and what they can do. Some leave the Adventurers and stay without a guild.</p>
+<p>Besides the guilds there are many clubs, created and run by the players themselves. Ask around in the game to find them.</p>
+{% for g in guilds %}
+<h3>{% if g.page %}<a class="nm-more-link" href="{{ g.page }}">{{ g.name }}</a>{% else %}{{ g.name }}{% endif %}</h3>
+<p>{{ g.about }}</p>
+{% endfor %}
+</article>
+{% endblock %}

@@ -1,0 +1,120 @@
+Lectral reveals the results from when he testplayed an area that
+never opened.
+
+--==++@@++==----==++@@++==----==++@@++==----==++@@++==----==++@@++==--
+
+You're in New York City, more specifically on 3rd and Main.
+To the south, you can enter a candy store. To the west and
+east, you can continue along the pavement.
+  There are four obvious exits: east, west, south and road.
+A small and sneaky-looking man.
+A large woman with a baby carriage.
+
+> east
+As you attempt to go east, the small man jumps in front of
+you and stabs you in the leg!
+** HP: 182/202   SP: 50/50
+
+> west
+Moving west, you mindlessly stumble into the baby carriage
+and the little bundle of joy goes flying into the road!
+The woman screams.
+The woman screams.
+The woman screams.
+Your leg is bleeding badly!
+** HP: 172/202   SP: 50/50
+The woman screams.
+
+> exa road
+There are cars zooming back and forth on the road. Oh my
+God, there's a small baby lying in the middle of the road!
+The woman screams.
+
+> get baby
+The baby is too far away, you have to go into the road to
+get it. Be careful looking both ways before you move into
+the traffic!
+The woman screams.
+Your leg is bleeding badly!
+** HP: 162/202   SP: 50/50
+The woman cries and screams.
+
+> look both ways
+Which way do you wanna look?
+
+> look right
+You look to the right. No cars, all safe.
+
+> road
+You didn't look to the left and you're hit by a truck!
+** HP: 102/202   SP: 50/50
+** HP: 106/202   SP: 50/50
+You're in the middle of the road. Cars are racing by on all
+sides of you, barely (and not intentionally) avoiding you.
+  There are no obvious exits.
+A baby.
+Your leg is bleeding badly!
+** HP: 96/202   SP: 50/50
+From the pavement a woman screams.
+
+> get baby
+As you pick up the baby, it falls apart and clatters to the
+road. Looking closer, you realize that it was only a doll.
+
+> curse
+You curse.
+Suddenly, you're hit by a car! It hurts!
+** HP: 66/202   SP: 50/50
+Your leg is bleeding badly!
+** HP: 56/202   SP: 50/50
+From the pavement a woman screams.
+
+> look
+You're in the middle of the road. Cars are racing by on all
+sides of you, barely (and not intentionally) avoiding you.
+  There are no obvious exits.
+Pieces of a small doll.
+From the pavement a woman screams.
+
+> quti
+What?
+From the pavement a woman screams.
+
+> quitt
+What?
+There's a big truck coming down the road and it's coming
+straight for you. It doesn't look like it's gonna stop.
+Your leg is bleeding badly!
+** HP: 46/202   SP: 50/50
+
+> exa truck
+This is one big truck. It's coming straight at you and you
+don't think it's gonna stop.
+
+> quit
+Quit New York? You gotta be kidding.
+From the pavement a woman screams.
+The truck is coming closer and closer.
+From the pavement a woman screams.
+The truck is coming closer and closer.
+
+> leave
+Leave what?
+
+> leave road
+You're in New York City, more specifically on 3rd and Main.
+To the north, there is a suspicious looking alley. To the
+west and east, you can continue along the pavement.
+  There are four obvious exits: east, west, north and road.
+From the other side of the road a woman screams.
+Your leg is bleeding badly!
+** HP: 36/202   SP: 50/50
+BANG!
+You die.
+You have a strange feeling.
+You can see your own dead body from above.
+Johnny sneaks out from the alley.
+Johnny grabs your corpse and hauls it into the alley.
+From the other side of the road a woman screams.
+From the other side of the road a woman screams.
+From the other side of the road a woman screams.

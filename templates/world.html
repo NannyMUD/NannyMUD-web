@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card">
+<h1>The World</h1>
+{{ intro | safe }}
+</article>
+<article class="nm-card">
+<h2>Open areas</h2>
+<p class="nm-muted">The {{ areas | length }} wizards whose areas are open to players today.</p>
+<ul class="nm-cols">{% for a in areas %}<li>{{ a }}</li>{% endfor %}</ul>
+</article>
+{% endblock %}

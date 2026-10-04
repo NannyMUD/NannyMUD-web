@@ -1,0 +1,54 @@
+ \\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\/////
+  \\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////
+   \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////
+
+Confessions from a bug abuser  - A column written by Emperor Hans the dark
+=============================
+
+First of all, I would like to say that I don't advocate bug abusing. Also, 
+I'm not claiming to have found, or even used, all of the bugs I'm going to 
+talk about, I'm merely telling a good story. But all these bugs actually 
+existed in Nanny, a long long time ago. They have been fixed, of course, 
+and those caught exploiting them have been dealth with properly. And I am 
+by no means blaming the responsible wizards, since where there is code, 
+there are bugs.
+
+
+o Judicators staff
+
+This is not a very famous bug, but it still is a funny one. With Judicators 
+staff, you could cast a spell, I think it was some kind of fireball, for a 
+SP cost. However, the staff never checked if the player ran out of SP, and 
+I found a player running around killing monsters easily with -30000 SP....
+
+
+o The Knights berserk bug
+
+This must be one of the best ones... The knights had the ability to berserk, 
+which meant that they could hit everyone in the room several times. Which 
+is fine. but then one day, a berserking knight lost his link, and when he 
+came back, he saw that the monsters were all dead..... The berserk was still
+going while he was linkdead! So.... off to Merlins dragon, berserk, and 
+CTRL-] Come back half an hour later and voila, you had a nice kill on your 
+hands. Of course, being linkdead, you didn't take any damage.....
+
+
+o Damneds freeze bug
+
+Damned guild could hypnotize their opponents, so they wouldn't hit back for 
+a while. But when a lagged damnie accidentally cast two (successful) freeze-
+spells on a monster in a row, and realized the monster didn't hit back, the
+day was made. And the damnies had the ability to kill monsters easily for a 
+very long time...
+
+
+o The earring refill bug
+
+With Broms earring, you can 'refill' your SP by eating HP. In the good old
+days, a slight oversight resulted in the unexpected feature that if you did
+'refill -100' you would HEAL 100 HP, and there was no limit to this either.
+
+
+   /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\
+  ///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\
+ /////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\\\

@@ -1,0 +1,565 @@
+<!-- title: The Newbie Booklet -->
+<!-- from: www/newbie_booklet.html -->
+<p>Once upon a time, there were very few help texts available to 
+Nanny's players. This has changed with time, and today there is an 
+abundance. There is even a special guide for new players, 
+known as The Newbie Booklet. Every new player in the game is given a
+copy of the Newbie Booklet. Below is a copy of its contents.</p>
+
+<table><tr><td>
+<b>Contents:</b></td></tr><tr><td>
+<ul>
+<li><a href="#2">Welcome to NannyMUD!</a>
+<li><a href="#3">Information about yourself</a>
+<li><a href="#4">Exploring</a>
+<li><a href="#5">Moving around</a>
+<li><a href="#6">Objects in the mud</a>
+<li><a href="#7">Who is logged on?</a>
+<li><a href="#8">Communicating with other players</a>
+<li><a href="#9">Feelings and adverbs</a>
+<li><a href="#10">Mail system &amp; boards</a>
+<li><a href="#11">Equipment</a>
+</li></li></li></li></li></li></li></li></li></li></ul>
+</td><td>
+<ul>
+<li><a href="#12">Combat</a>
+<li><a href="#13">Special newbie areas</a>
+<li><a href="#14">Healing</a>
+<li><a href="#15">Death</a>
+<li><a href="#16">Clubs</a>
+<li><a href="#17">Guilds</a>
+<li><a href="#18">Quests</a>
+<li><a href="#19">NannyMUD local time</a>
+<li><a href="#20">NannyMUD dictionary</a>
+<li><a href="#21">Help</a>
+</li></li></li></li></li></li></li></li></li></li></ul>
+</td></tr></table><h2>Welcome to NannyMUD!</h2><p>This booklet will be your best friend in the beginning of your
+time on NannyMUD. Every time you logon you will find it in
+your inventory -- that is, among the things you carry around.
+There are chapters about almost anything you will need to know.
+Of course, there are also other players who can help you as 
+well, but you will always carry this booklet with you, wherever 
+you go. You will not be able to drop the booklet (who wants to get
+rid of his best friend?), but when you have reached level 5,
+you will be able to destroy it. If you, later on, want a booklet
+again, you can buy one in the bookstore on Malkuth Street. By then,
+you should know where that is.<p>
+As a standard in this booklet the following notation is used: 
+<pre>&gt;xxxxx</pre>
+That means that you should type 'xxxxx' and hit the 'enter' key
+if you want to try the command xxxxx yourself. Good luck!<p>
+P.S. This booklet is also available on the WWW: 
+http://mud.lysator.liu.se/www/newbie.html<h2>Information about yourself</h2><p>As this is a roleplaying game, your character in the mud has
+some attributes, like gender, level and strength. To see some
+information about yourself, you use the score command:
+<pre>&gt;score</pre>
+ 
+Explanation of what you see:
+<ul>
+<li>Name: The name you chose when you first entered NannyMud.
+<li>Title: depends on your level or, if you are a member of a 
+  guild, your guild status.
+<li>Alignment: Ranging from demonic to saintly. The more evil 
+  monsters you kill, the better your alignment will be.
+<li>Level: How far you have come on the way towards wizardhood.
+  The levels 1 - 19 are mortal levels, and all levels from 20
+  and up are different kinds of wizlevels. (For more info
+  about levels: &gt;help levels)
+<li>Experience points (XP): How many experience points you have 
+  collected so far. 
+<li>Gold Coins: How many gold coins you currently are carrying.
+<li>Nanny points (NP): How many Nanny points you have collected.
+  You need 1 million NP to become paragon, and 2 million NP to
+  become wizard. You gain NP by killing monsters and solving 
+  quests and puzzles. Your NP also increase with age. 
+<li>Hit points (HP): Your 'life points'. If your HP goes below 0, 
+  you die. (more about death on page 11)
+<li>Spell points (SP): Your mental strength. Used for spell casting,
+  communication and other mentally exhausting actions.
+<li>Intelligence (int): The higher your int, the more SP you have.
+<li>Strength (str): The higher your str, the more you can carry.
+<li>Dexterity (dex): The higher your dex, the harder you hit in combat.
+<li>Constitution (con): The higher your con, the more HP you have.
+<li>Quest Points: How many quest points (QP) you have earned.
+  (for more info about quests: &gt;help quests)
+<li>Information about how encumbered you are.
+<li>Information about your playerkiller status. 
+  (for more info about playerkilling: &gt;help playerkilling)
+</li></li></li></li></li></li></li></li></li></li></li></li></li></li></li></li></ul>
+You regain lost HP/SP automatically with time, but you can 
+increase the 'healing rate' by making sure you are not starved, 
+thirsty or wet. Intake of alcoholic drinks is also known to
+make your HP/SP regenerate faster. There is a special page in 
+this booklet about healing.<h2>Exploring</h2><p>
+
+To see what you are carrying use the inventory command i:
+<pre>&gt;i</pre>
+
+To see what you look like in other players eyes, examine yourself:
+<pre>&gt;exa </pre>
+<br/>
+To see the other players (and other objects) that are in the same 
+room as you, type:
+<pre>&gt;look</pre>
+This will give you a brief description of the room followed by 
+the exits leading from the room and finally a list of the objects
+present.<p>
+If you want to take a closer look at something (a book for 
+example) in the room, type:
+<pre>&gt;exa book</pre>
+or
+<pre>&gt;look at book</pre>
+If you are carrying a book, and want to look at the book in the 
+room, you should type:
+<pre>&gt;exa book in room</pre>
+Otherwise you will look at the book you are carrying.<p>
+Also things mentioned in the description of the room are worth 
+examining. If the thing has any importance at all, it will be 
+described for you and maybe also give you a hint about what you
+can do there. Otherwise, you will be notified, that it doesn't 
+look very special at all.<h2>Moving around</h2><p>The exits listed when looking in a room can be accessed via their
+directions, like this:
+<pre>&gt; east</pre>
+You will move to the room east of the one you are in.<p>
+Some exits may be blocked for you, even if they are marked as
+obvious exits. You will get a message explaining why you can't
+move in that certain direction. There might be a closed door in 
+your way, or a guard demanding a fee to let you enter, for example.<p>
+Moving is simple, but also quite risky: You might get lost!
+To avoid that, try to remember where you go, draw a simple map
+on a paper or in your memory, until you have learnt your way
+around the world.<p>
+The mud contains of more than 50000 locations, and many of them 
+are illogically connected. Here is a map of Lars Town just to get
+you started:
+<pre>     |                              |             |                 
+    (1)                            (+)-(C)   (Z)-(Y)-(X)(S)         
+     |       |  \|   |   |          |      |      |      |   |   |
+   -(2)-(3)-(4)-(5)-(6)-(7)-(8)----(9)----(L)----(M)----(U)-(V)-(W)-
+     |   |   |\  |   |       |      |      |      |      |   |   |
+                               (B)-(A)-      (!)-(N)-($)(G)
+  1-Orc Cave.                       |             |
+  2-Orc Valley.                   -(D)-      (P)-(O)-(T)
+  3-Slope                           |             |
+  4-Forest                        -(E)-      G-The Adventurers Guild.
+  5-A small Clearing.               |        L-Track going into Village.
+  6-Forest.                       -(F)-      M-Village Road.
+  7-Wilderness.                     |        N-Narrow Alley.
+  8-Humpbacked Bridge.                       O-Narrow Alley.
+  9-The Village Green.                       S-The Shop.
+  +-The Church                               T-Tourist Information.
+  C-Chapel                                   U-Village Road
+  B-Deposit Box Service.                     V-Village Shore
+  A-Lane of Ingis.                           W-Jetty
+  D-Lane of Ingis                            X-Pub
+  E-Lane of Ingis                            Y-Yard
+  F-Country Road                             Z-Magic shop
+                                             $-Bank
+                                             !-Smithy
+</pre>
+This is a map limited to Lars Town and its closest surroundings. All - in the
+map means there are more places to visit in that direction. It's important you
+pay attention to where you are going. Try looking at things in the environment
+and people and animals you pass by. It's a good way to learn about the
+world.<p>
+In the Tourist Information Office you can borrow booklets about all the
+wizards who has created an area that you can visit. You will often get a 
+hint of where the area starts and what special features you can find in 
+there.<p>
+More information about the geography of the world and how you can travel 
+between the different lands can be found in 'help travelling'.<h2>Objects in the MUD</h2><p>In the rooms (locations) you enter there might be 'objects'
+present. There are different kinds of objects:<ul>
+<li>players    (Ex: Mats, the Creator (ancient God))
+<li>monsters   (Ex: A mean troll)
+<li>weapons    (Ex: A longsword)
+<li>armours    (Ex: A brass helmet)
+<li>containers (Ex: A leather bag)
+<li>food       (Ex: A sandwich)
+<li>drinks     (Ex: A bottle of milk)
+<li>things     (Ex: A small note marked 'About NannyMUD')
+</li></li></li></li></li></li></li></li></ul>
+Some of the objects can be picked up. 
+<pre>&gt;get note</pre>
+Objects may be too heavy for you to pick up, and some are not
+possible to take at all.<p>
+That will give you a list of all things you are carrying. If you want
+to drop something, for example the note, use the drop command:
+<pre>&gt;drop note</pre>
+Some objects you are carrying can't be dropped, for your own good
+or because they are cursed in some way.<p>
+In containers you can put things:
+<pre>&gt;put note in bag</pre>
+If you fail to put an object in  a container, either it is full
+or the object for some reason never will be contained.<p>
+Of course you can retrieve things from the container too:
+<pre>&gt;get note from bag</pre>
+You can eat and drink commestibles:
+<pre>&gt;eat sandwich</pre>
+<pre>&gt;drink milk</pre>
+Weapons and armours are used for combat. See chapter about combat.<h2>Who is logged on?</h2><p>To check what other players who are logged on use the who command
+like this:
+<pre>&gt;who</pre>
+You will recieve a list of all players divided into three groups:
+<ul><li>Wizards are the creators and maintainers of the world. 
+<li>Paragons are the best players on the Mud. 
+  If you have questions about how the game work, you should ask them.
+<li>Mortals (With your name too, right?)
+</li></li></li></ul>
+If there are many players logged on, the output will be split 
+and a message:<pre>
+"Press return for more"</pre>
+will appear at the bottom. If so, just press the 'return' key
+to allow the "who" command to finish its output. Then you can
+continue your input of other commands.<p>
+There are 19 mortal levels and after that you can chose between 
+becomming a Wizard and create your own area, or becomming a Paragon 
+and help new players and continue to explore the world as a mortal.<h2>Communicating with other players</h2><p>
+For more help about the level system of NannyMud, type:
+<pre>&gt;help levels</pre>
+For more info about Paragons of NannyMud, type:
+<pre>&gt;help paragon</pre>
+For more info about wizardhood of NannyMud, type:
+<pre>&gt;help wizards</pre>
+<br/>
+To communicate with players who are in the same room as you, 
+use the command "say", like this:
+<pre>&gt; say Hello everyone!</pre>
+All players in the same room as you will see the following message:
+<pre>(Your name) says: Hello everyone!</pre>
+To tell a remote player something you use the tell command, 
+like this:
+<pre>&gt; tell mats Hi!</pre>
+If Mats (the God) is logged on, he will recieve the message:
+<pre>(Your name) tells you: Hi!</pre>
+There are also clubs and guild that have their own communication
+channel, also called lines. Check guild/club help for more 
+information.<h2>Feelings and adverbs</h2><p>
+As a last resort to the problem of being lost, or when you simple 
+have to let everyone know something, you can use the shout
+command. This costs some of your SP.
+<pre>&gt; shout Can anyone help me? I am lost in some orc valley!</pre>
+_ALL_ players in the game will recieve:
+<pre>(Your name) shouts: Can anyone help me? I am lost in some orc 
+valley.</pre>
+<br/>
+All players and some monsters have a 'soul' that allows them to 
+interact with each other. If you type:
+<pre>&gt;smile</pre>
+...the other players in the same room will see that you smile. To get
+a list of all predefined feelings, type:
+<pre>&gt;help feeling list</pre>
+To make those feelings even more versatile there are a set of adverbs
+that you can add.
+<pre>&gt;admire mats proudly and smile gently</pre>
+...which gives: You admire Mats proudly and smile gently. To get a
+list of all the available adverbs, type:
+<pre>&gt;help adverbs</pre>
+Both guilds and clubs have their own feelings and adverbs. Check guild
+or club help for more information.<h2>Mail systems &amp; boards</h2><p>Of course it is possible to communicate with other players and wizards
+via mail. Just go to the Post Office (dir: s 2e 2s w) and follow the 
+instructions given there. You should also use:
+<pre>&gt;help mail</pre>
+to get even more information.<p>
+You should also know that whenever you solve one of the Quests, you get
+a mail from the wizard who is responsible for it. Wizards are always 
+interested in feedback from you, so you should really reply to that mail.<p>
+Your read mail is saved in your mailbox for some time, but you should 
+not keep really important things, like addresses, phone numbers and 
+other special mails, in there. Instead write it down on paper, or keep 
+a file on your home computer.<p>
+Note that the mail system is only for internal NannyMud usage. Thus, it
+is not possible to send mail out from NannyMud, and it is not possible
+to send mail to a character on NannyMud.<p>
+Another way of written comunication betwen players are the notes put up
+on the many boards NannyMud. You can read the notes, reply to notes
+and write new notes. For more information about how to use the boards, 
+check:
+<pre>&gt;help boards</pre>
+Guilds and clubs usually have their own boards, where the members can 
+discuss specific guild/club stuff. Take part in the discussions!<h2>Equipment</h2><p>A good way to gain XP (experience points) is to kill monsters.
+As a new player, you are fairly weak and have to start with 
+small, easy monsters. Of course, you need a weapon and some 
+armour.<p>
+There are different types of weapons around, making damage in
+different ways, ex: slashing, chopping, piercing. If you want 
+to use a weapon in combat, you should wield it:
+<pre>&gt; wield knife</pre>
+There are different types on armours around as well, fitting 
+different parts of your body. You should put on the armours
+before joining combat.
+<pre>&gt; wear helmet</pre>
+To see what equipment you are using, use the equipment command:
+<pre>&gt;eq
+
+	OUTPUT:
+	Location		Armour type
+        ------------------------------------
+	Head			(Helmet)
+	Neck			(Amulet)
+	Back			(Cloak)
+	Body			(Bodyarmour)
+	Hands			(Gloves)
+	Finger			(Ring)
+	Feet			(Boots)
+	Shield			(Shield)
+
+	Wielded			(Weapon)
+        ------------------------------------
+        You have xxxx gold coins.</pre>
+
+Where do I find equipment?
+<ul><li>There is usually equipment lying around. Search and you will find.
+<li>In the shop (dir: s 3e n from church) you can buy equipment
+  if you have some money. 
+<li>If you are a member of a guild you can borrow things from the 
+  shareroom, a place where all guild members leave things they 
+  don't need.
+<li>Ask other players for help to find suitable equipment.
+</li></li></li></li></ul>
+There are also magical objects that can be useful if you know
+how to use them. A good start is usually to start by examining 
+them:
+<pre>&gt;exa wand</pre>
+Some of the magical objects around can be quite dangerous if you
+use them in the wrong way, so be careful!<h2>Combat</h2><p>
+NOTE:<ul>
+<li>If you quit the game you will drop all equipment and other
+     objects you are carrying. Thus, you should remember to go 
+     to the shop and sell all your things before logging out.
+     Gold coins are stored between sessions.
+
+     <li>If you are a member of any guild, you can store your things 
+     in the guild's shareroom. Check your guild help for more 
+     information.
+     
+     <li>You can also rent a box in the deposit service 
+     (dir: s s w from church) to store your things in.</li></li></li></ul>
+<br/>
+When you are equipped for combat you can start a fight. Find a
+suitable monster, for example a rabbit. 
+So, what is a suitable monster? If you are a member of a guild,
+you might have special abilities to compare the strength of a
+monster with your own, otherwise you will simply have to dare 
+an attack and be prepared to run away if you get beaten.<p>
+There are also areas designed espacially for low-level players.
+Those areas have been checked and tested so that all monsters
+are suitable targets for newbies equipped with a weapon and some
+armour. (see chapter about Newbie areas)<p>
+You start the fight by using the kill command:
+<pre>&gt;kill rabbit</pre>
+There are also some aggressive monsters that will attack you as 
+you enter the room they are in. Beware of those, especially when 
+you are low on HP.<p>
+You and the rabbit well then alternatingly do your best to mutilate
+each other. How much damage you do depends on the weapon you are using,
+your stats, and how well the rabbit is protected. How much damage you 
+take depends on what armours you are wearing and how hard the rabbit
+beats you.<p>
+To check the shape of a monster you are fighting you can use
+the shape command:
+<pre>&gt; shape rabbit</pre>
+This shows the relative strength of the monster, i.e. its current
+shape compared to its best possible shape.<p> 
+The 'shape' is one of the settings that can help you survive the 
+game that you can 'toggle'. Another one is 'hpinfo', that when it's
+turned on shows you all changes to your HP/SP. Check 'help toggle' for
+more information.<h2>Special newbie areas</h2><p>
+After you killed something you can loot the corpse on money, equipment
+and valuables.
+<pre>&gt;get all from corpse</pre>
+<br/>
+The certified Newbie areas of NannyMud are:
+<pre>
+The Rabbit Paradise   n, n, enter graveyard, enter hole
+Blanka's Newbieland:  s e e e e e n w
+Beginner's World:     s w w w s s s w
+Carrion's newbieland  s s s s e s s s, say please let me in,
+                      w s s e s s s s w w w w, enter hole
+The Farm:             s s s s s s w 
+The Kobolds:          s s s s s s s s e
+                      enter cave          (Not without risks!)
+The Orcs:             s w w w w w w w n   (Beware, Quite dangerous!)
+Snowstar's area       s e e n n n n n n n e n n n e
+
+(all directions from church)
+</pre>
+There are also other areas which might suit newbies quite well,
+but you have to find them yourself. Read signs and pay attention
+to messages brought to by other means.<h2>Healing</h2><p>When your HP gets low, you should find a cosy place to relax and
+heal your wounds. There are establishments willing to offer
+both nice atmosphere, food &amp; drinks and even enjoyable 
+company while you heal. And food &amp; drink and nice company are
+known to increase healing rate significantly!<p>
+Here are the directions to some of the more popular places:
+<pre>
+The Rose and Dragon:  s e e n e
+Ingis' Milkbar:        s s s e
+Maple Tree Tavern:    s e e e e e up 
+Sunshine Inn:         s w w w w n e s s e e e e e e e n n n w
+</pre>
+There are pubs with very cheap healing for newbies in Blanka's 
+Newbieland and in Beginner's World.<p> 
+Of course, there are other types of healing as well. Massage, 
+magical healers and even some sort of ... hmm... escort service.
+Well, there is a full listing of healing facilities available:
+<pre>&gt;help healing</pre>
+If you are a member of a guild, check out what possibilities
+there are to heal within the guild. Some guilds have quite
+fancy healing services setup. Check the guild help.
+And, when on the guild issue, members of some guilds might 
+provide healing for you. Pay attention to what goes on around 
+you. You might see things that are quite astonishing!<h2>Death</h2><p>Even if you are careful, you might have to experience death 
+sometiems. Dying on NannyMud means your soul leaves your body, 
+that becomes a corpse holding all your things. As a ghost you 
+can't carry anything and don't do any actions, except walking and 
+communicating.<p>
+How do you cure death?
+Simple, you go to the church and pray, and your body is restored.
+<pre>&gt;pray</pre>
+But, you have lost one level, one point on each stat (con, dex, int, 
+str) and some of your gained XP.
+If you are a member of a guild, your status within that guild might
+also be affected by dying.<p>
+Warning! When you have received a new body you are still rather low
+on HP. Don't run back to rescue your things and money from your corpse
+without healing a bit first.<p>
+There is no limit on how many times you can die, and you will not 
+be expelled from the game due to dying.<h2>Clubs</h2><p>Players and wizards with certain common interests can join 
+one or several of clubs available. The clubs are there for social
+interaction and have all a special Chat line, where the common
+interest can be discussed.<p>
+There is one main Chat Club, where almost all players and wizards 
+are more or less active. You can join the Chat Club in their
+house at Lazlar Square on Elm Road.<p>
+There is a Traders Club, which main purpose is to be a forum
+for trading objects and information. On the Trader's line you can
+ask for help and auction very special objects to the highest bid.
+Go to the Traders' Tent just west of Lars Town and join the haggling 
+crowd.<p>
+There are also other clubs, some really weird, like the Sock 
+Fetischists, and some quite exclusive, like the Gentlemens Club.
+How to join those other clubs more experienced players can tell
+you.<h2>Guilds</h2><p>Guilds are gatherings of players around a theme of some sort.
+NannyMud offer you membership in one of different guilds.
+The guilds are based on traditional fantasy themes like 
+knighthood, paganism, mysticism and religion, but there 
+are also guilds built around other themes such as cooking, 
+and leprosy(!?).<p>
+Guilds provide different gaming styles, due to the thematic
+powers and restrictions infered on the guild members. 
+There are 13 guilds, ranging from pure killing oriented guilds 
+to guilds with themes of healing. The guilds have powers 
+and abilities depending on their main theme, so you really 
+have to adopt a playing style that utilizes those guild 
+powers the best to become a really successful guild player. 
+Generally, one can say that a player who is a member of a 
+guild is more more powerful than a player not in a guild, 
+if he knows how to use his guild powers, that is.<p>
+It's not easy to say what guild that will suit you best,
+you simply have to try one and see for yourself.
+For more help about the different guilds available check:
+<pre>&gt;help guild</pre>
+When you have decided to join a guild, you have to leave
+Adventurers' Guild, which is the default guild for all
+new players. 
+<pre>&gt;leave guild</pre>
+Then you have to find out how and where to join the guild
+you have chosen. Talk to more experienced players. They
+should be able to direct you to someone who is already a 
+member of the guild in question.<h2>Quests</h2><p>Quests are specially designed missions that you can take on.
+If you manage to complete the mission you will be rewarded
+with Quest Points (QP), and sometimes also with some money,
+special equipment, healing or alignment modification. The bigger and 
+more dangerous the quest is and the longer it takes to solve it, the more QP 
+you will get if you manage to solve it.<p>
+Questing is a large part of playing NannyMud. There are more than 100
+quests for you to solve.<p>
+In the adventurers' guild hall (dir: s 3e s from church) there is a 
+list of all available quests. Go there and type:
+<pre>&gt;list</pre>
+You can then get information a bout individual quests by typing:
+<pre>&gt;list X</pre>
+where X is the number of the quest you want to know more about.<p>
+There is also a Book of Quests to buy, but since that itself 
+is a small quest, you will have to find the shop yourself.
+When you have the Book of Quests, you don't have to run to
+the guild hall each time you want to read about a quest. The
+Book of Quests is an autoloader, i.e. you will keep it until
+next time you logon. The Book of Quests will also provide
+informtion about what kind of reward you can expect to recieve when
+solving the individual quests.<p>
+There is a set of quests especially designed for new players.
+They are worth rather few QP, but they will introduce you to
+NannyMud and all its features. Try them out!<p>
+If you need help with a quest, ask more experienced players 
+for hints. They are allowed to give general hints, but not 
+specific directions, or exact commands to use.<h2>NannyMUD local time</h2><p>
+More information about the quest system can be found in
+<pre>&gt;help quests</pre>
+<br/>
+The times flies when you are having fun, they say, and the time in 
+NannyMud actually goes faster than the time in RL. One nanny hour 
+is about 22 RL minutes.<p>
+To check what time it is on NannyMud, you can check the clock in 
+Rose and Dragon in Lars Town, or some of the other clocks available.
+You can also buy your own clock in Ye Olde Thyme Shoppe, in Elm road.<h2>NannyMUD dictionary</h2><h2>Help</h2><p>
+In short:
+<pre>1 Nanny year		13 Nanny months
+1 Nanny month		 3 Nanny weeks, or 21 Nanny days
+1 Nanny week		 7 Nanny days
+1 Nanny day	        19 Nanny hours
+1 Nanny hour            58 Nanny minutes
+1 Nanny minute          23 Nanny seconds</pre>
+For a more comprehensive help on how time works on NannyMud, type:
+<pre>&gt;help time</pre>
+<br/>
+<ul>
+<li>MUD: Multi User Dungeon
+<li>admin: the administration who runs NannyMud.
+<li>afk: away from keyboard
+<li>autoloader: An object you will keep until the next visit.
+<li>brb: Be right back!
+<li>emote: When you emote a string, your name appended with the string is 
+              echoes to everyone in the room, or on the communication line.
+              Emotes are not usually not available for mortals, except on
+              communication lines and in special locations. 
+<li>idle: Being logged on, but not doing anything
+<li>lag: When the response on your command is delayed.
+<li>local: Someone logged in from the same site as the Mud is run on
+<li>mudsex: The art of typing very fast with one hand.
+<li>party: A bunch of players, joined into a party by the 'party object'
+<li>second: A secondcharacter, if someone has more than one character.
+<li>snoop: Someone watches your actions
+<li>steal kill: Killing a monster someone else has beaten down to weak
+<li>wimpy: You run away from a fight when your HP get too low 
+</li></li></li></li></li></li></li></li></li></li></li></li></li></li></li></ul>
+<br/>
+NannyMud has an interactive help system that contains help about all 
+you need to know to be able to play the game. There are two ways 
+to use the help system:
+<b>Help (topic)</b><br/>
+If there is such a topic, you get the help page for it. If there are 
+several topics matching your request, you get a list of those topics
+so you can decide which one you want to read.
+To make a keyword search for a help topic, type
+<pre>&gt;help -k (topic)</pre>
+This will show where in the help structure a certain topic can be found.<p>
+<b>Intercative mode</b><br/>
+The other way is the interactive mode. To enter this mode, simply type "help".
+You will now be able to navigate around inside the help structure following
+links to various topics. The help system works just like a filesystem, with
+/ being the top, and categories named like file paths.<p>
+For more information about the help system, type:
+<pre>&gt;help help</pre>
+These help files are really important to read before starting to play:
+<pre>
+&gt;help rules
+&gt;help password
+&gt;help multiplaying
+&gt;help legal
+&gt;help privacy
+&gt;help syntax</pre>
+Your only obligation as a player on NannyMud is to know what is
+allowed and what is not. If you break the rules, you will be 
+forced to leave the game.
+</p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p>

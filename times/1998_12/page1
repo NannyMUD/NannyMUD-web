@@ -1,0 +1,56 @@
+ 
+ Given:                      2 m r [i cos r^2 - sin r^2] = dx/dr
+ Separate Variables:         2 m r dr [i cos r^2 - sin r^2] = dx
+ Divide both by m:           2 r dr [i cos r^2 - sin r^2] = dx/m
+ Express as integral:        S 2 r dr [i cos r^2 - sin r^2] = S dx/m
+ Integrate:                  cos r^2 + i sin r^2 + c1 = x/m + c2
+ Subtract C2:                cos r^2 + i sin r^2 + c1 - c2 = x/m
+ c1-c2=c^2 for some c:       cos r^2 + i sin r^2 + c^2 = x/m
+ Multiply by m:              m [cos r^2 + i sin r^2] + mc^2 = x
+ E=mc^2:                     m [cos r^2 + i sin r^2] + E = x
+ Subtract E:                 m [cos r^2 + i sin r^2] = x - E
+ De Moivre's rule:           m exp (r^2 i) = x - E
+ E(work)=force*distance:     m exp (r^2 i) = x - F.s
+ F(force)=mass*acceleration: m exp (r^2 i) = x - mas
+ r^2 = rr:                   m exp (rri) = x - mas
+ exp (a) = e^a:              m e^rri = x - mas
+ 
+ 
+ Yeah, some people told me that mudders aren't smart enough to follow that,
+ but I'm gonna prove them wrong!
+ 
+ 
+ Welcome to the Christmas 1998 issue of the NannyMUD Times.
+ 
+  (1) Index
+  (2) Announcements
+  ------ News ------
+  (3) President Kabila's actions in the Congo
+  (4) New Developments in Bosnia
+  (5) Stone Cold Steve Austin's Diplomacy
+  (6) Tea Sales on Nanny increase!
+  ------ Society ------
+  (7) Self-interview from Drechbrel
+  (8) Pklog from Beldros
+  (9) Players married since May
+ (10) Personal ads
+ (11) Horoscopes
+ (12) Review of the Hunters guild 
+  ------ Christmas ------
+ (13) A Knight Christmas Carol, part 1
+ (14) A Knight Christmas Carol, part 2
+ (15) The Supreme Oracle who Cthole Christmas
+ (16) Nanny Christmas Carols
+ (17) The White Stallion: A Christmas Knight's Story 
+ (18) Christmas recipes 
+ (19) What do you want from the admin for Christmas? 
+  ------ Miscellaneous ------
+ (20) 20-question quiz
+ (21) Bughunting
+ (22) Puzzles & Roomhunt
+ (23) Guild poetry
+ (24) Rowen's poll of Nanny
+ (25) The Straight Dope
+ (26) Editorial
+ 
+ 

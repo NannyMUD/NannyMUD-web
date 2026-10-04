@@ -1,0 +1,76 @@
+ \\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\/////
+  \\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////
+   \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////  \/////
+
+Confessions from a bug abuser  - A column written by Emperor Hans the dark
+=============================
+
+First of all, I would like to say that I don't advocate bug abusing. Also, 
+I'm not claiming to have found, or even used, all of the bugs I'm going to 
+talk about, I'm merely telling a good story. But all these bugs actually 
+existed in Nanny, a long long time ago. They have been fixed, of course, 
+and those caught exploiting them have been dealth with properly. And I am 
+by no means blaming the responsible wizards, since where there is code, 
+there are bugs.
+
+
+o Killing with unwielded weapon
+
+This was a fun bug, but strangely enough never abused to my knowledge. Someone
+figured out that you didn't need to wield a weapon to use it. Some weapons are
+not easy to wield, as they might require you to be good/evil, a certain level,
+not using armor etc etc. But, if you didn't have to wield the weapon to use 
+it, these restrictions wouldn't apply. All you had to do was "kill dragon with
+weapon". 
+
+o Monsters killing monsters
+
+This is always something a wizard has to think about when creating monsters.
+Players will sooner or later figure out how to make monsters fight each other,
+to step in just before they're dead and steal the kill. One particular case
+was a rosary that produced ghosts if you carried it. The ghost would attack
+the person carrying the rosary, and if killed, another stronger ghost would
+come back later. To stop the ghosts from coming to kill you, you would have
+to give the rosary to the ghost. However... one player thought of the idea to
+give the rosary to a monster. Since the monster would never give the rosary
+to the ghost, stronger and stronger ghosts would appear, and eventually kill
+the monster. So... imagine "give rosary to merlins dragon". Then, come back
+an hour later and find the pet very much weakened. This, of course, worked on
+almost every monster in the MUD.
+
+
+o The Damned attendants
+
+This is not really a bug in its true meaning, merely an oversight that 
+resulted in absurdity when used with several other objects. The guild of the
+Damned had the ability to raise attendants to help them fight. The only thing
+they needed for this was a corpse. If the Damned was level 19, the attendant 
+would also be level 19, but it was very weak, and the experience given when
+the attendant was killed, was very low. So, basically there was a level 19 
+monster that was very easy to kill, but didn't really give much experience.
+This seemed to be reasonable, since noone could benefit from it. Then came the
+Khorne guild. Khornes must kill a certain amount of monsters to become higher
+ranked. The kills must also be considered worthy. If a monster is worthy or
+not, depends on their level, no matter how easy they are to kill. So, a Khorne
+would get a Damned friend, kill 10 rats to get corpses, create level 19 
+attendants which the Khorne would kill in a few rounds, and raise rank very
+quickly. Although this wasn't really a bug, it's clearly bug abusing. But hey,
+you gotta admit it was pretty clever. :)
+
+o Rewarding yourself
+
+I'm sure most people have killed Jennifer, and then got nice little wanted
+posters of themselves put up over the entire MUD. The sheriff in Padrones pay
+quite a lot for the corpse of the killer. Well, once upon a time, there was a
+way of faking your own death, and thus getting a corpse of yourself. So... 
+kill Jenny, get a corpse on yourself, and go to the Sheriff and explain that
+the evil perpetrator had been dealth with accordingly. He would gladly give
+you a huge reward, and you'd only need to repeat the procedure in order to be
+your own fund raiser.
+
+
+      ----------[ Special thanks to Oriole and Gurk for ideas ]---------
+
+   /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\  /\\\\\
+  ///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\///\\\\\
+ /////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\/////\\\\\

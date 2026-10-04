@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% macro quest_cells(q) %}<span class="nm-qname">{{ q | quest_title }}</span><span class="nm-num">{{ q.points }}</span><span>{{ (q.maintainer or "") | capitalize }}</span><span class="nm-num">{{ q.solved or "" }}</span><span class="nm-small">{% if q.last_solved %}{{ q.last_solved | day }}{% elif q.solved %}unknown{% endif %}</span>{% endmacro %}
+{% macro quest_list(items) %}
+<div class="nm-table-wrap"><div class="nm-qlist">
+<div class="nm-qrow nm-qhead"><span>Quest</span><span class="nm-num">Points</span><span>Maintainer</span><span class="nm-num">Solves</span><span>Last solved</span></div>
+{% for q in items | sort(attribute="points") %}
+{% if q.hint %}<details class="nm-qitem"><summary class="nm-qrow">{{ quest_cells(q) }}</summary><pre class="nm-qhint">{{ q.hint }}</pre></details>
+{% else %}<div class="nm-qitem"><div class="nm-qrow nm-qplain">{{ quest_cells(q) }}</div></div>{% endif %}
+{% endfor %}
+</div></div>
+{% endmacro %}
+{% block main %}
+<article class="nm-card">
+<h1>Quests</h1>
+<p>Solving quests is how a player advances: {{ open | length }} open quests worth {{ total }} quest points in all. Open a quest for the hint the quest room gives.</p>
+<h2>Open quests</h2>
+{{ quest_list(open) }}
+{% if closed %}
+<h2>Closed quests</h2>
+<p class="nm-muted">Quests that can no longer be solved.</p>
+{{ quest_list(closed) }}
+{% endif %}
+</article>
+{% endblock %}

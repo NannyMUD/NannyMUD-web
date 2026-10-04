@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card">
+<h1>The NannyMUD Times</h1>
+<p>The mud's own newspaper, sold in the game, written by players and wizards. Every issue that survives, {{ issues | length }} of them.</p>
+{% for year, group in issues | groupby("year") %}
+<h2>{{ year }}</h2>
+<ul class="nm-issues">{% for i in group %}<li><a href="/times/{{ i.id }}/">{{ i.label }}</a></li>{% endfor %}</ul>
+{% endfor %}
+</article>
+{% endblock %}
