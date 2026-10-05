@@ -1,6 +1,6 @@
 """Build the NannyMUD website into public/.
 
-Reads the mud's nightly export (data/*.json, fetched by scripts/fetch.sh),
+Reads the mud's hourly export (data/*.json, fetched by scripts/fetch.sh),
 the pages carried over from the old site (content/*.html) and the NannyMUD
 Times archive (times/), and writes static pages. No server code, no
 tracking; any web server can serve public/.
@@ -66,6 +66,14 @@ def day(ts):
     if not ts:
         return ""
     return dt.datetime.fromtimestamp(ts, dt.timezone.utc).strftime("%-d %B %Y")
+
+
+def stamp(ts):
+    """The export's time, for the snapshot note: the site is rebuilt every
+    hour, so the hour matters."""
+    if not ts:
+        return ""
+    return dt.datetime.fromtimestamp(ts, dt.timezone.utc).strftime("%-d %B %Y, %H:%M UTC")
 
 
 def duration(seconds):
@@ -293,7 +301,7 @@ def main():
     digest.update(b"skins-1")   # bump to force a new URL past any cache
     css_version = digest.hexdigest()[:10]
     common = {"nav": NAV, "wiki": WIKI, "site": SITE, "discord": DISCORD,
-              "css_version": css_version, "updated": day(generated),
+              "css_version": css_version, "updated": stamp(generated),
               "year": dt.date.today().year}
 
     if os.path.isdir(OUT):

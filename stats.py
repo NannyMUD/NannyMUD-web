@@ -193,10 +193,12 @@ def noon(d):
     return int(dt.datetime.combine(d, dt.time(12), TZ).timestamp())
 
 
-def shops(rows, col, daily):
+def shops(rows, col, daily, weekly=None, yearly=None):
     """The main shop: what it bought, by the hour, the day, the week and
-    the year. daily is the export's ({day, gold, items}); before that
-    existed, days are added up from the hourly samples."""
+    the year. daily, weekly and yearly are the export's ({start, gold,
+    items}); the mud keeps 92 days, two years of weeks and every year.
+    Without them (older exports) days are added up from the hourly
+    samples, and weeks and years from the days."""
     if not rows or "shop_paid" not in col:
         return None
     p = col["shop_paid"]
@@ -226,6 +228,10 @@ def shops(rows, col, daily):
         weeks[wk] = (w[0] + g, w[1] + k)
         y = years.get(d.year, (0, 0))
         years[d.year] = (y[0] + g, y[1] + k)
+    if weekly:
+        weeks = {local(t).date(): (g, k) for t, g, k in weekly}
+    if yearly:
+        years = {y: (g, k) for y, g, k in yearly}
     last = rows[-1]
     recent = [v for _, v in full[-30:]]
     return {
@@ -278,9 +284,9 @@ def wealth(now, columns, daily, rows, col):
                  ("the last week", now.get("seen7d")),
                  ("the last 30 days", now.get("seen30d"))],
         "buckets": bars([(label, now.get(key, 0)) for key, label in BUCKETS]),
-        "total_chart": line_chart(series("total"), "All the gold players own, daily", gold),
-        "median_chart": line_chart(series("median"), "Median player wealth, daily", gold),
-        "top10_chart": line_chart(series("top10_pm", 10), "Share owned by the richest 10% of players, daily",
+        "total_chart": line_chart(series("total"), "All the gold players own", gold),
+        "median_chart": line_chart(series("median"), "Median player wealth", gold),
+        "top10_chart": line_chart(series("top10_pm", 10), "Share owned by the richest 10% of players",
                                   lambda v: "%.1f%%" % v),
         "inflation": inflation[-1][1] if inflation else None,
         "inflation_chart": line_chart(inflation, "What shops pay, as a share of the value, hourly",
@@ -298,7 +304,8 @@ def page(stats):
     return {
         "players": players(rows, col),
         "uptime": uptime(stats.get("booted", 0), stats.get("boots", []), generated),
-        "shops": shops(rows, col, stats.get("shop_daily", [])),
+        "shops": shops(rows, col, stats.get("shop_daily", []),
+                       stats.get("shop_weekly"), stats.get("shop_yearly")),
         "wealth": wealth(stats.get("wealth"), stats.get("wealth_columns", []),
                          stats.get("wealth_daily", []), rows, col),
     }

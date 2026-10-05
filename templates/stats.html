@@ -76,7 +76,7 @@
 <p>The more gold players own, the less the shops pay. At the moment shops pay {{ wealth.inflation }}% of what an item is worth{% if wealth.inflation < 100 %}, a cut of {{ 100 - wealth.inflation }}%{% endif %}.</p>
 {% if wealth.inflation_chart %}<div class="nm-chart-box">{{ wealth.inflation_chart | safe }}</div>{% endif %}{% endif %}
 {% else %}
-<p class="nm-muted">The money in the game will show here once the IMF reports to the nightly export.</p>
+<p class="nm-muted">The money in the game will show here once the IMF reports to the hourly export.</p>
 {% endif %}
 </article>
 {% endblock %}

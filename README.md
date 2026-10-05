@@ -14,7 +14,7 @@ changes. Docker with Compose is all it needs.
 
 | Service | What it does |
 |---|---|
-| `builder` | Fetches the mud's export over FTP and builds the site; again every night at `NANNY_BUILD_AT`. |
+| `builder` | Fetches the mud's export over FTP and builds the site; again at `NANNY_BUILD_AT` (`:30`, half past every hour, by default; or a time of day such as `04:30` for once a night). |
 | `web` | nginx. The site at `/`; MediaWiki's pages at `/wiki/Name` and its files at `/w/`. |
 | `mediawiki` | MediaWiki as PHP-FPM. Its settings live in `wiki/settings/`, uploads in `wiki/images/`. |
 | `database` | MariaDB for the wiki. |

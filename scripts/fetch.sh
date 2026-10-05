@@ -16,4 +16,4 @@ for f in quests puzzles staff areas guilds help stats; do
   python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$DATA/$f.json.new"
   mv "$DATA/$f.json.new" "$DATA/$f.json"
 done
-echo "fetched export: $(ls "$DATA"/*.json | wc -l) files"
+echo "fetched export: 7 files"

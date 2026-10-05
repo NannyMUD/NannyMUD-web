@@ -22,8 +22,24 @@ ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
 git config --global user.name "NannyMUD wiki backup"
 git config --global user.email "wiki-backup@localhost"
 
+# The database may still be starting (the first run after "up"): ask it
+# for up to about two minutes before giving up on this run.
+wait_for_db() {
+  i=0
+  while ! mariadb-admin ping -h database -u "$WIKI_DB_USER" -p"$WIKI_DB_PASSWORD" \
+          --silent >/dev/null 2>&1; do
+    i=$((i + 1))
+    if [ "$i" -ge 24 ]; then
+      echo "the database did not answer for two minutes"
+      return 1
+    fi
+    sleep 5
+  done
+}
+
 backup() {
   echo "$(date '+%F %T') wiki backup"
+  wait_for_db || { echo "no dump this time"; return; }
   if [ ! -d "$REPO_DIR/.git" ]; then
     git clone "$WIKI_BACKUP_REPO" "$REPO_DIR" || { echo "clone failed"; return; }
   fi
