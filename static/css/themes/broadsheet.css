@@ -1046,3 +1046,6 @@ a.nm-more-link:hover { color: var(--nm-accent); text-decoration-color: var(--nm-
 .nm-zoom:target img { width: auto; height: auto; max-width: 100%; max-height: 100%; aspect-ratio: auto; object-fit: contain; border: 0; outline: 0; padding: 0; background: none; box-shadow: 0 0 2rem rgba(0, 0, 0, 0.6); }
 a:has(+ .nm-zoom) { cursor: zoom-in; }
 .nm-guild-pics > a:not(.nm-zoom) { display: contents; }
+.nm-bar i { position: relative; }
+.nm-bar s.nm-bar-last { position: absolute; left: 0; top: 35%; height: 30%; min-width: 2px; background: var(--nm-chart-2); }
+.nm-chart text.nm-tick { opacity: 0.6; }

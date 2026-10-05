@@ -8,6 +8,7 @@ those; the charts are inline SVG drawn now, so the page needs no script.
 """
 import datetime as dt
 import html
+import math
 import statistics
 from zoneinfo import ZoneInfo
 
@@ -95,6 +96,75 @@ def draw_line(pts, label, fmt, width, height, size, cls):
     return "".join(parts)
 
 
+def dual_chart(left, right, label, lname, rname, lfmt=str, rfmt=str):
+    """Two (time, value) series over the same time, one SVG: the left
+    one on a log scale read on the left, the right one on its own log
+    scale read on the right, each named at its top corner in its colour.
+    None when either has nothing to draw."""
+    a = [(t, v) for t, v in left if v is not None]
+    b = [(t, v) for t, v in right if v is not None]
+    if len(a) < 2 or len(b) < 2:
+        return None
+    return (draw_dual(a, b, label, lname, rname, lfmt, rfmt, 640, 200, 12, "nm-chart-wide")
+            + draw_dual(a, b, label, lname, rname, lfmt, rfmt, 440, 240, 15, "nm-chart-narrow"))
+
+
+def draw_dual(a, b, label, lname, rname, lfmt, rfmt, width, height, size, cls):
+    t0 = min(a[0][0], b[0][0])
+    t1 = max(a[-1][0], b[-1][0])
+    ltop, rtop = max(v for _, v in a), max(v for _, v in b)
+    ltext, rtext = lfmt(ltop), rfmt(rtop)
+    left = (14 + 7 * len(ltext)) * size // 12
+    right = (14 + 7 * len(rtext)) * size // 12
+    up, down = int(size * 2.2), 2 * size
+
+    def x(t):
+        return left + (t - t0) / max(t1 - t0, 1) * (width - left - right)
+
+    def y(v, top):
+        # log10(1 + v): zero sits on the floor, the top value at the top
+        return height - down - math.log10(1 + max(v, 0)) / math.log10(1 + max(top, 1)) \
+            * (height - up - down)
+
+    def line(pts, top, var):
+        return ('<polyline points="%s" fill="none" style="stroke: var(%s)" stroke-width="2"/>'
+                % (" ".join("%.1f,%.1f" % (x(t), y(v, top)) for t, v in pts), var))
+
+    ybase = height - down
+
+    def ticks(top, fmt, tx, anchor):
+        # the powers of ten under the top, far enough from it to read
+        out, n = [], 10
+        while n < top and y(n, top) - up > size * 1.6:
+            out.append('<text x="%d" y="%.1f"%s class="nm-tick">%s</text>'
+                       % (tx, y(n, top) + size / 3, anchor, html.escape(fmt(n))))
+            n *= 10
+        return "".join(out)
+    first = local(t0).strftime("%-d %b")
+    last = local(t1).strftime("%-d %b %Y")
+    return "".join([
+        '<svg class="nm-chart %s" viewBox="0 0 %d %d" role="img" aria-label="%s">'
+        % (cls, width, height, html.escape(label)),
+        '<line class="nm-axis" x1="%d" y1="%d" x2="%d" y2="%d"/>' % (left, up, width - right, up),
+        '<line class="nm-axis" x1="%d" y1="%d" x2="%d" y2="%d"/>' % (left, ybase, width - right, ybase),
+        line(a, ltop, "--nm-chart-1"),
+        line(b, rtop, "--nm-chart-2"),
+        '<text x="%d" y="%d" style="fill: var(--nm-chart-1)">%s</text>'
+        % (left, size, html.escape(lname)),
+        '<text x="%d" y="%d" text-anchor="end" style="fill: var(--nm-chart-2)">%s</text>'
+        % (width - right, size, html.escape(rname)),
+        '<text x="%d" y="%.1f" text-anchor="end">%s</text>' % (left - 6, up + size / 3, html.escape(ltext)),
+        '<text x="%d" y="%.1f">%s</text>' % (width - right + 6, up + size / 3, html.escape(rtext)),
+        ticks(ltop, lfmt, left - 6, ' text-anchor="end"'),
+        ticks(rtop, rfmt, width - right + 6, ""),
+        '<text x="%d" y="%.1f" text-anchor="end">0</text>' % (left - 6, ybase + size / 3),
+        '<text x="%d" y="%.1f">0</text>' % (width - right + 6, ybase + size / 3),
+        '<text x="%d" y="%d">%s</text>' % (left, height - size / 2, first),
+        '<text x="%d" y="%d" text-anchor="end">%s</text>' % (width - right, height - size / 2, last),
+        '</svg>',
+    ])
+
+
 def bars(items, fmt=str):
     """(label, value) pairs as bar rows for the template: label, the
     value as text, and its width as a share of the largest."""
@@ -135,10 +205,21 @@ def players(rows, col):
         "peak_when": local(peak[0]).strftime("%-d %B, %H:00"),
         "hours": len(rows),
         "chart": line_chart([(r[0], r[u]) for r in rows], "Players online, hourly"),
-        "daily_chart": line_chart(daily, "Most players online each day"),
-        "by_hour": bars([("%02d:00" % h, round(sum(v) / len(v), 1))
-                         for h, v in sorted(by_hour.items())]),
+        "daily_chart": line_chart(daily, "Most players online each day")
+                       if len(daily) >= 7 else None,
+        "by_hour": hour_bars(by_hour),
     }
+
+
+def hour_bars(by_hour):
+    """Each hour of the day: the median count at that hour, and the
+    latest count at it, as two bars on one track."""
+    rows = [(h, statistics.median(v), v[-1]) for h, v in sorted(by_hour.items())]
+    top = max([m for _, m, _ in rows] + [l for _, _, l in rows] + [0]) or 1
+    return [{"label": "%02d:00" % h,
+             "value": "%g / %d" % (round(m, 1), l),
+             "pct": round(100 * m / top, 1),
+             "last": round(100 * l / top, 1)} for h, m, l in rows]
 
 
 def uptime(booted, boots, generated):
@@ -153,7 +234,7 @@ def uptime(booted, boots, generated):
     for b in boots:
         per_year[local(b).year] = per_year.get(local(b).year, 0) + 1
     recent = [{"start": local(a).strftime("%-d %B %Y"), "length": span(n)}
-              for a, n in reversed(runs[-9:])]
+              for a, n in reversed(runs[-4:])]
     if booted:
         recent.insert(0, {"start": local(booted).strftime("%-d %B %Y"),
                           "length": span(generated - booted) + ", up now"})
@@ -239,12 +320,16 @@ def shops(rows, col, daily, weekly=None, yearly=None):
         "bought": gold(last[n]) if n is not None and len(last) > n else "",
         "day_gold": gold(sum(g for g, _ in recent) / len(recent)) if recent else "",
         "day_items": gold(sum(k for _, k in recent) / len(recent)) if recent else "",
-        "hour_chart": line_chart(hourly_gold, "Gold the main shop paid out each hour", gold),
-        "hour_items_chart": line_chart(hourly_items, "Items the main shop bought each hour", gold),
-        "day_chart": line_chart([(noon(d), g) for d, (g, _) in full[-90:]],
-                                "Gold the main shop paid out each day", gold),
-        "day_items_chart": line_chart([(noon(d), k) for d, (_, k) in full[-90:]],
-                                      "Items the main shop bought each day", gold),
+        "hour_chart": dual_chart(hourly_gold, hourly_items,
+                                 "Gold the main shop paid out and items it bought each hour",
+                                 "gold paid out", "items bought", gold, gold)
+                      or line_chart(hourly_gold, "Gold the main shop paid out each hour", gold),
+        "day_chart": dual_chart([(noon(d), g) for d, (g, _) in full[-90:]],
+                                [(noon(d), k) for d, (_, k) in full[-90:]],
+                                "Gold the main shop paid out and items it bought each day",
+                                "gold paid out", "items bought", gold, gold)
+                     or line_chart([(noon(d), g) for d, (g, _) in full[-90:]],
+                                   "Gold the main shop paid out each day", gold),
         "week_chart": line_chart([(noon(w + dt.timedelta(days=3)), g)
                                   for w, (g, _) in sorted(weeks.items())[-52:]],
                                  "Gold the main shop paid out each week", gold),

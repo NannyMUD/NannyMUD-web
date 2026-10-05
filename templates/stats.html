@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% macro bar_rows(rows, cls="") %}
 <div class="nm-bars {{ cls }}">{% for b in rows %}
-<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s></i><b>{{ b.value }}</b></div>{% endfor %}
+<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s>{% if b.last is defined %}<s class="nm-bar-last" style="width: {{ b.last }}%"></s>{% endif %}</i><b>{{ b.value }}</b></div>{% endfor %}
 </div>
 {% endmacro %}
 {% block main %}
@@ -21,7 +21,7 @@
 {% if players.daily_chart %}<h3>The busiest moment of each day</h3>
 <div class="nm-chart-box">{{ players.daily_chart | safe }}</div>{% endif %}
 {% if players.by_hour | length > 1 %}<h3>Players on by hour of the day</h3>
-<p class="nm-muted nm-small">The average at each hour of the mud's clock, Swedish time, over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }}.</p>
+<p class="nm-muted nm-small">At each hour of the mud's clock, Swedish time: the median over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }} as the wide bar, the last count as the thin one.</p>
 {{ bar_rows(players.by_hour, "nm-bars-tight") }}{% endif %}
 {% endif %}
 
@@ -43,11 +43,9 @@
 <h2>The main shop</h2>
 <p>Since the last reboot the shop in the village has bought {{ shops.bought }} items from players and paid {{ shops.gold }} gold for them{% if shops.day_gold %}. Over the last month it paid about {{ shops.day_gold }} gold a day, for about {{ shops.day_items }} items{% endif %}.</p>
 {% if shops.hour_chart %}<h3>By the hour, the last week</h3>
-<div class="nm-chart-box">{{ shops.hour_chart | safe }}</div>
-{% if shops.hour_items_chart %}<div class="nm-chart-box nm-chart-next">{{ shops.hour_items_chart | safe }}</div>{% endif %}{% endif %}
+<div class="nm-chart-box">{{ shops.hour_chart | safe }}</div>{% endif %}
 {% if shops.day_chart %}<h3>By the day</h3>
-<div class="nm-chart-box">{{ shops.day_chart | safe }}</div>
-{% if shops.day_items_chart %}<div class="nm-chart-box nm-chart-next">{{ shops.day_items_chart | safe }}</div>{% endif %}{% endif %}
+<div class="nm-chart-box">{{ shops.day_chart | safe }}</div>{% endif %}
 {% if shops.week_chart %}<h3>By the week</h3>
 <div class="nm-chart-box">{{ shops.week_chart | safe }}</div>{% endif %}
 {% if shops.years %}<h3>By the year</h3>
