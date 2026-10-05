@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% macro bar_rows(rows, cls="") %}
 <div class="nm-bars {{ cls }}">{% for b in rows %}
-<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s>{% if b.last is defined %}<s class="nm-bar-last" style="width: {{ b.last }}%"></s>{% endif %}</i><b>{{ b.value }}</b></div>{% endfor %}
+<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s></i><b>{{ b.value }}</b></div>{% endfor %}
 </div>
 {% endmacro %}
 {% block main %}
@@ -20,9 +20,9 @@
 {% if players.chart %}<div class="nm-chart-box">{{ players.chart | safe }}</div>{% endif %}
 {% if players.daily_chart %}<h3>The busiest moment of each day</h3>
 <div class="nm-chart-box">{{ players.daily_chart | safe }}</div>{% endif %}
-{% if players.by_hour | length > 1 %}<h3>Players on by hour of the day</h3>
-<p class="nm-muted nm-small">At each hour of the mud's clock, Swedish time: the median over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }} as the wide bar, the last count as the thin one.</p>
-{{ bar_rows(players.by_hour, "nm-bars-tight") }}{% endif %}
+{% if players.by_hour %}<h3>Players on by hour of the day</h3>
+<p class="nm-muted nm-small">One candle for each hour of the mud's clock, Swedish time, over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }}: the line runs from the fewest to the most on at that hour, the block from the median to the last count, filled when the last is at or above the median and hollow when below.</p>
+<div class="nm-chart-box">{{ players.by_hour | safe }}</div>{% endif %}
 {% endif %}
 
 {% if uptime %}

@@ -207,19 +207,59 @@ def players(rows, col):
         "chart": line_chart([(r[0], r[u]) for r in rows], "Players online, hourly"),
         "daily_chart": line_chart(daily, "Most players online each day")
                        if len(daily) >= 7 else None,
-        "by_hour": hour_bars(by_hour),
+        "by_hour": hour_candles(by_hour),
     }
 
 
-def hour_bars(by_hour):
-    """Each hour of the day: the median count at that hour, and the
-    latest count at it, as two bars on one track."""
-    rows = [(h, statistics.median(v), v[-1]) for h, v in sorted(by_hour.items())]
-    top = max([m for _, m, _ in rows] + [l for _, _, l in rows] + [0]) or 1
-    return [{"label": "%02d:00" % h,
-             "value": "%g / %d" % (round(m, 1), l),
-             "pct": round(100 * m / top, 1),
-             "last": round(100 * l / top, 1)} for h, m, l in rows]
+def hour_candles(by_hour):
+    """Each hour of the day as a candle: the wick from the fewest to the
+    most ever on at that hour, the body from the median to the last
+    count, filled when the last is at or above the median and hollow
+    when below. Drawn wide and narrow, like line_chart."""
+    rows = [(h, min(v), max(v), statistics.median(v), v[-1])
+            for h, v in sorted(by_hour.items())]
+    if len(rows) < 2:
+        return None
+    return (draw_candles(rows, 640, 200, 12, "nm-chart-wide")
+            + draw_candles(rows, 440, 240, 15, "nm-chart-narrow"))
+
+
+def draw_candles(rows, width, height, size, cls):
+    top = max(r[2] for r in rows) or 1
+    left = (14 + 7 * len(str(top))) * size // 12
+    right, up, down = 8, 10, 2 * size
+    step = (width - left - right) / 24
+    body = max(step * 0.6, 3)
+
+    def y(v):
+        return height - down - v / top * (height - up - down)
+
+    parts = [
+        '<svg class="nm-chart %s" viewBox="0 0 %d %d" role="img" aria-label="%s">'
+        % (cls, width, height, "Players on by hour of the day"),
+        '<line class="nm-axis" x1="%d" y1="%.1f" x2="%d" y2="%.1f"/>'
+        % (left, y(top), width - right, y(top)),
+        '<line class="nm-axis" x1="%d" y1="%.1f" x2="%d" y2="%.1f"/>'
+        % (left, y(0), width - right, y(0)),
+        '<text x="%d" y="%.1f" text-anchor="end">%d</text>' % (left - 6, y(top) + size / 3, top),
+        '<text x="%d" y="%.1f" text-anchor="end">0</text>' % (left - 6, y(0) + size / 3),
+    ]
+    for h, lo, hi, med, last in rows:
+        cx = left + (h + 0.5) * step
+        y1, y2 = y(max(med, last)), y(min(med, last))
+        parts.append('<g style="stroke: var(--nm-chart-1); fill: %s"><title>%02d:00: '
+                     '%d to %d, median %g, last %d</title>'
+                     % ("none" if last < med else "var(--nm-chart-1)",
+                        h, lo, hi, round(med, 1), last))
+        parts.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke-width="1.5"/>'
+                     % (cx, y(hi), cx, y(lo)))
+        parts.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" stroke-width="1.5"/></g>'
+                     % (cx - body / 2, y1 - (1 if y2 - y1 < 2 else 0), body, max(y2 - y1, 2)))
+        if h % 3 == 0:
+            parts.append('<text x="%.1f" y="%d" text-anchor="middle">%02d</text>'
+                         % (cx, height - size / 2, h))
+    parts.append('</svg>')
+    return "".join(parts)
 
 
 def uptime(booted, boots, generated):
