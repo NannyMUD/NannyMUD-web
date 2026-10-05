@@ -1009,3 +1009,5 @@ a.nm-more-link, a.nm-more-link:visited { color: var(--nm-heading); }
 a:has(+ .nm-zoom) { cursor: zoom-in; }
 .nm-guild-pics > a:not(.nm-zoom) { display: contents; }
 .nm-chart text.nm-tick { opacity: 0.6; }
+.nm-chart { --nm-up: #5f9e6a; --nm-down: #c25a4e; }
+.nm-connect a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }

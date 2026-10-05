@@ -1,0 +1,33 @@
+{% from "_discord.html" import discord_band %}
+<p>NannyMUD's own scripts and libraries for <a href="https://www.mudlet.org/">Mudlet</a>, shared by players for players. They read the data the mud sends over GMCP, so your health, your foe, your party, the room and your guild can sit in their own windows instead of being read off the screen.</p>
+<div class="nm-connect">
+  <div><span class="nm-label">Repository</span><code><a href="https://github.com/NannyMUD/NannyMUD-mudlet">NannyMUD/NannyMUD-mudlet</a></code></div>
+</div>
+
+<h2>Getting started</h2>
+<ol class="nm-steps">
+<li><span>In Mudlet, open Settings, then Game protocols, and tick <b>Enable GMCP</b>. Reconnect.</span></li>
+<li><span>In the game, type <code>toggle gmcp on</code>. <code>toggle gmcp</code> lists what the mud can send, and <code>toggle gmcp &lt;name&gt; on</code> turns each part on.</span></li>
+<li><span>Download a package from the <a href="https://github.com/NannyMUD/NannyMUD-mudlet">repository</a> and install it in Mudlet with Toolbox, then Package Manager, then Install. Its own page in the repository says what it shows and how to set it up.</span></li>
+</ol>
+
+<h2>What the mud sends</h2>
+<p>Each part is off until you turn it on, and the mud sends it only when your client asks for it.</p>
+<div class="nm-table-wrap"><table class="nm-table">
+<thead><tr><th>Turned on with</th><th>What is in it</th></tr></thead>
+<tbody>
+<tr><td><code>toggle gmcp vitals</code></td><td>Hit points, spell points, and what you carry.<br><span class="nm-muted nm-small"><code>Char.Vitals</code></span></td></tr>
+<tr><td><code>toggle gmcp foe</code></td><td>Whom you are fighting and how hurt they are.<br><span class="nm-muted nm-small"><code>Char.Foe</code></span></td></tr>
+<tr><td><code>toggle gmcp status</code></td><td>What <code>score</code> shows: level, experience, money and the rest.<br><span class="nm-muted nm-small"><code>Char.Status</code></span></td></tr>
+<tr><td><code>toggle gmcp group</code></td><td>Your party, as <code>party status</code> shows it.<br><span class="nm-muted nm-small"><code>Group.Info</code></span></td></tr>
+<tr><td><code>toggle gmcp room</code></td><td>The room you are in and its exits, for a mapper.<br><span class="nm-muted nm-small"><code>Room.Info</code></span></td></tr>
+<tr><td><code>toggle gmcp channels</code></td><td>Channel lines, for a chat window.<br><span class="nm-muted nm-small"><code>Comm.Channel.Text</code></span></td></tr>
+<tr><td><code>toggle gmcp discord</code></td><td>Your status for Discord, if Mudlet shows it there.<br><span class="nm-muted nm-small"><code>External.Discord</code></span></td></tr>
+<tr><td><code>toggle &lt;guild&gt; gmcp</code></td><td>Your guild's own state, for members. In the game, <code>help</code> in your guild says what is in it.<br><span class="nm-muted nm-small"><code>Guild.Alchemy</code>, <code>Guild.Strigoi</code>, <code>Guild.Druid</code></span></td></tr>
+</tbody>
+</table></div>
+
+<h2>Sharing your own</h2>
+<p>Written something others could use? Open a pull request on the <a href="https://github.com/NannyMUD/NannyMUD-mudlet">repository</a>, or bring it to Discord and someone will help you put it there. Bugs and wishes go in its issues.</p>
+
+{{ discord_band(discord) }}

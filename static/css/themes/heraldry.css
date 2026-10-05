@@ -1037,3 +1037,4 @@ summary.nm-qrow .nm-qname::before { color: var(--nm-accent); }
 a:has(+ .nm-zoom) { cursor: zoom-in; }
 .nm-guild-pics > a:not(.nm-zoom) { display: contents; }
 .nm-chart text.nm-tick { opacity: 0.6; }
+.nm-connect a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
