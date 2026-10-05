@@ -349,6 +349,8 @@ def main():
           body=env.get_template("play.html").render(**common))
     write("/play/mudlet/", "page.html", page_title="Mudlet for NannyMUD",
           body=env.get_template("play_mudlet.html").render(**common))
+    write("/play/tintin/", "page.html", page_title="TinTin++ for NannyMUD",
+          body=env.get_template("play_tintin.html").render(**common))
     every_quest = quests.get("open", []) + quests.get("closed", [])
     most = max(every_quest, key=lambda q: q.get("solved") or 0, default=None)
     latest = max(every_quest, key=lambda q: q.get("last_solved") or 0, default=None)

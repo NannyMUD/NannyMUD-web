@@ -214,8 +214,8 @@ def players(rows, col):
 def hour_candles(by_hour):
     """Each hour of the day as a candle: the wick from the fewest to the
     most ever on at that hour, the body from the median to the last
-    count, filled when the last is at or above the median and hollow
-    when below. Drawn wide and narrow, like line_chart."""
+    count, dark green when the last is at or above the median and dark
+    red when below. Drawn wide and narrow, like line_chart."""
     rows = [(h, min(v), max(v), statistics.median(v), v[-1])
             for h, v in sorted(by_hour.items())]
     if len(rows) < 2:
@@ -247,10 +247,10 @@ def draw_candles(rows, width, height, size, cls):
     for h, lo, hi, med, last in rows:
         cx = left + (h + 0.5) * step
         y1, y2 = y(max(med, last)), y(min(med, last))
-        parts.append('<g style="stroke: var(--nm-chart-1); fill: %s"><title>%02d:00: '
+        var = "var(--nm-down, #9b2c2c)" if last < med else "var(--nm-up, #2f6b3a)"
+        parts.append('<g style="stroke: %s; fill: %s"><title>%02d:00: '
                      '%d to %d, median %g, last %d</title>'
-                     % ("none" if last < med else "var(--nm-chart-1)",
-                        h, lo, hi, round(med, 1), last))
+                     % (var, var, h, lo, hi, round(med, 1), last))
         parts.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke-width="1.5"/>'
                      % (cx, y(hi), cx, y(lo)))
         parts.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" stroke-width="1.5"/></g>'

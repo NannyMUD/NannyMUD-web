@@ -21,7 +21,7 @@
 {% if players.daily_chart %}<h3>The busiest moment of each day</h3>
 <div class="nm-chart-box">{{ players.daily_chart | safe }}</div>{% endif %}
 {% if players.by_hour %}<h3>Players on by hour of the day</h3>
-<p class="nm-muted nm-small">One candle for each hour of the mud's clock, Swedish time, over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }}: the line runs from the fewest to the most on at that hour, the block from the median to the last count, filled when the last is at or above the median and hollow when below.</p>
+<p class="nm-muted nm-small">One candle for each hour of the mud's clock, Swedish time, over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }}: the line runs from the fewest to the most on at that hour, the block from the median to the last count, green when the last is at or above the median and red when below.</p>
 <div class="nm-chart-box">{{ players.by_hour | safe }}</div>{% endif %}
 {% endif %}
 

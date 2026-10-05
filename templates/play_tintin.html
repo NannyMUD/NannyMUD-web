@@ -1,0 +1,47 @@
+{% from "_discord.html" import discord_band %}
+<p>NannyMUD's own scripts for <a href="https://tintin.mudhalla.net/">TinTin++</a>, shared by players for players. They read the data the mud sends over GMCP and keep it in a panel on the right of the screen, with a box at the top for tells and channels, and they keep the mud's line width in step when you resize the window.</p>
+<div class="nm-connect">
+  <div><span class="nm-label">Repository</span><code><a href="https://github.com/NannyMUD/NannyMUD-tintin">NannyMUD/NannyMUD-tintin</a></code></div>
+</div>
+
+<h2>The files</h2>
+<div class="nm-table-wrap"><table class="nm-table">
+<thead><tr><th>File</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>nanny.tin</code></td><td>Start here. Reads the others and connects.</td></tr>
+<tr><td><code>nanny.split.tin</code></td><td>The message box at the top. When the window changes size it is drawn again and the mud is told the new size, so it wraps to fit.</td></tr>
+<tr><td><code>nanny.gmcp.tin</code></td><td>The panel on the right: your health, your foe, the room, your score and your party. Tells and channels go to the top box.</td></tr>
+<tr><td><code>nanny.gmcp.alchemy.tin</code></td><td>The Alchemists' part of the panel: minions, stores and concoctions.</td></tr>
+<tr><td><code>nanny.gmcp.strigoi.tin</code></td><td>The Strigoi part: level, form, damage and what is on you.</td></tr>
+<tr><td><code>nanny.gmcp.druid.tin</code></td><td>The Druids' part: pets, barkskin, staff and wand.</td></tr>
+</tbody>
+</table></div>
+
+<h2>Getting started</h2>
+<ol class="nm-steps">
+<li><span>Download the files into one folder and start TinTin++ there with <code>tt++ nanny.tin</code>.</span></li>
+<li><span>If your guild has a file, take the <code>#nop</code> off the line in <code>nanny.tin</code> that reads it.</span></li>
+<li><span>Log in and type <code>gmcp_on</code> once. It turns GMCP on in the game, every part of it, and the mud remembers. For your guild's part, also <code>toggle &lt;guild&gt; gmcp on</code>.</span></li>
+</ol>
+<p class="nm-muted nm-small">The panel shows when the window is at least 110 columns wide.</p>
+
+<h2>What the mud sends</h2>
+<p>Each part is off until you turn it on, and the mud sends it only when your client asks for it.</p>
+<div class="nm-table-wrap"><table class="nm-table">
+<thead><tr><th>Turned on with</th><th>What is in it</th></tr></thead>
+<tbody>
+<tr><td><code>toggle gmcp vitals</code></td><td>Hit points, spell points, and what you carry.<br><span class="nm-muted nm-small"><code>Char.Vitals</code></span></td></tr>
+<tr><td><code>toggle gmcp foe</code></td><td>Whom you are fighting and how hurt they are.<br><span class="nm-muted nm-small"><code>Char.Foe</code></span></td></tr>
+<tr><td><code>toggle gmcp status</code></td><td>What <code>score</code> shows: level, experience, money and the rest.<br><span class="nm-muted nm-small"><code>Char.Status</code></span></td></tr>
+<tr><td><code>toggle gmcp group</code></td><td>Your party, as <code>party status</code> shows it.<br><span class="nm-muted nm-small"><code>Group.Info</code></span></td></tr>
+<tr><td><code>toggle gmcp room</code></td><td>The room you are in and its exits, for a mapper.<br><span class="nm-muted nm-small"><code>Room.Info</code></span></td></tr>
+<tr><td><code>toggle gmcp channels</code></td><td>Channel lines, for a chat window.<br><span class="nm-muted nm-small"><code>Comm.Channel.Text</code></span></td></tr>
+<tr><td><code>toggle gmcp discord</code></td><td>Your status for Discord, for a client that shows it there.<br><span class="nm-muted nm-small"><code>External.Discord</code></span></td></tr>
+<tr><td><code>toggle &lt;guild&gt; gmcp</code></td><td>Your guild's own state, for members. In the game, <code>help</code> in your guild says what is in it.<br><span class="nm-muted nm-small"><code>Guild.Alchemy</code>, <code>Guild.Strigoi</code>, <code>Guild.Druid</code></span></td></tr>
+</tbody>
+</table></div>
+
+<h2>Sharing your own</h2>
+<p>Written something others could use, or a file for your own guild? Open a pull request on the <a href="https://github.com/NannyMUD/NannyMUD-tintin">repository</a>, or bring it to Discord and someone will help you put it there. Bugs and wishes go in its issues.</p>
+
+{{ discord_band(discord) }}
