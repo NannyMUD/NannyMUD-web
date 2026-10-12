@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="nm-card{% if current != "/play/" %} nm-prose{% else %} nm-play{% endif %}">
-<h1>{{ page_title }}</h1>
+{% if crumbs %}<p class="nm-crumbs">{% for title, url in crumbs %}<a href="{{ url }}">{{ title }}</a>{% if not loop.last %} / {% endif %}{% endfor %}</p>
+{% endif %}<h1>{{ page_title }}</h1>
 {{ body | lightbox | safe }}
 </article>
 {% endblock %}

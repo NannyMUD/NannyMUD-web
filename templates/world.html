@@ -6,7 +6,10 @@
 </article>
 <article class="nm-card">
 <h2>Open areas</h2>
-<p class="nm-muted">The {{ areas | length }} wizards whose areas are open to players today.</p>
-<ul class="nm-cols">{% for a in areas %}<li>{{ a }}</li>{% endfor %}</ul>
+<p class="nm-muted">The {{ areas | length }} wizards whose areas are open to players today. A linked name has a booklet in the tourist information office.</p>
+<ul class="nm-cols">{% for a in areas %}<li>{% if a | lower in booklets %}<a href="/world/{{ a | lower }}/">{{ a }}</a>{% else %}{{ a }}{% endif %}</li>{% endfor %}</ul>
+{% if other_booklets %}<h2>Other wizards</h2>
+<p class="nm-muted">The {{ other_booklets | length }} wizards with a booklet in the tourist information office whose own area is not open.</p>
+<ul class="nm-cols">{% for w in other_booklets %}<li>{{ w | capitalize }}</li>{% endfor %}</ul>{% endif %}
 </article>
 {% endblock %}

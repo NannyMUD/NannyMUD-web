@@ -175,7 +175,7 @@ def bars(items, fmt=str):
 
 # ---------------------------------------------------------------- parts
 
-def players(rows, col):
+def players(rows, col, tally=None):
     """Who is on: now, the last day, the month, and the busy hours."""
     if not rows or "users" not in col:
         return None
@@ -207,17 +207,40 @@ def players(rows, col):
         "chart": line_chart([(r[0], r[u]) for r in rows], "Players online, hourly"),
         "daily_chart": line_chart(daily, "Most players online each day")
                        if len(daily) >= 7 else None,
-        "by_hour": hour_candles(by_hour),
+        "by_hour": hour_candles(by_hour, tally),
+        "tally_since": local(tally["since"]).strftime("%-d %B %Y")
+                       if tally and tally.get("since") else "",
     }
 
 
-def hour_candles(by_hour):
+def tally_median(counts):
+    """The median of a tally {count: times seen}, the lower middle one
+    when the number of times is even."""
+    seen = sorted((int(k), n) for k, n in counts.items())
+    total = sum(n for _, n in seen)
+    half, run = (total + 1) // 2, 0
+    for v, n in seen:
+        run += n
+        if run >= half:
+            return v
+    return 0
+
+
+def hour_candles(by_hour, tally=None):
     """Each hour of the day as a candle: the wick from the fewest to the
-    most ever on at that hour, the body from the median to the last
-    count, dark green when the last is at or above the median and dark
-    red when below. Drawn wide and narrow, like line_chart."""
-    rows = [(h, min(v), max(v), statistics.median(v), v[-1])
-            for h, v in sorted(by_hour.items())]
+    most ever on at that hour, the body from the median of all time at
+    that hour to the last count, dark green when the last is at or
+    above the median and dark red when below. Without a tally the
+    median and the wick come from the recent rows alone. Drawn wide and
+    narrow, like line_chart."""
+    rows = []
+    for h, v in sorted(by_hour.items()):
+        counts = (tally or {}).get("hours", {}).get(str(h))
+        if counts:
+            seen = [int(k) for k in counts]
+            rows.append((h, min(seen), max(seen), tally_median(counts), v[-1]))
+        else:
+            rows.append((h, min(v), max(v), statistics.median(v), v[-1]))
     if len(rows) < 2:
         return None
     return (draw_candles(rows, 640, 200, 12, "nm-chart-wide")
@@ -420,14 +443,14 @@ def wealth(now, columns, daily, rows, col):
     }
 
 
-def page(stats):
+def page(stats, tally=None):
     """Everything the Stats page shows, from stats.json."""
     cols = stats.get("columns", [])
     col = {c: i for i, c in enumerate(cols)}
     rows = [r for r in stats.get("hourly", []) if r]
     generated = stats.get("generated", 0)
     return {
-        "players": players(rows, col),
+        "players": players(rows, col, tally),
         "uptime": uptime(stats.get("booted", 0), stats.get("boots", []), generated),
         "shops": shops(rows, col, stats.get("shop_daily", []),
                        stats.get("shop_weekly"), stats.get("shop_yearly")),

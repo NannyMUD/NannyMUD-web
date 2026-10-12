@@ -18,6 +18,7 @@ import shutil
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import stats as numbers
+import visits
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get("NANNY_OUT_DIR", os.path.join(ROOT, "public"))
@@ -50,6 +51,20 @@ MOVED = {"the-world": "/world/", "connect": "/play/"}
 # short addresses that send the visitor elsewhere
 SHORT = {"discord": DISCORD}
 
+# Where each content page sits, for its breadcrumb: the slug of its
+# parent page, or a fixed (title, url) for a page built from a template.
+# A page not listed here is top level and has none.
+HELP, HISTORY = ("Help", "/help/"), ("History", "/history/")
+WEBHISTORY = ("Web history", "/history/web/")
+PARENT = {
+    "the-beginnings": HISTORY, "timeline": HISTORY, "musings": HISTORY,
+    "events": HISTORY, "the-people": HISTORY, "pictures": HISTORY,
+    "other-topics": WEBHISTORY, "attendance": WEBHISTORY,
+    "guild-statistics": WEBHISTORY, "where-players-come-from": WEBHISTORY,
+    "faq": HELP, "newbie-booklet": HELP, "introduction": HELP, "the-game": HELP,
+    "ewan": "faq", "what-is-nannymud": "introduction", "features": "introduction",
+}
+
 
 # ------------------------------------------------------------------ data
 
@@ -60,6 +75,69 @@ def load(name):
         return {}
     with open(path, encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def hour_tally(stats):
+    """How often each count of players has been seen at each hour of the
+    day, for all time: {"last": time of the newest row counted, "since":
+    of the first, "hours": {"0": {"5": 12, ...}, ...}}. The export keeps
+    only recent rows, so every new one is added here once and the old
+    ones are never needed again. Kept in the data folder beside the
+    export, which the fetch leaves alone."""
+    path = os.path.join(DATA, "hour_tally.json")
+    tally = {"last": 0, "since": 0, "hours": {}}
+    if os.path.isfile(path):
+        try:
+            with open(path, encoding="utf-8") as fh:
+                tally = json.load(fh)
+        except ValueError:
+            pass
+    cols = stats.get("columns", [])
+    if "users" not in cols:
+        return tally
+    u = cols.index("users")
+    added = 0
+    for r in stats.get("hourly", []):
+        if not r or len(r) <= u or r[u] is None or r[0] <= tally["last"]:
+            continue
+        hour = str(numbers.local(r[0]).hour)
+        counts = tally["hours"].setdefault(hour, {})
+        counts[str(r[u])] = counts.get(str(r[u]), 0) + 1
+        tally["last"] = r[0]
+        tally["since"] = tally["since"] or r[0]
+        added += 1
+    if added:
+        with open(path + ".new", "w", encoding="utf-8") as fh:
+            json.dump(tally, fh)
+        os.replace(path + ".new", path)
+    return tally
+
+
+def site_visits():
+    """The website's own visits, or None when there is no log to read."""
+    try:
+        return visits.page(visits.tally(DATA))
+    except Exception as e:          # a stats panel must never stop the build
+        print("visits:", e)
+        return None
+
+
+def crumbs(slug, pages):
+    """The breadcrumb for a content page, top first: [(title, url)]."""
+    trail, seen = [], {slug}
+    up = PARENT.get(slug)
+    while up:
+        if isinstance(up, tuple):
+            trail.insert(0, up)
+            if up == WEBHISTORY:
+                trail.insert(0, HISTORY)
+            break
+        if up in seen or up not in pages:
+            break
+        seen.add(up)
+        trail.insert(0, (pages[up]["title"], "/%s/" % up))
+        up = PARENT.get(up)
+    return trail
 
 
 def day(ts):
@@ -348,8 +426,10 @@ def main():
     write("/play/", "page.html", page_title="Play NannyMUD",
           body=env.get_template("play.html").render(**common))
     write("/play/mudlet/", "page.html", page_title="Mudlet for NannyMUD",
+          crumbs=[("Play", "/play/")],
           body=env.get_template("play_mudlet.html").render(**common))
     write("/play/tintin/", "page.html", page_title="TinTin++ for NannyMUD",
+          crumbs=[("Play", "/play/")],
           body=env.get_template("play_tintin.html").render(**common))
     every_quest = quests.get("open", []) + quests.get("closed", [])
     most = max(every_quest, key=lambda q: q.get("solved") or 0, default=None)
@@ -364,8 +444,21 @@ def main():
           areas=sorted([a for a in puzzles.get("areas", []) if a.get("open")],
                        key=lambda a: ({"mainland": 0, "antharis": 1}.get(a.get("area"), 2), a.get("area", ""))),
           open_count=puzzles.get("open", 0), charm_count=puzzles.get("charms", 0))
+    booklets = load("booklets").get("booklets", {})
+    open_names = {a.lower() for a in areas.get("areas", [])}
     write("/world/", "world.html", page_title="The World", snapshot=True,
-          areas=areas.get("areas", []), intro=pages.get("the-world", {}).get("body", ""))
+          areas=areas.get("areas", []), booklets=booklets,
+          other_booklets=sorted(w for w in booklets if w not in open_names),
+          intro=pages.get("the-world", {}).get("body", ""))
+    # a booklet gets a page only when its wizard's area is open: the
+    # others are named on the World page, without a link
+    for wiz, book in booklets.items():
+        if wiz not in open_names:
+            continue
+        write("/world/%s/" % wiz, "booklet.html", snapshot=True,
+              page_title="%s's tourist booklet" % wiz.capitalize(),
+              wiz=wiz.capitalize(), chapters=book.get("chapters", []),
+              antharis=book.get("antharis", []))
     gpages = guild_pages()
     write("/guilds/", "guilds.html", page_title="Guilds", snapshot=True,
           guilds=[dict(g, page="/guilds/%s/" % GUILD_PAGES[g["name"]]
@@ -400,7 +493,108 @@ def main():
                   ("Guilds", len(guilds.get("guilds", []))),
                   ("Help topics", len(helps.get("topics", {}))),
                   ("Times issues", len(issues))],
-          **numbers.page(stats))
+          visits=site_visits(),
+          **numbers.page(stats, hour_tally(stats)))
+    # the toplists and the wizards' tables, under tabs of the Stats page
+    tops = load("tops")
+
+    def prep(t):
+        """A sheet drawn as the mud would: a box of text, the first five
+        rows open, the rest under 'show all'."""
+        t = dict(t)
+        # a sheet's own time only when it is older than the export: a
+        # wizard's last good sheets, kept while their export is broken
+        old = (t.get("at") or 0) < (tops.get("generated") or 0) - 3600
+        t["at_text"] = stamp(t.get("at")) if old else ""
+        if t.get("text"):               # a map or a drawing, as written
+            t["sheet"], t["sheet_all"], t["count"] = t["text"].rstrip("\n"), "", 0
+            return t
+        rows, cols = t.get("rows", []), t.get("columns", [])
+        numeric = [bool(rows) and all(isinstance(r[i], (int, float))
+                                      for r in rows if len(r) > i)
+                   for i in range(len(cols))]
+
+        def text(v):
+            return "{:,}".format(v) if isinstance(v, (int, float)) else str(v)
+
+        head = ["#"] + [str(c) for c in cols]
+        # equal scores share a place, as the game's plaques show them: the
+        # place only where the score (the last column) changes
+        body, last = [], object()
+        for n, r in enumerate(rows, 1):
+            score = r[-1] if r and numeric[-1] else object()
+            body.append([str(n) if score != last else ""] + [text(v) for v in r])
+            last = score
+        right = [True] + numeric
+        width = [max([len(head[i])] + [len(r[i]) for r in body if len(r) > i])
+                 for i in range(len(head))]
+        # "across": the rows in blocks side by side, each read downwards
+        across = t.get("across") if isinstance(t.get("across"), int) else 1
+        across = max(1, min(across, len(body) or 1))
+        height = -(-len(body) // across)
+        n = len(head)
+
+        def cell(i, c):
+            return c.rjust(width[i]) if right[i] else c.ljust(width[i])
+
+        def line(blocks):
+            return "│ " + " ║ ".join(" │ ".join(cell(i, c) for i, c in enumerate(cells))
+                                     for cells in blocks) + " │"
+
+        def rule(l, m, d, r):
+            one = m.join("─" * (w + 2) for w in width)
+            return l + d.join([one] * across) + r
+
+        def lines(k):
+            out = []
+            for j in range(k):
+                blocks = [body[b * height + j] if b * height + j < len(body)
+                          else [""] * n for b in range(across)]
+                out.append(line(blocks))
+            return out
+
+        top = [rule("┌", "┬", "╥", "┐"), line([head] * across),
+               rule("├", "┼", "╫", "┤")]
+        bottom = rule("└", "┴", "╨", "┘")
+        if across > 1:                  # shown whole: blocks do not fold
+            t["sheet"] = "\n".join(top + lines(height) + [bottom])
+            t["sheet_all"] = ""
+        else:
+            t["sheet"] = "\n".join(top + lines(min(5, height)) + [bottom])
+            t["sheet_all"] = ("\n".join(top + lines(height) + [bottom])
+                              if len(body) > 5 else "")
+        t["count"] = len(body)
+        return t
+
+    def by_wizard(tables):
+        groups = {}
+        for t in tables:
+            groups.setdefault(t.get("wizard") or "", []).append(prep(t))
+        return sorted(groups.items(), key=lambda g: g[0].lower())
+
+    stats_crumb = [("Stats", "/stats/")]
+    mud = [prep(t) for t in tops.get("mud", [])]
+    write("/stats/tops/", "stats_tables.html", page_title="Toplists",
+          snapshot=True, active="tops", crumbs=stats_crumb,
+          intro="The game's own toplists, as far down as the game shows them.",
+          groups=[(None, mud)] if mud else [],
+          empty="The toplists show here once the mud exports them.")
+    write("/stats/clubs/", "stats_tables.html", page_title="Clubs",
+          snapshot=True, active="clubs", crumbs=stats_crumb,
+          intro="Information sheets the clubs keep, given by the wizards who run them.",
+          groups=[("Kept by " + w, ts) for w, ts in by_wizard(tops.get("clubs", []))],
+          empty="No club has given the website an information sheet yet.")
+    areas = by_wizard(tops.get("areas", []))
+    write("/stats/areas/", "stats_tables.html", page_title="Areas",
+          snapshot=True, active="areas", crumbs=stats_crumb,
+          intro="Information sheets from the wizards' own areas, a page for each wizard.",
+          index=[(w, len(ts)) for w, ts in areas], groups=[],
+          empty="No area has given the website an information sheet yet.")
+    for w, ts in areas:
+        write("/stats/areas/%s/" % w.lower(), "stats_tables.html",
+              page_title=w + "'s area", snapshot=True, active="areas",
+              crumbs=stats_crumb + [("Areas", "/stats/areas/")],
+              groups=[(None, ts)], empty="")
     write("/times/", "times.html", page_title="The NannyMUD Times", issues=issues)
     for issue in issues:
         write("/times/%s/" % issue["id"], "times_issue.html",
@@ -411,13 +605,20 @@ def main():
           links=[(pages[s]["title"], "/" + s + "/") for s in
                  ("the-beginnings", "timeline", "musings", "events", "the-people",
                   "pictures") if s in pages])
+    # the old site's own pages, kept as they were, each dated
+    write("/history/web/", "history_web.html", page_title="Web history",
+          crumbs=[HISTORY],
+          links=[(pages[s]["title"], "/" + s + "/") for s in
+                 ("attendance", "guild-statistics", "where-players-come-from",
+                  "other-topics") if s in pages])
     for slug, page in pages.items():
         if slug in MOVED:
             continue
         body = page["body"]
         for old, new in MOVED.items():
             body = body.replace('href="/%s/' % old, 'href="%s' % new)
-        write("/%s/" % slug, "page.html", page_title=page["title"], body=body)
+        write("/%s/" % slug, "page.html", page_title=page["title"], body=body,
+              crumbs=crumbs(slug, pages))
     # old addresses keep working, and short ones lead out: a page that
     # sends the visitor on
     for old, new in list(MOVED.items()) + list(SHORT.items()):

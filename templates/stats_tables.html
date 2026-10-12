@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_stats_tabs.html" import stats_tabs %}
+{% macro show(t, level="h3", sid="s") %}
+<{{ level }}>{{ t.title }}</{{ level }}>
+{% if t.desc %}<p class="nm-muted nm-small">{{ t.desc }}</p>{% endif %}
+{% if t.sheet_all %}<div class="nm-infosheet-more">
+<input type="checkbox" id="{{ sid }}" class="nm-infosheet-toggle">
+<pre class="nm-infosheet nm-infosheet-short">{{ t.sheet }}</pre>
+<pre class="nm-infosheet nm-infosheet-full">{{ t.sheet_all }}</pre>
+<label for="{{ sid }}" class="nm-small"><span class="nm-open">Show all {{ t.count }}</span><span class="nm-close">Collapse</span></label>
+</div>
+{% else %}<pre class="nm-infosheet">{{ t.sheet }}</pre>{% endif %}
+{% if t.at_text %}<p class="nm-muted nm-small">Not updated since {{ t.at_text }}.</p>{% endif %}
+{% endmacro %}
+{% block main %}
+<article class="nm-card">
+{% if crumbs %}<p class="nm-crumbs">{% for title, url in crumbs %}<a href="{{ url }}">{{ title }}</a>{% if not loop.last %} / {% endif %}{% endfor %}</p>
+{% endif %}<h1>{{ page_title }}</h1>
+{{ stats_tabs(active) }}
+{% if intro %}<p>{{ intro }}</p>{% endif %}
+{% if index %}
+{% if index | length %}<ul class="nm-cols">{% for w, n in index %}<li><a href="/stats/areas/{{ w | lower }}/">{{ w }}</a> <span class="nm-muted nm-small">{{ n }} information sheet{{ "s" if n != 1 }}</span></li>{% endfor %}</ul>{% endif %}
+{% endif %}
+{% for group, tables in groups %}{% set g = loop.index %}
+{% if group %}<h2>{{ group }}</h2>{% endif %}
+{% for t in tables %}{{ show(t, "h3" if group else "h2", "sheet-" ~ g ~ "-" ~ loop.index) }}{% endfor %}
+{% endfor %}
+{% if not groups and not index %}<p class="nm-muted">{{ empty }}</p>{% endif %}
+</article>
+{% endblock %}

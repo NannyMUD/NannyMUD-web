@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="nm-card nm-helppage">
+<p class="nm-crumbs"><a href="/world/">The World</a></p>
+<h1>{{ wiz }}'s tourist booklet</h1>
+<p>The booklet the clerk in the tourist information office in the village hands out about {{ wiz }}'s area. In the game, say {{ wiz | lower }} to the clerk.</p>
+{% set all = chapters + antharis %}{% if all | length > 1 %}<ul class="nm-cols">{% for c in chapters %}<li><a href="#c{{ loop.index }}">{{ c[0] }}</a></li>{% endfor %}{% for c in antharis %}<li><a href="#a{{ loop.index }}">{{ c[0] }}</a></li>{% endfor %}</ul>{% endif %}
+{% for c in chapters %}<h2 id="c{{ loop.index }}">{{ c[0] | capitalize }}</h2>
+<pre class="nm-helptext">{{ c[1] | trim }}</pre>
+{% endfor %}
+{% if antharis %}<h2>On Antharis</h2>
+<p class="nm-muted">The magistrate in Basalt Keep keeps these.</p>
+{% for c in antharis %}<h3 id="a{{ loop.index }}">{{ c[0] | capitalize }}</h3>
+<pre class="nm-helptext">{{ c[1] | trim }}</pre>
+{% endfor %}{% endif %}
+</article>
+{% endblock %}

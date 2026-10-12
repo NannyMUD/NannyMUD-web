@@ -14,6 +14,8 @@ services:
     volumes:
       - site:/public
       - data:/data
+      # the front nginx's logs, read for the Stats page's visit counts
+      - /var/log/nginx:/hostlogs:ro
 
   web:
     image: nginx:1.27-alpine

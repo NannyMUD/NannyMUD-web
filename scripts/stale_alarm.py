@@ -1,10 +1,14 @@
 """Mail when the mud's export goes stale, and again when it recovers.
 
 Run after each fetch (docker/builder.sh). Every export file carries the
-time the mud wrote it ("generated"). When the oldest is more than
+time the mud wrote it ("generated"). When one is more than
 NANNY_STALE_HOURS (30) old, mail NANNY_ALERT_TO, at most once a day while
 it stays stale; mail once more when it is fresh again. What was last sent
 is kept in alarm.json next to the data, so a restart does not mail twice.
+
+The files in DAILY are written once a day, not hourly, so they get a
+day more: an hourly file is stale after NANNY_STALE_HOURS, a daily one
+after NANNY_STALE_HOURS and 24.
 
 Mail goes through NANNY_SMTP_HOST (the wiki's SES SMTP on the box) with
 NANNY_SMTP_USER and NANNY_SMTP_PASS. Without NANNY_SMTP_HOST or
@@ -19,7 +23,9 @@ from email.message import EmailMessage
 
 DATA = os.environ.get("NANNY_DATA_DIR", "data")
 STATE = os.path.join(DATA, "alarm.json")
-FILES = ("quests", "puzzles", "staff", "areas", "guilds", "help", "stats")
+FILES = ("quests", "puzzles", "staff", "areas", "guilds", "help", "stats",
+         "booklets", "tops")
+DAILY = ("quests", "puzzles", "booklets")    # the mud writes these once a day
 DAY = 24 * 3600
 
 
@@ -91,7 +97,8 @@ def main():
     site = os.environ.get("NANNY_SITE_URL", "the website")
     times = export_times()
     state = load_state()
-    stale = {n: t for n, t in times.items() if now - t > limit}
+    stale = {n: t for n, t in times.items()
+             if now - t > limit + (DAY if n in DAILY else 0)}
     if not times:
         stale = {"(no export files)": 0}
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_stats_tabs.html" import stats_tabs %}
 {% macro bar_rows(rows, cls="") %}
 <div class="nm-bars {{ cls }}">{% for b in rows %}
 <div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s></i><b>{{ b.value }}</b></div>{% endfor %}
@@ -7,6 +8,7 @@
 {% block main %}
 <article class="nm-card">
 <h1>Stats</h1>
+{{ stats_tabs("game") }}
 <p>Numbers from the game itself, counted every hour and gathered every night.</p>
 {% if uptime and uptime.current %}<p class="nm-status">Up {{ uptime.current }}{% if uptime.booted %}, since the reboot on {{ uptime.booted }}{% endif %}.</p>{% endif %}
 <div class="nm-facts">
@@ -21,7 +23,7 @@
 {% if players.daily_chart %}<h3>The busiest moment of each day</h3>
 <div class="nm-chart-box">{{ players.daily_chart | safe }}</div>{% endif %}
 {% if players.by_hour %}<h3>Players on by hour of the day</h3>
-<p class="nm-muted nm-small">One candle for each hour of the mud's clock, Swedish time, over the last {{ players.hours // 24 if players.hours >= 48 else players.hours }} {{ "days" if players.hours >= 48 else "hours" }}: the line runs from the fewest to the most on at that hour, the block from the median to the last count, green when the last is at or above the median and red when below.</p>
+<p class="nm-muted nm-small">One candle for each hour of the mud's clock, Swedish time: the line runs from the fewest to the most ever on at that hour, the block from the median of all time at that hour to the last count, green when the last is at or above the median and red when below.{% if players.tally_since %} Counted since {{ players.tally_since }}.{% endif %}</p>
 <div class="nm-chart-box">{{ players.by_hour | safe }}</div>{% endif %}
 {% endif %}
 
@@ -75,6 +77,17 @@
 {% if wealth.inflation_chart %}<div class="nm-chart-box">{{ wealth.inflation_chart | safe }}</div>{% endif %}{% endif %}
 {% else %}
 <p class="nm-muted">The money in the game will show here once the IMF reports to the hourly export.</p>
+{% endif %}
+
+{% if visits %}
+<h2>The website</h2>
+<p>This site had {{ "{:,}".format(visits.views) }} page views in the last 30 days, from about {{ visits.visitors_day }} visitors a day{% if visits.today %}; {{ visits.today.visitors }} so far today{% endif %}. Counted from the server's own log since {{ visits.since }}, without cookies; bots are left out.</p>
+{% if visits.chart %}<h3>Visitors a day</h3>
+<div class="nm-chart-box">{{ visits.chart | safe }}</div>{% endif %}
+{% if visits.pages %}<h3>The most read pages, the last 30 days</h3>
+{{ bar_rows(visits.pages) }}{% endif %}
+{% if visits.referrers %}<h3>Where visitors came from</h3>
+{{ bar_rows(visits.referrers) }}{% endif %}
 {% endif %}
 </article>
 {% endblock %}

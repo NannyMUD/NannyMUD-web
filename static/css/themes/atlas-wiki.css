@@ -282,9 +282,13 @@ html h1.firstHeading { text-transform: uppercase; letter-spacing: 0.08em; }
 html .mw-body-content .mw-heading2, html .mw-body-content h2 { text-transform: uppercase; letter-spacing: 0.1em; font-size: 1.1rem; }
 .mw-logo-wordmark { text-transform: uppercase; letter-spacing: 0.14em; }
 html, body, .mw-page-container {
-	background-image: linear-gradient(rgba(31, 79, 134, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 79, 134, 0.06) 1px, transparent 1px);
+	background-image: linear-gradient(rgba(31, 79, 134, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 79, 134, 0.03) 1px, transparent 1px);
 	background-size: 96px 96px;
 }
+/* as wide as the rest of the site */
+html body .mw-page-container { width: 100%; max-width: var(--nm-width); }
+/* the page on plain paper, the grid only around it */
+html body .mw-page-container { background-image: none; }
 .vector-header-container { border-top: 0; }
 
 /* The site's own header now sits above the wiki (nginx adds it), so
