@@ -20,7 +20,7 @@ for f in quests puzzles staff areas guilds help stats; do
   fetch "$f"
 done
 # newer exports: a mud that does not write them yet keeps the rest going
-for f in booklets tops; do
+for f in booklets tops attendance; do
   fetch "$f" || { rm -f "$DATA/$f.json.new"; echo "no $f.json in the export"; }
 done
 echo "fetched export"

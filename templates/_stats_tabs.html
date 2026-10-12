@@ -1,6 +1,6 @@
 {#- The tabs over the Stats pages: separate pages, no script. -#}
 {% macro stats_tabs(active) %}
 <nav class="nm-tabs" aria-label="Stats">
-{% for key, label, url in [("game", "The game", "/stats/"), ("tops", "Toplists", "/stats/tops/"), ("clubs", "Clubs", "/stats/clubs/"), ("areas", "Areas", "/stats/areas/")] %}<a href="{{ url }}"{% if key == active %} class="nm-on" aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
+{% for key, label, url in [("index", "Stats", "/stats/"), ("players", "Players", "/stats/players/"), ("market", "Market", "/stats/market/"), ("driver", "Driver", "/stats/driver/"), ("tops", "Toplists", "/stats/tops/"), ("clubs", "Clubs", "/stats/clubs/"), ("areas", "Areas", "/stats/areas/")] %}<a href="{{ url }}"{% if key == active %} class="nm-on" aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
 </nav>
 {% endmacro %}

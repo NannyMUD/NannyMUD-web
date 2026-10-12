@@ -17,6 +17,7 @@ import shutil
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+import attendance
 import stats as numbers
 import visits
 
@@ -46,8 +47,11 @@ NAV = [
 ]
 
 
-# old pages whose content lives elsewhere now
-MOVED = {"the-world": "/world/", "connect": "/play/"}
+# old pages whose content lives elsewhere now, and old addresses whose
+# page moved: both get a redirect, and MOVED's targets are also rewritten
+# into any content page's own links
+MOVED = {"the-world": "/world/", "connect": "/play/",
+         "history/web": "/history/old-web/"}
 # short addresses that send the visitor elsewhere
 SHORT = {"discord": DISCORD}
 
@@ -55,12 +59,13 @@ SHORT = {"discord": DISCORD}
 # parent page, or a fixed (title, url) for a page built from a template.
 # A page not listed here is top level and has none.
 HELP, HISTORY = ("Help", "/help/"), ("History", "/history/")
-WEBHISTORY = ("Web history", "/history/web/")
+WEBHISTORY = ("Old web presence", "/history/old-web/")
 PARENT = {
     "the-beginnings": HISTORY, "timeline": HISTORY, "musings": HISTORY,
     "events": HISTORY, "the-people": HISTORY, "pictures": HISTORY,
     "other-topics": WEBHISTORY, "attendance": WEBHISTORY,
     "guild-statistics": WEBHISTORY, "where-players-come-from": WEBHISTORY,
+    "old-art": WEBHISTORY,
     "faq": HELP, "newbie-booklet": HELP, "introduction": HELP, "the-game": HELP,
     "ewan": "faq", "what-is-nannymud": "introduction", "features": "introduction",
 }
@@ -386,7 +391,7 @@ def main():
         shutil.rmtree(OUT)
     shutil.copytree(os.path.join(ROOT, "static"), os.path.join(OUT, "static"))
 
-    def write(path, template, **kw):
+    def write(path, template, sitemap=True, **kw):
         target = os.path.join(OUT, path.strip("/"), "index.html")
         os.makedirs(os.path.dirname(target), exist_ok=True)
         html_text = env.get_template(template).render(current=path, **common, **kw)
@@ -394,7 +399,8 @@ def main():
         html_text = html_text.replace("__DESC__", html.escape(desc, quote=True))
         with open(target, "w", encoding="utf-8") as fh:
             fh.write(html_text)
-        written.append(path)
+        if sitemap:
+            written.append(path)
 
     written = []
 
@@ -478,23 +484,35 @@ def main():
     write("/help/", "help.html", page_title="Help", snapshot=True,
           topics=sorted((t, sorted(subs)) for t, subs in tree.items()),
           extra=[(pages[s]["title"], "/" + s + "/") for s in
-                 ("faq", "newbie-booklet", "introduction") if s in pages])
+                 ("faq", "newbie-booklet", "introduction", "the-game") if s in pages])
     for name, text in topics.items():
         write("/help/%s/" % name, "help_topic.html", page_title="Help: " + name.replace("/", " ").replace("_", " "), snapshot=True,
               name=name, text=text, description=help_description(name, text))
     write("/staff/", "staff.html", page_title="Administration", snapshot=True,
           **dict(zip(("active", "inactive"),
                      split_staff(staff.get("staff", []), staff.get("generated", 0)))))
-    write("/stats/", "stats.html", page_title="Stats", snapshot=True,
+    numbers_page = numbers.page(stats, hour_tally(stats))
+    attend = attendance.page(load("attendance"), guild_slugs=set(gpages.keys()))
+    stats_crumb = [("Stats", "/stats/")]
+    write("/stats/", "stats_index.html", page_title="Stats", snapshot=True,
           totals=[("Open quests", len(quests.get("open", []))),
                   ("Closed quests", len(quests.get("closed", []))),
                   ("Quest points", quests.get("total_points", 0)),
                   ("Open areas", len(areas.get("areas", []))),
                   ("Guilds", len(guilds.get("guilds", []))),
                   ("Help topics", len(helps.get("topics", {}))),
-                  ("Times issues", len(issues))],
-          visits=site_visits(),
-          **numbers.page(stats, hour_tally(stats)))
+                  ("Times issues", len(issues))])
+    write("/stats/players/", "stats_players.html", page_title="Players", snapshot=True,
+          crumbs=stats_crumb, players=numbers_page["players"], attendance=attend)
+    write("/stats/market/", "stats_market.html", page_title="Market", snapshot=True,
+          crumbs=stats_crumb, shops=numbers_page["shops"], wealth=numbers_page["wealth"])
+    write("/stats/driver/", "stats_driver.html", page_title="Driver", snapshot=True,
+          crumbs=stats_crumb, uptime=numbers_page["uptime"],
+          driver_version=stats.get("driver_version"))
+    # not linked from anywhere, and kept out of the sitemap: a visitor
+    # count is not something to put in front of players
+    write("/stats/visits/", "stats_visits.html", page_title="Website visits",
+          visits=site_visits(), sitemap=False, noindex=True)
     # the toplists and the wizards' tables, under tabs of the Stats page
     tops = load("tops")
 
@@ -572,7 +590,6 @@ def main():
             groups.setdefault(t.get("wizard") or "", []).append(prep(t))
         return sorted(groups.items(), key=lambda g: g[0].lower())
 
-    stats_crumb = [("Stats", "/stats/")]
     mud = [prep(t) for t in tops.get("mud", [])]
     write("/stats/tops/", "stats_tables.html", page_title="Toplists",
           snapshot=True, active="tops", crumbs=stats_crumb,
@@ -606,11 +623,11 @@ def main():
                  ("the-beginnings", "timeline", "musings", "events", "the-people",
                   "pictures") if s in pages])
     # the old site's own pages, kept as they were, each dated
-    write("/history/web/", "history_web.html", page_title="Web history",
+    write("/history/old-web/", "history_web.html", page_title="Old web presence",
           crumbs=[HISTORY],
           links=[(pages[s]["title"], "/" + s + "/") for s in
                  ("attendance", "guild-statistics", "where-players-come-from",
-                  "other-topics") if s in pages])
+                  "other-topics", "old-art") if s in pages])
     for slug, page in pages.items():
         if slug in MOVED:
             continue

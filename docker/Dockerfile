@@ -3,7 +3,7 @@ RUN pip install --no-cache-dir jinja2==3.1.4 markdown==3.7 beautifulsoup4==4.12.
  && apt-get update && apt-get install -y --no-install-recommends curl tzdata \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /site
-COPY build.py stats.py visits.py ./
+COPY build.py stats.py visits.py attendance.py ./
 COPY templates templates
 COPY static static
 COPY content content

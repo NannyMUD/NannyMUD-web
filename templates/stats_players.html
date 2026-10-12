@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "_stats_tabs.html" import stats_tabs %}
+{% from "_period_tabs.html" import period_chart %}
+{% block main %}
+<article class="nm-card">
+{% if crumbs %}<p class="nm-crumbs">{% for title, url in crumbs %}<a href="{{ url }}">{{ title }}</a>{% if not loop.last %} / {% endif %}{% endfor %}</p>
+{% endif %}<h1>Players</h1>
+{{ stats_tabs("players") }}
+{% if players %}
+<p>{{ players.now }} on at the last count{% if players.wizards is not none %}, {{ players.mortals }} mortals and {{ players.wizards }} wizards{% endif %}. In the last day at most {{ players.day_peak }} were on at once, {{ players.day_avg }} on average. The most this month was {{ players.peak }}, on {{ players.peak_when }}.</p>
+{% if players.online_periods %}<h2>Players online</h2>
+{{ period_chart("players-online", players.online_periods) }}{% endif %}
+{% if players.by_hour %}<h3>Players on by hour of the day</h3>
+<p class="nm-muted nm-small">One candle for each hour of the mud's clock, Swedish time: the line runs from the fewest to the most ever on at that hour, the block from the median of all time at that hour to the last count, green when the last is at or above the median and red when below.{% if players.tally_since %} Counted since {{ players.tally_since }}.{% endif %}</p>
+<div class="nm-chart-box">{{ players.by_hour | safe }}</div>{% endif %}
+{% else %}
+<p class="nm-muted">Who is on will show here once the game's hourly export reaches this far back.</p>
+{% endif %}
+
+<h2>Players seen</h2>
+{% if attendance.have %}
+<p class="nm-muted nm-small">{{ attendance.since_caption }}</p>
+{% if attendance.daily_periods %}<h3>Players seen and logins, each day</h3>
+{{ period_chart("players-seen-daily", attendance.daily_periods) }}{% endif %}
+{% if attendance.section %}{{ attendance.section | safe }}{% endif %}
+{{ attendance.map_section | safe }}
+{% else %}
+<p class="nm-muted">No data yet.</p>
+{% endif %}
+</article>
+{% endblock %}

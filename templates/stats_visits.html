@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% macro bar_rows(rows, cls="") %}
+<div class="nm-bars {{ cls }}">{% for b in rows %}
+<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s></i><b>{{ b.value }}</b></div>{% endfor %}
+</div>
+{% endmacro %}
+{% block main %}
+<article class="nm-card">
+<p class="nm-crumbs"><a href="/stats/">Stats</a></p>
+<h1>The website</h1>
+{% if visits %}
+<p>This site had {{ "{:,}".format(visits.views) }} page views in the last 30 days, from about {{ visits.visitors_day }} visitors a day{% if visits.today %}; {{ visits.today.visitors }} so far today{% endif %}. Counted from the server's own log since {{ visits.since }}, without cookies; bots are left out.</p>
+{% if visits.chart %}<h3>Visitors a day</h3>
+<div class="nm-chart-box">{{ visits.chart | safe }}</div>{% endif %}
+{% if visits.pages %}<h3>The most read pages, the last 30 days</h3>
+{{ bar_rows(visits.pages) }}{% endif %}
+{% if visits.referrers %}<h3>Where visitors came from</h3>
+{{ bar_rows(visits.referrers) }}{% endif %}
+{% else %}
+<p class="nm-muted">Visits will show here once the server's log covers a few days.</p>
+{% endif %}
+</article>
+{% endblock %}

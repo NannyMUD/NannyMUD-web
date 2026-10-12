@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="nm-card">
-<h1>Web history</h1>
+{% if crumbs %}<p class="nm-crumbs">{% for title, url in crumbs %}<a href="{{ url }}">{{ title }}</a>{% if not loop.last %} / {% endif %}{% endfor %}</p>
+{% endif %}<h1>Old web presence</h1>
 <p>Pages of the old NannyMUD site at Lysator, recovered from the Internet Archive and kept as they were. Each says when it was taken. The numbers the mud keeps today are on the <a href="/stats/">Stats</a> page.</p>
 <ul class="nm-index">{% for label, href in links %}<li><a href="{{ href }}">{{ label }}</a></li>{% endfor %}</ul>
 </article>

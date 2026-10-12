@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_stats_tabs.html" import stats_tabs %}
+{% block main %}
+<article class="nm-card">
+<h1>Stats</h1>
+{{ stats_tabs("index") }}
+<p>Numbers from the game itself, counted every hour and gathered every night.</p>
+<div class="nm-facts">
+{% for label, value in totals %}<div class="nm-fact"><b>{% if value is number %}{{ "{:,}".format(value) | replace(",", " ") }}{% else %}{{ value }}{% endif %}</b><span>{{ label | lower }}</span></div>{% endfor %}
+</div>
+<div class="nm-grid">
+<div class="nm-tile"><h3><a href="/stats/players/">Players</a></h3><p>Who is on, who has logged in lately, by guild and by country.</p></div>
+<div class="nm-tile"><h3><a href="/stats/market/">Market</a></h3><p>The main shop, the gold in the game, and how it is spread.</p></div>
+<div class="nm-tile"><h3><a href="/stats/driver/">Driver</a></h3><p>Uptime, reboots, and the driver that runs the game.</p></div>
+</div>
+<p class="nm-muted nm-small">The toplists and the clubs' and wizards' own information sheets are under the other tabs above.</p>
+</article>
+{% endblock %}

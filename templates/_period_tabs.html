@@ -1,0 +1,20 @@
+{#- Week/Month/Year tabs over a chart, pure CSS: three radios (Week
+    checked by default) and a label each, then the caller's own panes.
+    gid must be unique on the page. attendance.py's section() builds
+    the same markup by hand, for the one block that mixes this with
+    Jinja-unfriendly chart HTML; the CSS in nanny.css (.nm-period...)
+    serves both. -#}
+{% macro period_tabs(gid) %}
+<div class="nm-period">
+<input type="radio" name="{{ gid }}" id="{{ gid }}-1" class="nm-period-radio" checked>
+<input type="radio" name="{{ gid }}" id="{{ gid }}-2" class="nm-period-radio">
+<input type="radio" name="{{ gid }}" id="{{ gid }}-3" class="nm-period-radio">
+<div class="nm-period-nav"><label for="{{ gid }}-1">Week</label><label for="{{ gid }}-2">Month</label><label for="{{ gid }}-3">Year</label></div>
+<div class="nm-period-panes">{{ caller() }}</div>
+</div>
+{% endmacro %}
+{#- One chart's three panes, from a [(label, chart_html_or_none), ...]
+    list such as stats.py's online_periods or shops.activity_periods. -#}
+{% macro period_chart(gid, periods) %}
+{% call period_tabs(gid) %}{% for label, chart in periods %}<div class="nm-period-pane">{% if chart %}{{ chart | safe }}{% else %}<p class="nm-muted nm-small">Not enough data yet for a {{ label | lower }}.</p>{% endif %}</div>{% endfor %}{% endcall %}
+{% endmacro %}

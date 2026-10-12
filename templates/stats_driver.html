@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% from "_stats_tabs.html" import stats_tabs %}
+{% macro bar_rows(rows, cls="") %}
+<div class="nm-bars {{ cls }}">{% for b in rows %}
+<div class="nm-bar"><span>{{ b.label }}</span><i><s style="width: {{ b.pct }}%"></s></i><b>{{ b.value }}</b></div>{% endfor %}
+</div>
+{% endmacro %}
+{% block main %}
+<article class="nm-card">
+{% if crumbs %}<p class="nm-crumbs">{% for title, url in crumbs %}<a href="{{ url }}">{{ title }}</a>{% if not loop.last %} / {% endif %}{% endfor %}</p>
+{% endif %}<h1>Driver</h1>
+{{ stats_tabs("driver") }}
+{% if uptime and uptime.current %}<p class="nm-status">Up {{ uptime.current }}{% if uptime.booted %}, since the reboot on {{ uptime.booted }}{% endif %}{% if driver_version %}, running {{ driver_version }}{% endif %}.</p>{% endif %}
+{% if uptime %}
+<p>{% if uptime.booted %}The mud last rebooted on {{ uptime.booted }} and has been up {{ uptime.current }}. {% endif %}It has logged {{ uptime.boots }} boots since {{ uptime.since }}{% if uptime.year_reboots %}, {{ uptime.year_reboots }} of them in the last year{% endif %}.{% if uptime.year_median %} A run in the last year lasted {{ uptime.year_median }} at the median.{% endif %}{% if uptime.record %} The longest run on record is {{ uptime.record }}, from {{ uptime.record_when }}.{% endif %}</p>
+{% if uptime.recent %}<h3>The last runs</h3>
+<div class="nm-table-wrap"><table class="nm-table nm-fixed">
+<colgroup><col><col class="nm-w-date"></colgroup>
+<thead><tr><th>Booted</th><th>Up for</th></tr></thead>
+<tbody>{% for r in uptime.recent %}<tr><td>{{ r.start }}</td><td>{{ r.length }}</td></tr>{% endfor %}</tbody>
+</table></div>{% endif %}
+<details class="nm-more"><summary>Boots per year</summary>
+{{ bar_rows(uptime.per_year, "nm-bars-tight") }}
+</details>
+{% else %}
+<p class="nm-muted">Uptime will show here once the mud has logged a reboot to the hourly export.</p>
+{% endif %}
+</article>
+{% endblock %}

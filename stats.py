@@ -14,6 +14,16 @@ from zoneinfo import ZoneInfo
 
 TZ = ZoneInfo("Europe/Stockholm")       # the mud's own clock
 YEAR = 365 * 86400
+WEEK, MONTH = 7 * 86400, 30 * 86400
+WINDOWS = [("Week", WEEK), ("Month", MONTH), ("Year", YEAR)]
+
+
+def windows(rows, now):
+    """A (time, ...) series cut to the last 7, 30 and 365 days before
+    now, as [("Week", subset), ("Month", subset), ("Year", subset)]: the
+    three panes of a Week/Month/Year chart, in order."""
+    return [(label, [r for r in rows if r[0] > now - seconds])
+            for label, seconds in WINDOWS]
 
 
 def local(ts):
@@ -175,6 +185,20 @@ def bars(items, fmt=str):
 
 # ---------------------------------------------------------------- parts
 
+def online_periods(rows, u, daily, now):
+    """The 'players online' graph as Week/Month/Year panes: Week reads
+    the hourly samples, since that is as far back as they go; Month and
+    Year read the daily peak instead, the only one of the two with
+    enough history for a year. None in a pane with fewer than two points
+    to draw, so the template can say there is not enough data yet."""
+    week = [r for r in rows if r[0] > now - WEEK]
+    month = [d for d in daily if d[0] > now - MONTH]
+    year = [d for d in daily if d[0] > now - YEAR]
+    return [("Week", line_chart([(r[0], r[u]) for r in week], "Players online, hourly")),
+            ("Month", line_chart(month, "Most players online each day")),
+            ("Year", line_chart(year, "Most players online each day"))]
+
+
 def players(rows, col, tally=None):
     """Who is on: now, the last day, the month, and the busy hours."""
     if not rows or "users" not in col:
@@ -204,9 +228,7 @@ def players(rows, col, tally=None):
         "peak": peak[u],
         "peak_when": local(peak[0]).strftime("%-d %B, %H:00"),
         "hours": len(rows),
-        "chart": line_chart([(r[0], r[u]) for r in rows], "Players online, hourly"),
-        "daily_chart": line_chart(daily, "Most players online each day")
-                       if len(daily) >= 7 else None,
+        "online_periods": online_periods(rows, u, daily, last[0]),
         "by_hour": hour_candles(by_hour, tally),
         "tally_since": local(tally["since"]).strftime("%-d %B %Y")
                        if tally and tally.get("since") else "",
@@ -378,24 +400,26 @@ def shops(rows, col, daily, weekly=None, yearly=None):
         years = {y: (g, k) for y, g, k in yearly}
     last = rows[-1]
     recent = [v for _, v in full[-30:]]
+
+    def dual(pts_g, pts_k, title):
+        return (dual_chart(pts_g, pts_k, title, "gold paid out", "items bought", gold, gold)
+                or line_chart(pts_g, title.replace(" and items it bought", ""), gold))
+
+    title = "Gold the main shop paid out and items it bought each %s"
+    activity_periods = [
+        ("Week", dual(hourly_gold, hourly_items, title % "hour")),
+        ("Month", dual([(noon(d), g) for d, (g, _) in full[-30:]],
+                       [(noon(d), k) for d, (_, k) in full[-30:]], title % "day")),
+        ("Year", dual([(noon(w + dt.timedelta(days=3)), g) for w, (g, _) in sorted(weeks.items())[-52:]],
+                      [(noon(w + dt.timedelta(days=3)), k) for w, (_, k) in sorted(weeks.items())[-52:]],
+                      title % "week")),
+    ]
     return {
         "gold": gold(last[p]) if len(last) > p else "",
         "bought": gold(last[n]) if n is not None and len(last) > n else "",
         "day_gold": gold(sum(g for g, _ in recent) / len(recent)) if recent else "",
         "day_items": gold(sum(k for _, k in recent) / len(recent)) if recent else "",
-        "hour_chart": dual_chart(hourly_gold, hourly_items,
-                                 "Gold the main shop paid out and items it bought each hour",
-                                 "gold paid out", "items bought", gold, gold)
-                      or line_chart(hourly_gold, "Gold the main shop paid out each hour", gold),
-        "day_chart": dual_chart([(noon(d), g) for d, (g, _) in full[-90:]],
-                                [(noon(d), k) for d, (_, k) in full[-90:]],
-                                "Gold the main shop paid out and items it bought each day",
-                                "gold paid out", "items bought", gold, gold)
-                     or line_chart([(noon(d), g) for d, (g, _) in full[-90:]],
-                                   "Gold the main shop paid out each day", gold),
-        "week_chart": line_chart([(noon(w + dt.timedelta(days=3)), g)
-                                  for w, (g, _) in sorted(weeks.items())[-52:]],
-                                 "Gold the main shop paid out each week", gold),
+        "activity_periods": activity_periods,
         "years": [{"year": y, "gold": gold(g), "items": gold(k)}
                   for y, (g, k) in sorted(years.items(), reverse=True)],
     }
@@ -406,10 +430,16 @@ BUCKETS = [("lt1k", "under 1,000"), ("lt10k", "1,000 to 10,000"),
            ("lt10m", "1 to 10 million"), ("ge10m", "over 10 million")]
 
 
-def wealth(now, columns, daily, rows, col):
+def period_chart(series, title, fmt, now):
+    """A line chart's Week/Month/Year panes, each the series cut to that
+    window; None in a pane too short to draw."""
+    return [(label, line_chart(sub, title, fmt)) for label, sub in windows(series, now)]
+
+
+def wealth(snap, columns, daily, rows, col, generated):
     """imfd's figures: what the players own, how it is spread, and how
     it moved. Aggregates only; imfd never names anyone."""
-    if not now or not now.get("count"):
+    if not snap or not snap.get("count"):
         return None
     idx = {c: i for i, c in enumerate(columns)}
 
@@ -421,25 +451,25 @@ def wealth(now, columns, daily, rows, col):
     inflation = [(r[0], r[col["inflation"]]) for r in rows
                  if "inflation" in col and len(r) > col["inflation"]]
     return {
-        "total": gold(now.get("total")),
-        "count": now.get("count"),
-        "mean": gold(now.get("mean")),
-        "median": gold(now.get("median")),
-        "p90": gold(now.get("p90")),
-        "top1": round(now.get("top1_pm", 0) / 10, 1),
-        "top10": round(now.get("top10_pm", 0) / 10, 1),
-        "seen": [("the last day", now.get("seen1d")),
-                 ("the last week", now.get("seen7d")),
-                 ("the last 30 days", now.get("seen30d"))],
-        "buckets": bars([(label, now.get(key, 0)) for key, label in BUCKETS]),
-        "total_chart": line_chart(series("total"), "All the gold players own", gold),
-        "median_chart": line_chart(series("median"), "Median player wealth", gold),
-        "top10_chart": line_chart(series("top10_pm", 10), "Share owned by the richest 10% of players",
-                                  lambda v: "%.1f%%" % v),
+        "total": gold(snap.get("total")),
+        "count": snap.get("count"),
+        "mean": gold(snap.get("mean")),
+        "median": gold(snap.get("median")),
+        "p90": gold(snap.get("p90")),
+        "top1": round(snap.get("top1_pm", 0) / 10, 1),
+        "top10": round(snap.get("top10_pm", 0) / 10, 1),
+        "seen": [("the last day", snap.get("seen1d")),
+                 ("the last week", snap.get("seen7d")),
+                 ("the last 30 days", snap.get("seen30d"))],
+        "buckets": bars([(label, snap.get(key, 0)) for key, label in BUCKETS]),
+        "total_periods": period_chart(series("total"), "All the gold players own", gold, generated),
+        "median_periods": period_chart(series("median"), "Median player wealth", gold, generated),
+        "top10_periods": period_chart(series("top10_pm", 10), "Share owned by the richest 10% of players",
+                                      lambda v: "%.1f%%" % v, generated),
         "inflation": inflation[-1][1] if inflation else None,
-        "inflation_chart": line_chart(inflation, "What shops pay, as a share of the value, hourly",
-                                      lambda v: "%d%%" % v)
-                           if any(v for _, v in inflation) else None,
+        "inflation_periods": period_chart(inflation, "What shops pay, as a share of the value, hourly",
+                                          lambda v: "%d%%" % v, generated)
+                             if any(v for _, v in inflation) else None,
     }
 
 
@@ -455,5 +485,5 @@ def page(stats, tally=None):
         "shops": shops(rows, col, stats.get("shop_daily", []),
                        stats.get("shop_weekly"), stats.get("shop_yearly")),
         "wealth": wealth(stats.get("wealth"), stats.get("wealth_columns", []),
-                         stats.get("wealth_daily", []), rows, col),
+                         stats.get("wealth_daily", []), rows, col, generated),
     }
