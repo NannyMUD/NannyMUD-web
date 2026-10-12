@@ -17,6 +17,10 @@ YEAR = 365 * 86400
 WEEK, MONTH = 7 * 86400, 30 * 86400
 WINDOWS = [("Week", WEEK), ("Month", MONTH), ("Year", YEAR)]
 
+# stats.json "driver" feature flags, in the order they are listed
+FEATURE_LABELS = [("gmcp", "GMCP"), ("json", "JSON"), ("float", "floats"),
+                  ("eval_cost", "eval cost")]
+
 
 def windows(rows, now):
     """A (time, ...) series cut to the last 7, 30 and 365 days before
@@ -339,6 +343,36 @@ def uptime(booted, boots, generated):
     }
 
 
+def mem_text(n):
+    """Memory in use, bytes to a plain MB or GB figure. Empty without a
+    usable figure."""
+    try:
+        n = float(n)
+    except (TypeError, ValueError):
+        return ""
+    if n <= 0:
+        return ""
+    if n >= 1 << 30:
+        return "%.1f GB" % (n / (1 << 30))
+    return "%.0f MB" % (n / (1 << 20))
+
+
+def driver_block(d):
+    """The driver info box: name, version, mudlib, int width, the
+    features it has turned on and memory in use. Staged on the mud, not
+    live yet, so this is None until stats.json carries a "driver" key."""
+    if not d:
+        return None
+    feats = d.get("features") or {}
+    return {
+        "version_text": d.get("version_text") or d.get("name") or "",
+        "mudlib": d.get("mudlib") or "",
+        "bits": "%d-bit" % d["int_bits"] if d.get("int_bits") else "",
+        "features": [label for key, label in FEATURE_LABELS if feats.get(key)],
+        "memory": mem_text(d.get("memory")),
+    }
+
+
 def gains(rows, p):
     """(time, growth since the sample before) for a counter that starts
     over at a reboot: a drop means a new start, so the new value is the
@@ -486,4 +520,5 @@ def page(stats, tally=None):
                        stats.get("shop_weekly"), stats.get("shop_yearly")),
         "wealth": wealth(stats.get("wealth"), stats.get("wealth_columns", []),
                          stats.get("wealth_daily", []), rows, col, generated),
+        "driver": driver_block(stats.get("driver")),
     }

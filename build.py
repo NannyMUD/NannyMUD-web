@@ -508,7 +508,7 @@ def main():
           crumbs=stats_crumb, shops=numbers_page["shops"], wealth=numbers_page["wealth"])
     write("/stats/driver/", "stats_driver.html", page_title="Driver", snapshot=True,
           crumbs=stats_crumb, uptime=numbers_page["uptime"],
-          driver_version=stats.get("driver_version"))
+          driver_version=stats.get("driver_version"), driver=numbers_page["driver"])
     # not linked from anywhere, and kept out of the sitemap: a visitor
     # count is not something to put in front of players
     write("/stats/visits/", "stats_visits.html", page_title="Website visits",

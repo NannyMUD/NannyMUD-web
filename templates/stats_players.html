@@ -29,3 +29,8 @@
 {% endif %}
 </article>
 {% endblock %}
+{% block extra_foot %}
+{% if attendance.have %}<script src="{{ versioned('/static/js/vendor/jsvectormap.min.js') }}" defer></script>
+<script src="{{ versioned('/static/js/vendor/world-merc.js') }}" defer></script>
+<script src="{{ versioned('/static/js/worldmap.js') }}" defer></script>{% endif %}
+{% endblock %}

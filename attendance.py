@@ -23,6 +23,7 @@ needs to follow it.
 """
 import datetime as dt
 import html
+import json
 import os
 import re
 
@@ -44,6 +45,8 @@ MAP_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "i
 CODE = re.compile(r"^[a-z]{2}$")
 # a country's share of the window's top value, highest tier first
 TIERS = [(0.5, "92%"), (0.2, "68%"), (0.05, "44%"), (0, "24%")]
+# the same four tiers, weakest first, as the map legend reads them
+LEGEND_LABELS = [("24%", "Least"), ("44%", "Some"), ("68%", "More"), ("92%", "Most")]
 _map_svg = None
 
 
@@ -218,6 +221,34 @@ def top_countries_table(countries, key):
            '</tr></thead><tbody>%s</tbody></table></div>' % body)
 
 
+def map_legend():
+    """The swatches for the map's four tiers plus "no record", in the
+    same colours attendance.py and worldmap.js both shade countries
+    with."""
+    swatches = [("None", "var(--nm-rule-soft)")] + [
+        (label, "color-mix(in srgb, var(--nm-accent) %s, var(--nm-rule-soft))" % pct)
+        for pct, label in LEGEND_LABELS]
+    return '<div class="nm-map-legend">%s</div>' % "".join(
+        '<span><i style="background:%s"></i>%s</span>' % (colour, label)
+        for label, colour in swatches)
+
+
+def map_data_json(countries):
+    """Per-country counts for worldmap.js to colour and hover: ever and
+    the three active_* windows, keyed by the lower-case alpha-2 code the
+    map and its small-country markers both use. Counts only, nothing
+    that identifies a player."""
+    out = {}
+    for c in countries or []:
+        code = str(c.get("code", "")).lower()
+        if CODE.fullmatch(code):
+            out[code] = {"ever": c.get("ever") or 0,
+                        "active_7d": c.get("active_7d") or 0,
+                        "active_30d": c.get("active_30d") or 0,
+                        "active_365d": c.get("active_365d") or 0}
+    return out
+
+
 def map_section(countries, countries_updated):
     """The map and its own Week/Month/Year/All time control: all time
     (countries[].ever, the country of every character's last login) is
@@ -247,13 +278,19 @@ def map_section(countries, countries_updated):
         for _, key in MAP_WINDOWS[:-1]) + (
         '<div class="nm-period-pane">%s%s%s</div>'
         % (alltime_note, asof, top_countries_table(countries, "ever")))
+    # the JSON blob is for worldmap.js only (hover/tap figures on the
+    # interactive map); "</" is escaped so it cannot close the script
+    # tag early, though none of these keys or integers can produce it
+    data_json = json.dumps(map_data_json(countries), separators=(",", ":")).replace("</", "<\\/")
     return ('<h3>On the map</h3>'
            '<p class="nm-muted nm-small">Shaded by how many were seen, least to most; '
-           'a blank country has none on record.</p>'
+           'a blank country has none on record.</p>%s'
            '<div class="nm-period">%s<div class="nm-period-nav">%s</div>'
-           '<div class="nm-worldmap">%s</div><style>%s</style>'
+           '<div class="nm-worldmap">%s</div>'
+           '<script type="application/json" id="nm-worldmap-data">%s</script>'
+           '<style>%s</style>'
            '<div class="nm-period-panes">%s</div></div>'
-           % (radios, nav, base, css, panes))
+           % (map_legend(), radios, nav, base, data_json, css, panes))
 
 
 def page(data, guild_slugs=None):

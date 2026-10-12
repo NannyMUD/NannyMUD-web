@@ -426,6 +426,23 @@ a:has(+ .nm-zoom) { cursor: zoom-in; }
 .nm-worldmap { margin: 0.5rem 0 1rem; max-width: 46rem; }
 .nm-worldmap svg { display: block; width: 100%; height: auto; }
 
+/* the interactive map worldmap.js upgrades the static one into: sized
+   to the same aspect ratio so nothing jumps when it swaps in, coloured
+   the same way (its JS sets color-mix() fill strings straight from
+   these tokens, so it needs no CSS of its own per tier) */
+.nm-worldmap-js { width: 100%; aspect-ratio: 2754 / 1397; }
+.jvm-container { position: relative; width: 100%; height: 100%; touch-action: none; }
+.jvm-tooltip { position: absolute; display: none; z-index: 2; max-width: 15rem; padding: 0.35rem 0.6rem; border-radius: 0.25rem; background: var(--nm-ink); color: var(--nm-bg); font-size: 0.8rem; line-height: 1.4; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); pointer-events: none; }
+.jvm-tooltip.active { display: block; }
+.jvm-zoom-btn { position: absolute; left: 0.6rem; width: 1.5rem; height: 1.5rem; line-height: 1.5rem; text-align: center; border-radius: 0.2rem; background: var(--nm-accent); color: var(--nm-bg-deep); cursor: pointer; font-size: 1rem; user-select: none; }
+.jvm-zoom-btn.jvm-zoomin { top: 0.6rem; }
+.jvm-zoom-btn.jvm-zoomout { top: 2.4rem; }
+.nm-map-controls { margin: 0.5rem 0 0; }
+.nm-map-reset { background: none; border: 0; padding: 0; color: var(--nm-link); text-decoration: underline; text-decoration-color: var(--nm-link-line); text-underline-offset: 0.2em; font-weight: 700; font-size: 0.86rem; cursor: pointer; }
+.nm-map-reset:hover { color: var(--nm-strong); }
+.nm-map-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0.5rem 0 0.75rem; font-size: 0.8rem; color: var(--nm-muted); align-items: center; }
+.nm-map-legend i { display: inline-block; width: 0.85rem; height: 0.85rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; }
+
 /* an information sheet: the mud's own box of text; the first rows open,
    the rest under "Show all", which swaps the short box for the long one */
 .nm-infosheet { font-size: 0.86rem; line-height: 1; white-space: pre; width: max-content; max-width: 100%; overflow: visible; margin: 0.4rem 0; }

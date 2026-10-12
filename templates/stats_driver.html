@@ -11,6 +11,9 @@
 {% endif %}<h1>Driver</h1>
 {{ stats_tabs("driver") }}
 {% if uptime and uptime.current %}<p class="nm-status">Up {{ uptime.current }}{% if uptime.booted %}, since the reboot on {{ uptime.booted }}{% endif %}{% if driver_version %}, running {{ driver_version }}{% endif %}.</p>{% endif %}
+{% if driver %}<h3>The driver</h3>
+<p>{% if driver.version_text %}Running {{ driver.version_text }}.{% endif %}{% if driver.mudlib %} The mudlib is {{ driver.mudlib }}.{% endif %}{% if driver.bits %} Built {{ driver.bits }}.{% endif %}{% if driver.features %} Supports {{ driver.features | join(", ") }}.{% endif %}{% if driver.memory %} Using {{ driver.memory }} of memory.{% endif %}</p>
+{% endif %}
 {% if uptime %}
 <p>{% if uptime.booted %}The mud last rebooted on {{ uptime.booted }} and has been up {{ uptime.current }}. {% endif %}It has logged {{ uptime.boots }} boots since {{ uptime.since }}{% if uptime.year_reboots %}, {{ uptime.year_reboots }} of them in the last year{% endif %}.{% if uptime.year_median %} A run in the last year lasted {{ uptime.year_median }} at the median.{% endif %}{% if uptime.record %} The longest run on record is {{ uptime.record }}, from {{ uptime.record_when }}.{% endif %}</p>
 {% if uptime.recent %}<h3>The last runs</h3>
