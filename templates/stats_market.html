@@ -17,9 +17,9 @@
 {% if shops.activity_periods %}{{ period_chart("shop-activity", shops.activity_periods) }}{% endif %}
 {% if shops.years %}<h3>By the year</h3>
 <div class="nm-table-wrap"><table class="nm-table nm-fixed">
-<colgroup><col><col class="nm-w-date"><col class="nm-w-date"></colgroup>
-<thead><tr><th>Year</th><th class="nm-num">Gold paid out</th><th class="nm-num">Items bought</th></tr></thead>
-<tbody>{% for y in shops.years %}<tr><td>{{ y.year }}</td><td class="nm-num">{{ y.gold }}</td><td class="nm-num">{{ y["items"] }}</td></tr>{% endfor %}</tbody>
+<colgroup><col class="nm-w-year"><col class="nm-w-money"><col class="nm-w-money"></colgroup>
+<thead><tr><th class="nm-w-year">Year</th><th class="nm-num">Gold paid out</th><th class="nm-num">Items bought</th></tr></thead>
+<tbody>{% for y in shops.years %}<tr><td class="nm-w-year">{{ y.year }}</td><td class="nm-num">{{ y.gold }}</td><td class="nm-num">{{ y["items"] }}</td></tr>{% endfor %}</tbody>
 </table></div>{% endif %}
 {% endif %}
 

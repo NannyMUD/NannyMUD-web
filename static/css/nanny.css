@@ -473,12 +473,15 @@ main, main.nm-wrap { padding-top: 3rem; padding-bottom: 4rem; }
 .nm-table th:last-child, .nm-table td:last-child { padding-right: 0; }
 .nm-table thead th { color: var(--nm-faint); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--nm-rule); padding-top: 0; }
 .nm-table td.nm-num, .nm-table th.nm-num { text-align: right; white-space: nowrap; }
+.nm-table td.nm-w-year, .nm-table th.nm-w-year { white-space: nowrap; }
 .nm-table td:first-child { color: var(--nm-strong); }
 .nm-table td:first-child a { font-weight: 700; }
 .nm-fixed { table-layout: fixed; }
 .nm-fixed col.nm-w-pts { width: 5.5rem; }
 .nm-fixed col.nm-w-who { width: 9rem; }
 .nm-fixed col.nm-w-date { width: 11rem; }
+.nm-fixed col.nm-w-year { width: 4.5rem; }
+.nm-fixed col.nm-w-money { width: 8rem; }
 .nm-fixed td { overflow-wrap: anywhere; }
 
 .nm-cols { columns: 4 11rem; column-gap: 2rem; padding: 0; margin: 0 0 2rem; list-style: none; }
@@ -677,7 +680,7 @@ h3 a.nm-more-link, h3 a.nm-more-link:visited { color: var(--nm-accent); }
 .nm-chart-narrow text { font-size: 15px; }
 .nm-chart .nm-axis { stroke: var(--nm-rule-soft); stroke-width: 1; }
 .nm-chart line.nm-axis:first-of-type { stroke-dasharray: 2 4; stroke: var(--nm-rule); }
-.nm-chart polyline { stroke-linejoin: round; stroke-linecap: round; }
+.nm-chart polyline, .nm-chart path { stroke-linejoin: round; stroke-linecap: round; }
 .nm-chart-box + h3, .nm-bars + h3 { margin-top: 2.5rem; }
 
 .nm-bars { display: grid; gap: 0.3rem; margin: 0.5rem 0 1.5rem; max-width: 50rem; }

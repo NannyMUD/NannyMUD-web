@@ -164,8 +164,11 @@ main:has(> .nm-hero) > .nm-snapshot { grid-area: snap; }
 .nm-table th, .nm-table td { text-align: left; padding: 3px 8px 3px 0; vertical-align: top; }
 .nm-table thead th { font-family: var(--nm-sans); font-size: 13px; border-bottom: 1px solid #000; }
 .nm-table td.nm-num, .nm-table th.nm-num { text-align: right; }
+.nm-table td.nm-w-year, .nm-table th.nm-w-year { white-space: nowrap; }
 .nm-fixed { table-layout: fixed; }
 .nm-fixed col.nm-w-date { width: 12em; }
+.nm-fixed col.nm-w-year { width: 4.5em; }
+.nm-fixed col.nm-w-money { width: 8em; }
 
 /* quests: the old way, a table you can scroll on a phone */
 .nm-qlist { min-width: 40rem; font-size: 15px; }
@@ -224,6 +227,7 @@ a.nm-more-link::after { content: " \203A"; }
 .nm-chart-narrow { display: none; }
 .nm-chart-narrow text { font-size: 15px; }
 .nm-chart .nm-axis { stroke: #ccc; }
+.nm-chart polyline, .nm-chart path { stroke-linejoin: round; stroke-linecap: round; }
 .nm-bars { max-width: 50rem; font-size: 13px; }
 .nm-bar { display: grid; grid-template-columns: 11rem minmax(0, 1fr) 7rem; gap: 8px; align-items: center; }
 .nm-bar i { display: block; height: 10px; }

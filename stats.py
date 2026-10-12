@@ -53,6 +53,63 @@ def span(seconds):
 
 # ---------------------------------------------------------------- charts
 
+def monotone_path(pts):
+    """An SVG path through screen points [(x, y), ...], x strictly
+    increasing, as a Fritsch-Carlson monotone cubic Hermite spline: a
+    smooth curve that still passes through every point, and on any
+    stretch between two of them never bulges past whichever one is
+    higher nor dips past whichever is lower. That is what keeps a
+    smoothed spike from dipping the curve below a shared zero baseline,
+    and keeps a peak from being overshot between two lower neighbours.
+    Two points draw as a straight segment; fewer draw nothing."""
+    if len(pts) < 2:
+        return ""
+    if len(pts) == 2:
+        (x0, y0), (x1, y1) = pts
+        return "M%.2f,%.2f L%.2f,%.2f" % (x0, y0, x1, y1)
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    n = len(pts) - 1
+    h = [xs[i + 1] - xs[i] for i in range(n)]
+    d = [(ys[i + 1] - ys[i]) / h[i] if h[i] else 0 for i in range(n)]
+    m = [0.0] * (n + 1)
+    m[0], m[n] = d[0], d[n - 1]
+    for i in range(1, n):
+        if d[i - 1] == 0 or d[i] == 0 or (d[i - 1] < 0) != (d[i] < 0):
+            m[i] = 0            # a local peak or dip: flatten the tangent
+            continue
+        w1, w2 = 2 * h[i] + h[i - 1], h[i] + 2 * h[i - 1]
+        m[i] = (w1 + w2) / (w1 / d[i - 1] + w2 / d[i])
+    for i in range(n):          # clamp so no segment overshoots its ends
+        if d[i] == 0:
+            m[i] = m[i + 1] = 0
+            continue
+        a, b = m[i] / d[i], m[i + 1] / d[i]
+        s = math.hypot(a, b)
+        if s > 3:
+            t = 3 / s
+            m[i], m[i + 1] = t * a * d[i], t * b * d[i]
+    parts = ["M%.2f,%.2f" % (xs[0], ys[0])]
+    for i in range(n):
+        hk = h[i]
+        c1x, c1y = xs[i] + hk / 3, ys[i] + m[i] * hk / 3
+        c2x, c2y = xs[i + 1] - hk / 3, ys[i + 1] - m[i + 1] * hk / 3
+        parts.append("C%.2f,%.2f %.2f,%.2f %.2f,%.2f" % (c1x, c1y, c2x, c2y, xs[i + 1], ys[i + 1]))
+    return " ".join(parts)
+
+
+def rolling_average(pts, window):
+    """(time, value) pairs replaced by their own trailing average over
+    up to `window` points: the same timing as pts, with a bursty series
+    (a shop sale posts in one hour, not spread over the day) levelled
+    into the trend it is actually tracking."""
+    out = []
+    for i in range(len(pts)):
+        chunk = pts[max(0, i - window + 1):i + 1]
+        out.append((pts[i][0], sum(v for _, v in chunk) / len(chunk)))
+    return out
+
+
 def line_chart(points, label, fmt=str):
     """An SVG line for (time, value) pairs, with the top value and the
     first and last day as labels. None when there is nothing to draw.
@@ -85,7 +142,7 @@ def draw_line(pts, label, fmt, width, height, size, cls):
     def y(v):
         return height - down - (v - base) / (top - base) * (height - up - down)
 
-    line = " ".join("%.1f,%.1f" % (x(t), y(v)) for t, v in pts)
+    path_d = monotone_path([(x(t), y(v)) for t, v in pts])
     first = local(t0).strftime("%-d %b")
     last = local(t1).strftime("%-d %b %Y")
     parts = [
@@ -95,7 +152,7 @@ def draw_line(pts, label, fmt, width, height, size, cls):
         % (left, y(top), width - right, y(top)),
         '<line class="nm-axis" x1="%d" y1="%.1f" x2="%d" y2="%.1f"/>'
         % (left, y(base), width - right, y(base)),
-        '<polyline points="%s" fill="none" stroke="currentColor" stroke-width="2"/>' % line,
+        '<path d="%s" fill="none" stroke="currentColor" stroke-width="2"/>' % path_d,
         '<text x="%d" y="%.1f" text-anchor="end">%s</text>'
         % (left - 6, y(top) + size / 3, html.escape(top_text)),
     ]
@@ -110,20 +167,31 @@ def draw_line(pts, label, fmt, width, height, size, cls):
     return "".join(parts)
 
 
-def dual_chart(left, right, label, lname, rname, lfmt=str, rfmt=str):
+def dual_chart(left, right, label, lname, rname, lfmt=str, rfmt=str, avg=None):
     """Two (time, value) series over the same time, one SVG: the left
     one on a log scale read on the left, the right one on its own log
     scale read on the right, each named at its top corner in its colour.
-    None when either has nothing to draw."""
+    None when either has nothing to draw.
+
+    avg, when given, is (window, window_label, raw_label): both series
+    are drawn twice, once faint and raw and once as the bold trailing
+    average over `window` points, with a caption underneath naming the
+    average (eg. (24, "24h", "hourly") for an hourly series). The
+    legend corners keep the plain series names; at phone width a long
+    suffix on both would run into each other."""
     a = [(t, v) for t, v in left if v is not None]
     b = [(t, v) for t, v in right if v is not None]
     if len(a) < 2 or len(b) < 2:
         return None
-    return (draw_dual(a, b, label, lname, rname, lfmt, rfmt, 640, 200, 12, "nm-chart-wide")
-            + draw_dual(a, b, label, lname, rname, lfmt, rfmt, 440, 240, 15, "nm-chart-narrow"))
+    charts = (draw_dual(a, b, label, lname, rname, lfmt, rfmt, 640, 200, 12, "nm-chart-wide", avg)
+              + draw_dual(a, b, label, lname, rname, lfmt, rfmt, 440, 240, 15, "nm-chart-narrow", avg))
+    if avg:
+        charts += ('<p class="nm-muted nm-small">The pale lines are the raw %s figures; '
+                   'the bold lines are each a trailing %s average.</p>' % (avg[2], avg[1]))
+    return charts
 
 
-def draw_dual(a, b, label, lname, rname, lfmt, rfmt, width, height, size, cls):
+def draw_dual(a, b, label, lname, rname, lfmt, rfmt, width, height, size, cls, avg=None):
     t0 = min(a[0][0], b[0][0])
     t1 = max(a[-1][0], b[-1][0])
     ltop, rtop = max(v for _, v in a), max(v for _, v in b)
@@ -140,9 +208,18 @@ def draw_dual(a, b, label, lname, rname, lfmt, rfmt, width, height, size, cls):
         return height - down - math.log10(1 + max(v, 0)) / math.log10(1 + max(top, 1)) \
             * (height - up - down)
 
-    def line(pts, top, var):
-        return ('<polyline points="%s" fill="none" style="stroke: var(%s)" stroke-width="2"/>'
-                % (" ".join("%.1f,%.1f" % (x(t), y(v, top)) for t, v in pts), var))
+    def line(pts, top, var, stroke_width=2, opacity=None):
+        d = monotone_path([(x(t), y(v, top)) for t, v in pts])
+        op = ' opacity="%.2f"' % opacity if opacity is not None else ""
+        return ('<path d="%s" fill="none" style="stroke: var(%s)" stroke-width="%s"%s/>'
+                % (d, var, stroke_width, op))
+
+    if avg:
+        window = avg[0]
+        araw, braw = a, b
+        a, b = rolling_average(a, window), rolling_average(b, window)
+    else:
+        araw = braw = None
 
     ybase = height - down
 
@@ -161,8 +238,10 @@ def draw_dual(a, b, label, lname, rname, lfmt, rfmt, width, height, size, cls):
         % (cls, width, height, html.escape(label)),
         '<line class="nm-axis" x1="%d" y1="%d" x2="%d" y2="%d"/>' % (left, up, width - right, up),
         '<line class="nm-axis" x1="%d" y1="%d" x2="%d" y2="%d"/>' % (left, ybase, width - right, ybase),
-        line(a, ltop, "--nm-chart-1"),
-        line(b, rtop, "--nm-chart-2"),
+        line(araw, ltop, "--nm-chart-1", stroke_width=1.25, opacity=0.35) if araw else "",
+        line(braw, rtop, "--nm-chart-2", stroke_width=1.25, opacity=0.35) if braw else "",
+        line(a, ltop, "--nm-chart-1", stroke_width=2.5 if avg else 2),
+        line(b, rtop, "--nm-chart-2", stroke_width=2.5 if avg else 2),
         '<text x="%d" y="%d" style="fill: var(--nm-chart-1)">%s</text>'
         % (left, size, html.escape(lname)),
         '<text x="%d" y="%d" text-anchor="end" style="fill: var(--nm-chart-2)">%s</text>'
@@ -344,17 +423,18 @@ def uptime(booted, boots, generated):
 
 
 def mem_text(n):
-    """Memory in use, bytes to a plain MB or GB figure. Empty without a
-    usable figure."""
+    """Memory in use, bytes to a plain MB or GB figure, decimal (SI)
+    like the driver's own figures, not the binary MiB/GiB a byte count
+    is otherwise easy to reach for. Empty without a usable figure."""
     try:
         n = float(n)
     except (TypeError, ValueError):
         return ""
     if n <= 0:
         return ""
-    if n >= 1 << 30:
-        return "%.1f GB" % (n / (1 << 30))
-    return "%.0f MB" % (n / (1 << 20))
+    if n >= 1_000_000_000:
+        return "%.1f GB" % (n / 1_000_000_000)
+    return "%.0f MB" % (n / 1_000_000)
 
 
 def driver_block(d):
@@ -435,18 +515,21 @@ def shops(rows, col, daily, weekly=None, yearly=None):
     last = rows[-1]
     recent = [v for _, v in full[-30:]]
 
-    def dual(pts_g, pts_k, title):
-        return (dual_chart(pts_g, pts_k, title, "gold paid out", "items bought", gold, gold)
+    def dual(pts_g, pts_k, title, avg):
+        return (dual_chart(pts_g, pts_k, title, "gold paid out", "items bought", gold, gold, avg=avg)
                 or line_chart(pts_g, title.replace(" and items it bought", ""), gold))
 
     title = "Gold the main shop paid out and items it bought each %s"
     activity_periods = [
-        ("Week", dual(hourly_gold, hourly_items, title % "hour")),
+        # each pane's own average: a day's worth of hours, a week's
+        # worth of days, a month's worth of weeks, so every pane smooths
+        # over roughly the same stretch of real time
+        ("Week", dual(hourly_gold, hourly_items, title % "hour", (24, "24h", "hourly"))),
         ("Month", dual([(noon(d), g) for d, (g, _) in full[-30:]],
-                       [(noon(d), k) for d, (_, k) in full[-30:]], title % "day")),
+                       [(noon(d), k) for d, (_, k) in full[-30:]], title % "day", (7, "7-day", "daily"))),
         ("Year", dual([(noon(w + dt.timedelta(days=3)), g) for w, (g, _) in sorted(weeks.items())[-52:]],
                       [(noon(w + dt.timedelta(days=3)), k) for w, (_, k) in sorted(weeks.items())[-52:]],
-                      title % "week")),
+                      title % "week", (4, "30-day", "weekly"))),
     ]
     return {
         "gold": gold(last[p]) if len(last) > p else "",
