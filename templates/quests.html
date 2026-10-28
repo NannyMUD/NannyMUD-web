@@ -4,7 +4,11 @@
 <div class="nm-table-wrap"><div class="nm-qlist">
 <div class="nm-qrow nm-qhead"><span>Quest</span><span class="nm-num">Points</span><span>Maintainer</span><span class="nm-num">Solves</span><span>Last solved</span></div>
 {% for q in items | sort(attribute="points") %}
-{% if q.hint %}<details class="nm-qitem"><summary class="nm-qrow">{{ quest_cells(q) }}</summary><pre class="nm-qhint">{{ q.hint }}</pre></details>
+{% if q.hint or q.story or q.reward %}<details class="nm-qitem"><summary class="nm-qrow">{{ quest_cells(q) }}</summary><div class="nm-qpanels">
+{% if q.hint %}<div class="nm-qpanel"><div class="nm-qlabel">Info</div><pre class="nm-qhint">{{ q.hint }}</pre></div>{% endif %}
+{% if q.story %}<div class="nm-qpanel"><div class="nm-qlabel">Story</div><pre class="nm-qhint">{{ q.story }}</pre></div>{% endif %}
+{% if q.reward %}<div class="nm-qpanel"><div class="nm-qlabel">Reward</div><pre class="nm-qhint">{{ q.reward }}</pre></div>{% endif %}
+</div></details>
 {% else %}<div class="nm-qitem"><div class="nm-qrow nm-qplain">{{ quest_cells(q) }}</div></div>{% endif %}
 {% endfor %}
 </div></div>
@@ -12,7 +16,7 @@
 {% block main %}
 <article class="nm-card">
 <h1>Quests</h1>
-<p>Solving quests is how a player advances: {{ open | length }} open quests worth {{ total }} quest points in all. Open a quest for the hint the quest room gives.</p>
+<p>Solving quests is how a player advances: {{ open | length }} open quests worth {{ total }} quest points in all. Open a quest for its info, its story and its reward, where it has them.</p>
 {% if most_solved or last_solved %}<div class="nm-facts">
 {% if most_solved %}<div class="nm-fact"><b>{{ most_solved | quest_title }}</b><span>the most solved quest, {{ "{:,}".format(most_solved.solved) }} times</span></div>{% endif %}
 {% if last_solved %}<div class="nm-fact"><b>{{ last_solved | quest_title }}</b><span>the last quest solved, on {{ last_solved.last_solved | day }}</span></div>{% endif %}

@@ -516,7 +516,12 @@ details[open] > summary.nm-qrow .nm-qname { color: var(--nm-strong); font-weight
 summary.nm-qrow:hover .nm-qname { color: var(--nm-strong); }
 summary.nm-qrow:hover { background: var(--nm-hilite); }
 .nm-qitem pre.nm-qhint { margin: 0.25rem 0 1.25rem; font-size: 0.82rem; }
-.nm-qitem pre.nm-qhint::before { content: "The quest room says:"; display: block; font-family: var(--nm-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nm-faint); margin-bottom: 0.75rem; }
+.nm-qitem .nm-qlabel { font-family: var(--nm-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nm-faint); margin: 0 0 0.5rem; }
+.nm-qpanels { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1rem; margin: 0.25rem 0 1.25rem; }
+.nm-qpanel { min-width: 0; background: var(--nm-pre-bg); border-left: 2px solid var(--nm-pre-edge); padding: 0.9rem 1rem; }
+.nm-qitem .nm-qpanel .nm-qlabel { margin: 0 0 0.5rem; }
+.nm-qitem .nm-qpanel pre.nm-qhint { margin: 0; padding: 0; border: 0; background: none; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .nm-qpanels { grid-auto-flow: row; grid-auto-columns: auto; } }
 
 /* ---------------------------------------------------------- guilds */
 
