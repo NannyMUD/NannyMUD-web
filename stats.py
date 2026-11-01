@@ -110,22 +110,31 @@ def rolling_average(pts, window):
     return out
 
 
-def line_chart(points, label, fmt=str):
+def line_chart(points, label, fmt=str, extra=None, names=None):
     """An SVG line for (time, value) pairs, with the top value and the
     first and last day as labels. None when there is nothing to draw.
     Drawn twice, wide and narrow; the CSS shows the narrow one on phones,
-    where the wide one's text would shrink too small to read."""
+    where the wide one's text would shrink too small to read.
+
+    extra, when it has at least two points, is a second (time, value)
+    series drawn on the same scale as a second line, with a legend
+    naming both lines: names is (first, second). It may cover only the
+    later part of the time span, since it is drawn only where it has
+    data."""
     pts = [(t, v) for t, v in points if v is not None]
     if len(pts) < 2:
         return None
-    return (draw_line(pts, label, fmt, 640, 180, 12, "nm-chart-wide")
-            + draw_line(pts, label, fmt, 440, 220, 15, "nm-chart-narrow"))
+    more = [(t, v) for t, v in (extra or []) if v is not None]
+    if len(more) < 2:
+        more, names = None, None
+    return (draw_line(pts, label, fmt, 640, 180, 12, "nm-chart-wide", more, names)
+            + draw_line(pts, label, fmt, 440, 220, 15, "nm-chart-narrow", more, names))
 
 
-def draw_line(pts, label, fmt, width, height, size, cls):
+def draw_line(pts, label, fmt, width, height, size, cls, more=None, names=None):
     t0, t1 = pts[0][0], pts[-1][0]
-    lo = min(v for _, v in pts)
-    hi = max(v for _, v in pts)
+    lo = min(v for _, v in pts + (more or []))
+    hi = max(v for _, v in pts + (more or []))
     # start at zero, unless that would flatten a line that only moves
     # near its top; a line that does not move at all sits at the top
     base = lo if 0 < lo < hi and lo >= hi / 2 else 0
@@ -135,6 +144,8 @@ def draw_line(pts, label, fmt, width, height, size, cls):
     # the values sit in a gutter left of the plot, level with their lines
     left = (14 + 7 * max(len(top_text), len(base_text))) * size // 12
     right, up, down = 8, 10, 2 * size
+    if more:
+        up = int(size * 2.2)            # room for the legend above the plot
 
     def x(t):
         return left + (t - t0) / max(t1 - t0, 1) * (width - left - right)
@@ -152,10 +163,20 @@ def draw_line(pts, label, fmt, width, height, size, cls):
         % (left, y(top), width - right, y(top)),
         '<line class="nm-axis" x1="%d" y1="%.1f" x2="%d" y2="%.1f"/>'
         % (left, y(base), width - right, y(base)),
-        '<path d="%s" fill="none" stroke="currentColor" stroke-width="2"/>' % path_d,
+        '<path d="%s" fill="none" stroke="%s" stroke-width="2"/>'
+        % (path_d, "var(--nm-chart-1)" if more else "currentColor"),
         '<text x="%d" y="%.1f" text-anchor="end">%s</text>'
         % (left - 6, y(top) + size / 3, html.escape(top_text)),
     ]
+    if more:
+        parts += [
+            '<path d="%s" fill="none" stroke="var(--nm-chart-2)" stroke-width="2"/>'
+            % monotone_path([(x(t), y(v)) for t, v in more]),
+            '<text x="%d" y="%d" style="fill: var(--nm-chart-1)">%s</text>'
+            % (left, size, html.escape(names[0])),
+            '<text x="%d" y="%d" text-anchor="end" style="fill: var(--nm-chart-2)">%s</text>'
+            % (width - right, size, html.escape(names[1])),
+        ]
     if base_text:
         parts.append('<text x="%d" y="%.1f" text-anchor="end">%s</text>'
                      % (left - 6, y(base) + size / 3, html.escape(base_text)))
@@ -268,18 +289,41 @@ def bars(items, fmt=str):
 
 # ---------------------------------------------------------------- parts
 
-def online_periods(rows, u, daily, now):
+def online_periods(rows, u, daily, now, uq=None, daily_uq=None):
     """The 'players online' graph as Week/Month/Year panes: Week reads
     the hourly samples, since that is as far back as they go; Month and
     Year read the daily peak instead, the only one of the two with
     enough history for a year. None in a pane with fewer than two points
-    to draw, so the template can say there is not enough data yet."""
+    to draw, so the template can say there is not enough data yet.
+
+    uq is the column of unique players (people, not characters) in the
+    hourly rows and daily_uq their daily peak, both optional: each adds
+    a second line where there is data. The export only began to carry
+    the figure later, so older rows have none."""
     week = [r for r in rows if r[0] > now - WEEK]
     month = [d for d in daily if d[0] > now - MONTH]
     year = [d for d in daily if d[0] > now - YEAR]
-    return [("Week", line_chart([(r[0], r[u]) for r in week], "Players online, hourly")),
-            ("Month", line_chart(month, "Most players online each day")),
-            ("Year", line_chart(year, "Most players online each day"))]
+    names = ("Characters online", "Unique players")
+    wk_uq = [(r[0], unique_of(r, u, uq)) for r in week] if uq else None
+    mo_uq = [d for d in daily_uq or [] if d[0] > now - MONTH]
+    yr_uq = [d for d in daily_uq or [] if d[0] > now - YEAR]
+    return [("Week", line_chart([(r[0], r[u]) for r in week], "Players online, hourly",
+                                extra=wk_uq, names=names)),
+            ("Month", line_chart(month, "Most players online each day",
+                                 extra=mo_uq, names=names)),
+            ("Year", line_chart(year, "Most players online each day",
+                                extra=yr_uq, names=names))]
+
+
+def unique_of(r, u, uq):
+    """The unique-player count of an hourly row, or None where the row
+    has none: an older row without the column, or a sample where the
+    mud could not count (0 with people on)."""
+    if len(r) <= uq or r[uq] is None:
+        return None
+    if r[uq] <= 0 and r[u] > 0:
+        return None
+    return r[uq]
 
 
 def players(rows, col, tally=None):
@@ -290,18 +334,32 @@ def players(rows, col, tally=None):
     last = rows[-1]
     day = [r for r in rows if r[0] > last[0] - 86400]
     peak = max(rows, key=lambda r: r[u])
+    uq = col.get("unique")
     by_hour = {}
     by_day = {}
+    by_day_uq = {}
+    day_rows, day_uq_rows = {}, {}
     for r in rows:
         when = local(r[0])
         by_hour.setdefault(when.hour, []).append(r[u])
         key = when.date()
         by_day[key] = max(by_day.get(key, 0), r[u])
+        day_rows[key] = day_rows.get(key, 0) + 1
+        v = unique_of(r, u, uq) if uq else None
+        if v is not None:
+            by_day_uq[key] = max(by_day_uq.get(key, 0), v)
+            day_uq_rows[key] = day_uq_rows.get(key, 0) + 1
     days = sorted(by_day.items())
     if len(days) > 3:
         days = days[1:-1]              # first and last day are partial
-    daily = [(int(dt.datetime.combine(d, dt.time(12), TZ).timestamp()), v)
-             for d, v in days]
+        by_day_uq.pop(min(by_day), None)
+        by_day_uq.pop(max(by_day), None)
+    # a day's unique peak only counts when every hour of it has a figure,
+    # so the day the export began to carry it does not show a false dip
+    by_day_uq = {d: v for d, v in by_day_uq.items() if day_uq_rows[d] == day_rows[d]}
+    noon = lambda d: int(dt.datetime.combine(d, dt.time(12), TZ).timestamp())
+    daily = [(noon(d), v) for d, v in days]
+    daily_uq = [(noon(d), v) for d, v in sorted(by_day_uq.items())]
     return {
         "now": last[u],
         "mortals": last[col["mortals"]] if "mortals" in col else None,
@@ -311,7 +369,8 @@ def players(rows, col, tally=None):
         "peak": peak[u],
         "peak_when": local(peak[0]).strftime("%-d %B, %H:00"),
         "hours": len(rows),
-        "online_periods": online_periods(rows, u, daily, last[0]),
+        "online_periods": online_periods(rows, u, daily, last[0], uq, daily_uq),
+        "has_unique": any(unique_of(r, u, uq) is not None for r in rows) if uq else False,
         "by_hour": hour_candles(by_hour, tally),
         "tally_since": local(tally["since"]).strftime("%-d %B %Y")
                        if tally and tally.get("since") else "",
