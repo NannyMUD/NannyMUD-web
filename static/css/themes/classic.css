@@ -463,3 +463,14 @@ a:has(+ .nm-zoom) { cursor: zoom-in; }
 .nm-infosheet-toggle:checked ~ .nm-infosheet-full { display: block; }
 .nm-infosheet-toggle:checked ~ label .nm-close { display: inline; }
 .nm-infosheet-toggle:focus-visible ~ label { outline: 2px solid var(--nm-accent); outline-offset: 2px; }
+
+/* the quest list's # column, the quest's number in the game's own list.
+   The cell is last in the markup, so the nth-child rules above keep
+   their cells, and is moved first here. Where the list fits the page
+   the head stays in view while it scrolls; narrower, the wrapper
+   scrolls sideways instead. */
+.nm-qids.nm-qlist { min-width: 43rem; }
+.nm-qids .nm-qrow { grid-template-columns: 2.5rem minmax(0, 1fr) 5rem 9rem 5rem 10rem; }
+.nm-qids .nm-qrow > .nm-qid { order: -1; }
+.nm-qids .nm-qhead { position: sticky; top: 0; z-index: 2; background-color: var(--nm-bg); }
+@media (min-width: 761px) { .nm-qwrap { overflow: visible; } }
